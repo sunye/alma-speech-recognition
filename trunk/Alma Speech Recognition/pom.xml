@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fr.alma</groupId>
+  <artifactId>alma-speech-recognition</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>Alma Speech Recognition</name>
+  <description>Conception d'un outil de gestion d'une architecture a plugins</description>
+  <url>http://maven.apache.org</url>
+  <scm>
+    <connection>scm:svn:http://alma-speech-recognition.googlecode.com/svn/trunk/</connection>
+    <developerConnection>scm:svn:https://alma-speech-recognition.googlecode.com/svn/trunk/</developerConnection>
+    <url>http://code.google.com/p/alma-speech-recognition/</url>
+  </scm> 
+  
+  <properties>
+    <compileSource>1.6</compileSource>
+  </properties>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${compileSource}</source>
+	      <target>${compileSource}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>fr.alma.main.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>2.0-beta-6</version>
+        <configuration>
+          <locales>fr</locales>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>checkstyle</groupId>
+      <artifactId>checkstyle</artifactId>
+      <version>4.3</version>
+    </dependency>
+  </dependencies>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <targetJdk>${compileSource}</targetJdk>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <configuration>
+          <type>range</type>
+          <range>20</range>
+          <headingDateFormat>d MMMM yyyy</headingDateFormat>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+  <developers>
+    <developer>
+      <id>jeremy.braud</id>
+      <name>BRAUD Jeremy</name>
+      <email>braud.jeremy@gmail.com</email>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <organization>Alma</organization>
+      <timezone>+2</timezone>
+    </developer> 
+    <developer>
+      <id>gaetan.hervouet</id>
+      <name>HERVOUET Gaetan</name>
+      <email>gaetan.hervouet@gmail.com</email>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <organization>Alma</organization>
+      <timezone>+2</timezone>
+    </developer>
+	<developer>
+      <id>cedric.krommenhoek</id>
+      <name>KROMMENHOEK Cedric</name>
+      <email>cedric.krommenhoek@gmail.com</email>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <organization>Alma</organization>
+      <timezone>+2</timezone>
+    </developer>
+	<developer>
+      <id>damien.levin</id>
+      <name>LEVIN Damien</name>
+      <email>damien.levin@gmail.com</email>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <organization>Alma</organization>
+      <timezone>+2</timezone>
+    </developer>
+  </developers>
+
+</project>
