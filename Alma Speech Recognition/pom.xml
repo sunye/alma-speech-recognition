@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <version>1.0</version>
   <name>Alma Speech Recognition</name>
-  <description>Conception d'un outil de gestion d'une architecture a plugins</description>
+  <description></description>
   <url>http://maven.apache.org</url>
   <scm>
     <connection>scm:svn:http://alma-speech-recognition.googlecode.com/svn/trunk/</connection>
@@ -35,7 +35,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>fr.alma.main.Main</mainClass>
+              <mainClass></mainClass>
             </manifest>
           </archive>
         </configuration>
