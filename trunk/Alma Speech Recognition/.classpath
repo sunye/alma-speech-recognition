@@ -1,31 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/test"/>
-	<classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar" sourcepath="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/checkstyle/checkstyle/4.3/checkstyle-4.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils-core/1.7.0/commons-beanutils-core-1.7.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0.jar" sourcepath="M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Fusio/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Fusio/.m2/repository/commons-collections/commons-collections/2.1/commons-collections-2.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/1.0/commons-lang-1.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Fusio/.m2/repository/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Fusio/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar" sourcepath="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/checkstyle/checkstyle/4.3/checkstyle-4.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils-core/1.7.0/commons-beanutils-core-1.7.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0.jar" sourcepath="M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/2.1/commons-collections-2.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/commons-collections/commons-collections/2.1/commons-collections-2.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/1.0/commons-lang-1.0.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/h2database/h2/1.2.125/h2-1.2.125.jar" sourcepath="M2_REPO/com/h2database/h2/1.2.125/h2-1.2.125-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/com/h2database/h2/1.2.125/h2-1.2.125-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 </classpath>
