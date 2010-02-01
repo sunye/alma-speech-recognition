@@ -1,6 +1,5 @@
 package fr.alma.entities;
 
-
 import javax.persistence.*;
 
 @Entity
