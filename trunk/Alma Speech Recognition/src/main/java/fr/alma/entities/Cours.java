@@ -1,21 +1,26 @@
 package fr.alma.entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Entity
+
 /**
  * Classe Cours.
  */
-public class Cours {
+@Entity
+public class Cours implements Serializable {
 
-        @Id
-        @GeneratedValue        
         /** Id. */
+        @Id
+        @GeneratedValue
         private Long id;
 
-        @Basic
         /** Nom. */
-        private String nom;
+        @Basic
+        private String name;
 
         /** 
          * Constructeur par defaut.
@@ -28,7 +33,7 @@ public class Cours {
          * @param nom valeur de nom dans le Cours construit
          */
         public Cours(String nom) {
-                this.nom = nom;
+                this.name = nom;
         }
                         
         
@@ -37,19 +42,20 @@ public class Cours {
          * @return nom 
          */
         public String getNom() {
-                return this.nom;
+                return this.name;
         }
         
         /**
          * Setter de l'attribut nom.
-         * @param nom 
+         * @param nom le nom.
          */
         public void setNom(String nom) {
-                this.nom = nom;
+                this.name = nom;
         }
         
         /**
          * Methode getId.
+		 * @return l'id.
          */        
         public Long getId(){
                 return this.id;
