@@ -74,6 +74,19 @@ public class ExplorerPannel extends javax.swing.JPanel {
 					jTabbedPaneExplorer.addTab("Cours", null, jScrollPaneFile, null);
 					{
 						jtreeFile = new JTree();
+						{
+							ImageIcon leafSection = new ImageIcon("src/main/resources/application-x-font-pcf.png");
+							ImageIcon leafChapter = new ImageIcon("src/main/resources/application-x-font-otf.png");
+
+							DefaultTreeCellRenderer renderer = 	new DefaultTreeCellRenderer();
+							
+							renderer.setLeafIcon(leafSection);
+							renderer.setClosedIcon(leafChapter);
+							renderer.setOpenIcon(leafChapter);
+							
+							jtreeFile.setCellRenderer(renderer);
+
+						}
 						jScrollPaneFile.setViewportView(jtreeFile);
 					}
 				}
