@@ -1,23 +1,13 @@
 package fr.alma.gui;
+import java.awt.BorderLayout;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-
-import javax.swing.BoxLayout;
-
 import javax.swing.BorderFactory;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-
+//
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
  * Builder, which is free for non-commercial use. If Jigloo is being used
@@ -30,9 +20,9 @@ import javax.swing.JTextArea;
  */
 public class EditPannel extends javax.swing.JPanel {
 
-	private JTextArea jTextArea;
-	private JTabbedPane jTabbedPane1;
-	private JScrollPane jScrollPaneText;
+	private JTextArea textArea;
+	private JScrollPane jScrollPane1;
+	private ToolBarEditPannel toolBarEditPannel;
 	private MenuTextArea MenuText;
 
 
@@ -47,42 +37,59 @@ public class EditPannel extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			BoxLayout thisLayout = new BoxLayout(this,
-					javax.swing.BoxLayout.X_AXIS);
+			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
+			this.setBorder(BorderFactory.createTitledBorder("Edition du cours"));
 			{
-				jTabbedPane1 = new JTabbedPane();
-				this.add(jTabbedPane1);
-				jTabbedPane1.setPreferredSize(new java.awt.Dimension(400, 300));
+				jScrollPane1 = new JScrollPane();
+				this.add(jScrollPane1, BorderLayout.CENTER);
+				jScrollPane1.setPreferredSize(new java.awt.Dimension(60, 19));
 				{
-					jScrollPaneText = new JScrollPane();
-					jTabbedPane1.addTab("jScrollPaneText", null,
-							jScrollPaneText, null);
-					{
-						jTextArea = new JTextArea();
-						jScrollPaneText.setViewportView(jTextArea);
-						jTextArea.setText("jTextArea");
-						jTextArea.addMouseListener(new MouseAdapter() {
-					
-							public void mouseClicked(MouseEvent e) {
-								if (e.getButton() == MouseEvent.BUTTON3){
-									MenuText.show((Component)e.getSource(), e.getX(), e.getY());
-								}
+					textArea = new JTextArea();
+					jScrollPane1.setViewportView(textArea);
+					textArea.addMouseListener(new MouseAdapter() {
+						
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (e.getButton() == MouseEvent.BUTTON3){
+								MenuText.show((Component)e.getSource(), e.getX(), e.getY());
 							}
-		
-						});
-					}
+						}
+						
+					});
 				}
 			}
 			{
 				MenuText = new MenuTextArea();
 
-				this.add(MenuText);
+				setComponentPopupMenu(this, MenuText);
 			}
-			this.add(new MenuTextArea());
+			setComponentPopupMenu(this, new MenuTextArea());
+			{
+				toolBarEditPannel = new ToolBarEditPannel();
+				this.add(toolBarEditPannel, BorderLayout.NORTH);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	* Auto-generated method for setting the popup menu for a component
+	*/
+	private void setComponentPopupMenu(final java.awt.Component parent, final javax.swing.JPopupMenu menu) {
+		parent.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mousePressed(java.awt.event.MouseEvent e) {
+				if(e.isPopupTrigger())
+					menu.show(parent, e.getX(), e.getY());
+			}
+			@Override
+			public void mouseReleased(java.awt.event.MouseEvent e) {
+				if(e.isPopupTrigger())
+					menu.show(parent, e.getX(), e.getY());
+			}
+		});
 	}
 
 }
