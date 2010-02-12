@@ -32,6 +32,7 @@ public class MainWindows extends javax.swing.JFrame {
 	private JMenuItem closeFileMenuItem;
 	private JMenuItem saveAsMenuItem;
 	private JMenuItem saveMenuItem;
+	private StatusPannel statusPannel;
 	private JMenuItem openFileMenuItem;
 	private JMenuItem newFileMenuItem;
 	private JMenu jMenuFile;
@@ -39,7 +40,7 @@ public class MainWindows extends javax.swing.JFrame {
 	
 	private ToolBarPannel toolBarPannel;
 	private ExplorerPannel explorerPannel;
-	private EditPannel editPannel;
+	private WorkPannel workPannel;
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -64,8 +65,12 @@ public class MainWindows extends javax.swing.JFrame {
 					getContentPane().add(explorerPannel, BorderLayout.WEST);
 				}
 				{
-					editPannel = new EditPannel();
-					getContentPane().add(editPannel, BorderLayout.CENTER);
+					workPannel = new WorkPannel();
+					getContentPane().add(workPannel, BorderLayout.CENTER);
+				}
+				{
+					statusPannel = new StatusPannel();
+					getContentPane().add(statusPannel, BorderLayout.SOUTH);
 				}
 			}
 			setSize(400, 300);

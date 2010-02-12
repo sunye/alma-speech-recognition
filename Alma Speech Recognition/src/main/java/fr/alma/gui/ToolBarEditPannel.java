@@ -23,21 +23,21 @@ import javax.swing.JPanel;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class ToolBarPannel extends javax.swing.JPanel {
-	private JPanel jPanelRecord;
+public class ToolBarEditPannel extends javax.swing.JPanel {
 	private JLabel labelRecord ;
 
 
 	private JPanel jPanelEdit;
 	private JLabel jLabelOpen;
 	private JLabel jLabelSave;
+	private JLabel jLabelBold;
 
 	/**
 	* Auto-generated main method to display this 
 	* JPanel inside a new JFrame.
 	*/
 	
-	public ToolBarPannel() {
+	public ToolBarEditPannel() {
 		super();
 		initGUI();
 	}
@@ -46,20 +46,6 @@ public class ToolBarPannel extends javax.swing.JPanel {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			{
-				jPanelRecord = new JPanel();
-				FlowLayout jPanelButtonLayout = new FlowLayout();
-				jPanelButtonLayout.setAlignment(FlowLayout.CENTER);
-				jPanelRecord.setLayout(jPanelButtonLayout);
-				this.add(jPanelRecord, BorderLayout.CENTER);
-				{
-					JLabel labelRecord = new JLabel();
-					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
-					labelRecord.setIcon(recordImage);
-					jPanelRecord.add(labelRecord);
-		
-				}
-			}
 			{
 				jPanelEdit = new JPanel();
 				this.add(jPanelEdit, BorderLayout.WEST);
@@ -75,6 +61,12 @@ public class ToolBarPannel extends javax.swing.JPanel {
 					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
 					jLabelOpen.setIcon(recordImage);
 					jPanelEdit.add(jLabelSave);				}
+				{
+					jLabelBold = new JLabel();
+					jPanelEdit.add(jLabelBold);
+					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
+					jLabelBold.setIcon(recordImage);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
