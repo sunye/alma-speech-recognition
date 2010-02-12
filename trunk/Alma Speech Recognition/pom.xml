@@ -74,7 +74,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>fr.alma.gtd.ihm.MainIHM</mainClass>
+							<mainClass></mainClass>
 						</manifest>
 					</archive>
 				</configuration>

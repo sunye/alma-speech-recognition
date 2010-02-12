@@ -6,59 +6,53 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
 /**
  * Classe Cours.
  */
 @Entity
-public class Cours implements Serializable {
+public class Cours extends AbstractEntity implements Serializable {
 
-        /** Id. */
-        @Id
-        @GeneratedValue
-        private Long id;
+	/** Id. */
+	@Id
+	@GeneratedValue
+	private long id;
+	/** Nom. */
+	@Basic
+	private String nom;
 
-        /** Nom. */
-        @Basic
-        private String name;
+	/**
+	 * Constructeur par defaut.
+	 */
+	public Cours() {
+	}
 
-        /** 
-         * Constructeur par defaut.
-         */
-        public Cours() {}
-        
-        
-        /**
-         * Constructeur.
-         * @param nom valeur de nom dans le Cours construit
-         */
-        public Cours(String nom) {
-                this.name = nom;
-        }
-                        
-        
-        /**
-         * Getter de l'attribut nom.
-         * @return nom 
-         */
-        public String getNom() {
-                return this.name;
-        }
-        
-        /**
-         * Setter de l'attribut nom.
-         * @param nom le nom.
-         */
-        public void setNom(String nom) {
-                this.name = nom;
-        }
-        
-        /**
-         * Methode getId.
-		 * @return l'id.
-         */        
-        public Long getId(){
-                return this.id;
-        }
-        
+	/**
+	 * Constructeur.
+	 * @param nom valeur de nom dans le Cours construit
+	 */
+	public Cours(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * Getter de l'attribut nom.
+	 * @return nom
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+
+	/**
+	 * Setter de l'attribut nom.
+	 * @param nom le nom.
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	@Override
+	public long getId() {
+		return this.id;
+	}
+	
 }
