@@ -1,6 +1,5 @@
 package fr.alma.entities;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +9,7 @@ import javax.persistence.Id;
  * Classe Cours.
  */
 @Entity
-public class Cours extends AbstractEntity implements Serializable {
+public class Cours extends AbstractEntity {
 
 	/** Id. */
 	@Id

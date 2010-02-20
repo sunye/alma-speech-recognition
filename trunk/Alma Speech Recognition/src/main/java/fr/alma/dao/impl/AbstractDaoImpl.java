@@ -19,10 +19,10 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	
 	private static EntityManagerFactory getEntityManagerFactory() {
 		if (emf == null) {			
-			emf = Persistence.createEntityManagerFactory("gtd", specificProperties);
+			emf = Persistence.createEntityManagerFactory("speech-recognition", specificProperties);
 		} else if (newProperties) {
 			emf.close();
-			emf = Persistence.createEntityManagerFactory("gtd", specificProperties);
+			emf = Persistence.createEntityManagerFactory("speech-recognition", specificProperties);
 		}
 		newProperties = false;
 		return emf;
