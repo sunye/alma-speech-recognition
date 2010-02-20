@@ -62,7 +62,7 @@
 				</executions>
 				<configuration>
 					<executable>java</executable>
-					<mainClass>fr.alma.gtd.ihm.MainIHM</mainClass>
+					<mainClass>fr.alma.ihm.FenetrePrincipale</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -150,6 +150,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<configLocation>checkstyle.xml</configLocation>
