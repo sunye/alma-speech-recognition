@@ -13,7 +13,7 @@ public class DossierDaoImpl extends AbstractDaoImpl<Dossier> implements DossierD
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		String requete = "FROM Projet WHERE projetconteneur_id = NULL";
+		String requete = "FROM Dossier WHERE projetconteneur_id = NULL";
 		Dossier resultat = (Dossier) em.createQuery(requete).getSingleResult();
 
 		tx.commit();
