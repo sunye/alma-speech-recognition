@@ -38,7 +38,7 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		String requete = "FROM Element WHERE projetconteneur_id = :idProjet";
+		String requete = "FROM Element WHERE dossierconteneur_id = :idProjet";
 		Query query = em.createQuery(requete);
 		query.setParameter("idProjet", projet.getId());
 		List<Element> resultats = query.getResultList();

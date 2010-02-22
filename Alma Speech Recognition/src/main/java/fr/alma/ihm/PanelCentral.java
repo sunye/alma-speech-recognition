@@ -11,6 +11,7 @@
 
 package fr.alma.ihm;
 
+import fr.alma.ihm.tree.MyTransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -45,15 +46,16 @@ public class PanelCentral extends javax.swing.JPanel {
 
         splitPane.setDividerLocation(120);
 
-        arbreCours.setDropMode(javax.swing.DropMode.ON);
+        arbreCours.setDragEnabled(true);
+        arbreCours.setDropMode(javax.swing.DropMode.INSERT);
+        arbreCours.setEditable(true);
         arbreCours.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 arbreCoursMouseClicked(evt);
             }
         });
         scrollPane1.setViewportView(arbreCours);
-        //arborescence.setCellRenderer(new fr.alma.gtd.ihm.tree.MyTreeRenderer());
-        //arborescence.setTransferHandler(new MyTransferHandler());
+        arbreCours.setTransferHandler(new MyTransferHandler());
 
         DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();
         treeModel.setAsksAllowsChildren(true);
@@ -95,13 +97,15 @@ public class PanelCentral extends javax.swing.JPanel {
 				//On n'a plus qu'à générer notre menu contextuel !
 				javax.swing.JPopupMenu jpm = new javax.swing.JPopupMenu();
 
-				javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
-				addFolderMenu.addActionListener(null);
-				jpm.add(addFolderMenu);
+				if (node.getAllowsChildren()) {
+					javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
+					addFolderMenu.addActionListener(new TreeAddFolderMenuListener(node));
+					jpm.add(addFolderMenu);
 
-				javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un Fichier");
-				addFileMenu.addActionListener(null);
-				jpm.add(addFileMenu);
+					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un Fichier");
+					addFileMenu.addActionListener(new TreeAddFileMenuListener(node));
+					jpm.add(addFileMenu);
+				}
 
 				// on efface pas la racine
 				if (row != 0) {
@@ -142,6 +146,42 @@ public class PanelCentral extends javax.swing.JPanel {
 			controleur.suppressionElement(node);
 			model.removeNodeFromParent(this.node);
 			model.nodeChanged(parentNode);
+		}
+	}
+
+	class TreeAddFileMenuListener implements java.awt.event.ActionListener{
+		DefaultMutableTreeNode  node;
+		public TreeAddFileMenuListener(DefaultMutableTreeNode node){
+			this.node = node;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			String nom = new DialogNouvelElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
+			if (nom != null) {
+				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
+				Object file = controleur.ajoutFichier(nom,node);
+				node.add(new DefaultMutableTreeNode(file, false));
+				model.nodeChanged(node);
+				arbreCours.updateUI();
+			}
+		}
+	}
+
+	class TreeAddFolderMenuListener implements java.awt.event.ActionListener{
+		DefaultMutableTreeNode  node;
+		public TreeAddFolderMenuListener(DefaultMutableTreeNode node){
+			this.node = node;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			String nom = new DialogNouvelElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
+			if (nom != null) {
+				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
+				Object folder = controleur.ajoutDossier(nom,node);
+				node.add(new DefaultMutableTreeNode(folder));
+				model.nodeChanged(node);
+				arbreCours.updateUI();
+			}
 		}
 	}
 
