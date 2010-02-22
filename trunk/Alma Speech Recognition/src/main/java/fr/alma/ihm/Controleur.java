@@ -6,8 +6,10 @@ import fr.alma.dao.ElementDao;
 import fr.alma.dao.impl.AbstractDaoImpl;
 import fr.alma.dao.impl.DossierDaoImpl;
 import fr.alma.dao.impl.ElementDaoImpl;
+import fr.alma.dao.impl.FichierDaoImpl;
 import fr.alma.entities.Dossier;
 import fr.alma.entities.Element;
+import fr.alma.entities.Fichier;
 import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -43,9 +45,9 @@ public class Controleur {
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:" + chemin);
 		File fichier = new File(chemin + ".h2.db");
 		if (!fichier.exists()) {
-			//TODO créer la db
+			Dossier dossierRacine = new Dossier("Cours");
+			new DossierDaoImpl().create(dossierRacine);
 		}
-		//TODO ouvrir la db
 	}
 
 	/**
@@ -64,11 +66,10 @@ public class Controleur {
 	 * @param racine la racine de l'arbre.
 	 */
 	void construireArbreCours(DefaultMutableTreeNode racine) {
-		//TODO charger les dossier et fichiers
-//		DossierDao dao = new DossierDaoImpl();
-//		Dossier dossierRacine = dao.findDossierRacine();
-//		racine.setUserObject(dossierRacine);
-//		construireArbreCoursBis(racine, dossierRacine);
+		DossierDao dao = new DossierDaoImpl();
+		Dossier dossierRacine = dao.findDossierRacine();
+		racine.setUserObject(dossierRacine);
+		construireArbreCoursBis(racine, dossierRacine);
 	}
 
 	/**
