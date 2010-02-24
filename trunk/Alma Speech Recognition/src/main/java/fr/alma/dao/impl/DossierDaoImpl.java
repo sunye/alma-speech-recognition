@@ -5,6 +5,11 @@ import fr.alma.entities.Dossier;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+
+/**
+ * Implementation dao de la classe Dossier.
+ * @author Jérémy Braud
+ */
 public class DossierDaoImpl extends AbstractDaoImpl<Dossier> implements DossierDao {
 
 	@Override

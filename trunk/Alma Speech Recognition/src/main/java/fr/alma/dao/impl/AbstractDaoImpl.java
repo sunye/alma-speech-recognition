@@ -11,6 +11,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+
+/**
+ * Implementation dao de la classe abstraite.
+ * @param <AnyEntity> template
+ * @author Cédric Krommenhoek
+ */
 public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implements AbstractDao<AnyEntity> {
 
 	private static EntityManagerFactory emf;

@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * DialogNouvelElement.java
  *
  * Created on 22 févr. 2010, 16:39:41
@@ -13,11 +8,16 @@ package fr.alma.ihm;
 
 /**
  *
- * @author Le_Clubber
+ * @author Braud Jeremy
  */
 public class DialogNouvelElement extends javax.swing.JDialog {
-
-    /** Creates new form DialogNouvelElement */
+	
+	/**
+	 * Creates new form DialogNouvelElement.
+	 * @param parent l'appelant
+	 * @param titre le titre de la fenetre
+	 * @param label le vtexte de la fenetre
+	 */
     public DialogNouvelElement(java.awt.Frame parent, String titre, String label) {
         super(parent, true);
         initComponents();
@@ -111,33 +111,40 @@ public class DialogNouvelElement extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	/**
+	 * ActionPerformed de la zone de texte.
+	 * @param evt l'evenement capturé
+	 */
 	private void textNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNameActionPerformed
 		if (textName.getText().length() > 0) {
 			validerActionPerformed(evt);
 		}
 	}//GEN-LAST:event_textNameActionPerformed
 
+	/**
+	 * ActionPerformed du bouton valider.
+	 * @param evt l'evenement capturé
+	 */
 	private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
 		this.name = new String(this.textName.getText());
 		this.setVisible(false);
 	}//GEN-LAST:event_validerActionPerformed
 
+	/**
+	 * ActionPerformed du bouton annuler.
+	 * @param evt l'evenement capturé
+	 */
 	private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
 		this.setVisible(false);
 	}//GEN-LAST:event_annulerActionPerformed
 
+	/**
+	 * Entrée de texte dans  la zone de saisie.
+	 * @param evt l'evenement capturé
+	 */
 	private void textNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_textNameCaretUpdate
 		valider.setEnabled(textName.getText().length() > 0);
 	}//GEN-LAST:event_textNameCaretUpdate
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-		DialogNouvelElement dialog = new DialogNouvelElement(new javax.swing.JFrame(), "New dossier", "file?");
-		System.out.println(dialog.showDialog());
-		System.exit(0);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton annuler;
@@ -146,8 +153,13 @@ public class DialogNouvelElement extends javax.swing.JDialog {
     private javax.swing.JButton valider;
     // End of variables declaration//GEN-END:variables
 
+	/** Le nom retourné. */
 	private String name;
 
+	/**
+	 * Méthode d'affichage de la fenetre avec retour.
+	 * @return le nom rentré
+	 */
 	public String showDialog() {
 		this.setVisible(true);
 		return name;

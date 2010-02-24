@@ -16,16 +16,27 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Controleur de l'IHM.
  * @author Braud Jeremy
  */
-public class Controleur {
+public final class Controleur {
 
 	/** L'instance du controleur. */
 	private static Controleur instance = new Controleur();
+
+	private static SplashScreen splash;
 
 	/**
 	 * Constructeur privé.
 	 */
 	private Controleur() {
+		splash = new SplashScreen(null, false);
+		splash.setVisible(true);
 		connexion();
+	}
+
+	/**
+	 * Désactive le splash screen.
+	 */
+	public static void chargementTermine() {
+		splash.setVisible(false);
 	}
 
 	/**
@@ -129,6 +140,33 @@ public class Controleur {
 		dao.create(folder);
 		dao.update(dossier);
 		return folder;
+	}
+
+	/**
+	 * Fonction d'impression.
+	 * @param node le noeud à imprimer
+	 */
+	public void impression(DefaultMutableTreeNode node) {
+		//TODO activer l'impression
+		System.out.println("Impression...");
+	}
+
+	/**
+	 * Affichage des propriétés d'un noeud.
+	 * @param node le noeud sélectionné
+	 */
+	public void afficherProprietes(DefaultMutableTreeNode node) {
+		//TODO Afficher les propriétés d'un élément
+		System.out.println("Propriétés...");
+	}
+
+	/**
+	 * Ouvre le fichier correspondant au noeud.
+	 * @param node le noeud sélectionné
+	 */
+	public void ouvrir(DefaultMutableTreeNode node) {
+		//TODO ouvrir le fichier
+		System.out.println("ouverture du fichier "+node);
 	}
 
 	/**

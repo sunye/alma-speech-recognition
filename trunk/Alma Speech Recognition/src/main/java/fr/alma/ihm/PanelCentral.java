@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * PanelCentral.java
  *
  * Created on 11 févr. 2010, 10:56:52
@@ -16,14 +11,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- *
- * @author Le_Clubber
+ * Le panel central de l'application.
+ * @author Braud Jeremy
  */
 public class PanelCentral extends javax.swing.JPanel {
 
-    /** Creates new form PanelCentral */
+    /**
+	 * Creates new form PanelCentral.
+	 */
     public PanelCentral() {
-		initalisation();
+		initialisation();
         initComponents();
     }
 
@@ -99,12 +96,21 @@ public class PanelCentral extends javax.swing.JPanel {
 
 				if (node.getAllowsChildren()) {
 					javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
-					addFolderMenu.addActionListener(new TreeAddFolderMenuListener(node));
+					addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.FALSE));
 					jpm.add(addFolderMenu);
 
 					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un Fichier");
-					addFileMenu.addActionListener(new TreeAddFileMenuListener(node));
+					addFileMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.TRUE));
 					jpm.add(addFileMenu);
+				} else {
+
+					javax.swing.JMenuItem openMenu = new javax.swing.JMenuItem("Ouvrir");
+					openMenu.addActionListener(new TreeOpenMenuListener(node));
+					jpm.add(openMenu);
+
+					javax.swing.JMenuItem impressionMenu = new javax.swing.JMenuItem("Imprimer");
+					impressionMenu.addActionListener(new TreeImpressMenuListener(node));
+					jpm.add(impressionMenu);
 				}
 
 				// on efface pas la racine
@@ -113,6 +119,11 @@ public class PanelCentral extends javax.swing.JPanel {
 					eraseMenu.addActionListener(new TreeEraseMenuListener(node));
 					jpm.add(eraseMenu);
 				}
+
+				javax.swing.JMenuItem propertiesMenu = new javax.swing.JMenuItem("Propriétés");
+				propertiesMenu.addActionListener(new TreePropertiesMenuListener(node));
+				jpm.add(propertiesMenu);
+
 				jpm.show(arbreCours, evt.getX(), evt.getY());
 			}
 		}
@@ -127,15 +138,14 @@ public class PanelCentral extends javax.swing.JPanel {
 				//On peut donc en déduire le noeud
 				DefaultMutableTreeNode node =  (DefaultMutableTreeNode)arbreCours.getLastSelectedPathComponent();
 				if (!node.getAllowsChildren()) {
-					//TODO ouvrir fichier
-					System.out.println("ouverture du fichier");
+					controleur.ouvrir(node);
 				}
 			}
 		}
 	}//GEN-LAST:event_arbreCoursMouseClicked
 
 	class TreeEraseMenuListener implements java.awt.event.ActionListener{
-		DefaultMutableTreeNode  node;
+		private DefaultMutableTreeNode  node;
 		public TreeEraseMenuListener(DefaultMutableTreeNode node){
 			this.node = node;
 		}
@@ -149,39 +159,66 @@ public class PanelCentral extends javax.swing.JPanel {
 		}
 	}
 
-	class TreeAddFileMenuListener implements java.awt.event.ActionListener{
-		DefaultMutableTreeNode  node;
-		public TreeAddFileMenuListener(DefaultMutableTreeNode node){
+	class TreeAddElementMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		private Boolean isFile;
+		public TreeAddElementMenuListener(DefaultMutableTreeNode node, Boolean isFile){
 			this.node = node;
+			this.isFile = isFile;
 		}
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
-			String nom = new DialogNouvelElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
+			String nom;
+			if (this.isFile) {
+				nom = new DialogNouvelElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
+			} else {
+				nom = new DialogNouvelElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
+			}
 			if (nom != null) {
 				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
-				Object file = controleur.ajoutFichier(nom,node);
-				node.add(new DefaultMutableTreeNode(file, false));
+				if (this.isFile) {
+					Object element = controleur.ajoutFichier(nom,node);
+					node.add(new DefaultMutableTreeNode(element, false));
+				} else {
+					Object element = controleur.ajoutDossier(nom,node);
+					node.add(new DefaultMutableTreeNode(element));
+				}
 				model.nodeChanged(node);
 				arbreCours.updateUI();
 			}
 		}
 	}
 
-	class TreeAddFolderMenuListener implements java.awt.event.ActionListener{
-		DefaultMutableTreeNode  node;
-		public TreeAddFolderMenuListener(DefaultMutableTreeNode node){
+	class TreeImpressMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		public TreeImpressMenuListener(DefaultMutableTreeNode node){
 			this.node = node;
 		}
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
-			String nom = new DialogNouvelElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
-			if (nom != null) {
-				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
-				Object folder = controleur.ajoutDossier(nom,node);
-				node.add(new DefaultMutableTreeNode(folder));
-				model.nodeChanged(node);
-				arbreCours.updateUI();
-			}
+			controleur.impression(node);
+		}
+	}
+
+	class TreePropertiesMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		public TreePropertiesMenuListener(DefaultMutableTreeNode node){
+			this.node = node;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			controleur.afficherProprietes(node);
+		}
+	}
+
+	class TreeOpenMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		public TreeOpenMenuListener(DefaultMutableTreeNode node){
+			this.node = node;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			controleur.ouvrir(node);
 		}
 	}
 
@@ -199,7 +236,7 @@ public class PanelCentral extends javax.swing.JPanel {
     private DefaultMutableTreeNode racinePlan;
 	private Controleur controleur;
 
-	private void initalisation() {
+	private void initialisation() {
 		this.controleur = Controleur.getInstance();
 		this.racineCours = new DefaultMutableTreeNode("Cours");
 		controleur.construireArbreCours(this.racineCours);

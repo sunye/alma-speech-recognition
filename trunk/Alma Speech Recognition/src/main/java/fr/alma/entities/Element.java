@@ -1,5 +1,6 @@
 package fr.alma.entities;
 
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  * Classe Element.
+ * @author Jérémy Braud
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -19,6 +22,12 @@ public abstract class Element extends AbstractEntity {
 	@Id
 	@GeneratedValue
 	private long id;
+	/** Date de création. */
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date dateCreation;
+	/** Dernière date de modification. */
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date dateModification;
 	/** Nom. */
 	@Basic
 	private String nom;
@@ -27,7 +36,7 @@ public abstract class Element extends AbstractEntity {
 	private Boolean fichier;
 	/** Dossier conteneur. */
 	@ManyToOne
-	protected Dossier dossierConteneur;
+	private Dossier dossierConteneur;
 
 	/**
 	 * Constructeur par defaut.
@@ -38,10 +47,13 @@ public abstract class Element extends AbstractEntity {
 	/**
 	 * Constructeur.
 	 * @param nom le nom de l'élément
+	 * @param estFichier indique si l'élément créé est un fichier
 	 */
 	public Element(String nom, Boolean estFichier) {
 		this.nom = nom;
 		this.fichier = estFichier;
+		this.dateCreation = new Date();
+		this.dateModification = new Date();
 	}
 
 	/**
@@ -58,6 +70,7 @@ public abstract class Element extends AbstractEntity {
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
+		this.setChanged();
 	}
 
 	/**
@@ -67,6 +80,22 @@ public abstract class Element extends AbstractEntity {
 	@Override
 	public long getId() {
 		return this.id;
+	}
+
+	/**
+	 * Accès à la date de création du fichier.
+	 * @return la date
+	 */
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+
+	/**
+	 * Accès à la date de modification du fichier.
+	 * @return la date
+	 */
+	public Date getDateModification() {
+		return dateModification;
 	}
 
 	/**
@@ -83,6 +112,7 @@ public abstract class Element extends AbstractEntity {
 	 */
 	public void setDossierConteneur(Dossier dossierConteneur) {
 		this.dossierConteneur = dossierConteneur;
+		this.setChanged();
 	}
 
 	/**
@@ -91,6 +121,13 @@ public abstract class Element extends AbstractEntity {
 	 */
 	public Boolean isFile() {
 		return this.fichier;
+	}
+
+	/**
+	 * Change la date de modification.
+	 */
+	protected void setChanged() {
+		this.dateModification = new Date();
 	}
 
 	/**
