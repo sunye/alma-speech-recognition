@@ -41,7 +41,6 @@ public class MyTransferHandler extends TransferHandler {
 				if (index == -1) {
 					index = 0;
 				}
-				//System.out.println(index);
 				DefaultMutableTreeNode node;
 				try {
 					node = (DefaultMutableTreeNode) tr.getTransferData(MyTransferable.data);

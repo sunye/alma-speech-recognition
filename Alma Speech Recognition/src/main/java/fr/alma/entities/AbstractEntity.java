@@ -1,18 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package fr.alma.entities;
 
 import java.io.Serializable;
 
 /**
- *
- * @author Fusio
+ * Classe abstraite.
+ * @author Cédric Krommenhoek
  */
 public abstract class AbstractEntity implements Serializable {
 
+	/**
+	 * Accès à l'id d'une entité.
+	 * @return l'id
+	 */
 	public abstract long getId();
 
 }

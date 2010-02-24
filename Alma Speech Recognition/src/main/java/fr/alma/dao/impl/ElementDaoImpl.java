@@ -8,10 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+/**
+ * Implementation dao de la classe Element.
+ * @author Jérémy Braud
+ */
 public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementDao {
 
 	@Override
-	public void delete (Long id) {
+	public void delete(Long id) {
 		Element element = this.find(id);
 		// Suppression des sous-elements d'un projet
 		if (!element.isFile()) {

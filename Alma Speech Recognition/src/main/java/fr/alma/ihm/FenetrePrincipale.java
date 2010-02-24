@@ -148,6 +148,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 	 * Initialisation de la fenetre.
 	 */
 	private void initialisation() {
+		setLocationRelativeTo(null);
+
 		PanelCentral panelCentral = new PanelCentral();
 		this.panelCentre.add(panelCentral, java.awt.BorderLayout.CENTER);
 
@@ -160,6 +162,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 		} catch (Exception e) {
 			System.out.println("LookAndFeel non supporté.");
 		}
+
+		Controleur.chargementTermine();
 	}
 
 }

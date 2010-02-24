@@ -5,17 +5,18 @@ import javax.persistence.Entity;
 
 /**
  * Classe Fichier.
+ * @author Jérémy Braud
  */
 @Entity
 public class Fichier extends Element {
 
 	/** Le texte de l'élève. */
 	@Basic
-	private String DataEleve;
+	private String dataEleve;
 
 	/** Le texte du prof. */
 	@Basic
-	private String DataProf;
+	private String dataProf;
 
 	/**
 	 * Constructeur par défaut.
@@ -36,15 +37,16 @@ public class Fichier extends Element {
 	 * @return les données.
 	 */
 	public String getDataEleve() {
-		return DataEleve;
+		return dataEleve;
 	}
 
 	/**
 	 * Change les données de l'élève.
 	 * @param DataEleve les données à enregistrer.
 	 */
-	public void setDataEleve(String DataEleve) {
-		this.DataEleve = DataEleve;
+	public void setDataEleve(String texte) {
+		this.dataEleve = texte;
+		this.setChanged();
 	}
 
 	/**
@@ -52,15 +54,16 @@ public class Fichier extends Element {
 	 * @return les données.
 	 */
 	public String getDataProf() {
-		return DataProf;
+		return dataProf;
 	}
 
 	/**
 	 * Change les données du professeur.
-	 * @param DataProf les données à enregistrer.
+	 * @param texte les données à enregistrer.
 	 */
-	public void setDataProf(String DataProf) {
-		this.DataProf = DataProf;
+	public void setDataProf(String texte) {
+		this.dataProf = texte;
+		this.setChanged();
 	}
 
 }

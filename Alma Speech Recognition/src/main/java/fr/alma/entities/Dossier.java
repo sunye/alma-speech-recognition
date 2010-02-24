@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 
 /**
  * Classe Dossier.
+ * @author Jérémy Braud
  */
 @Entity
 public class Dossier extends Element {
@@ -26,6 +27,7 @@ public class Dossier extends Element {
 	
 	/**
 	 * Constructeur.
+	 * @param nom le nom
 	 */
 	public Dossier(String nom) {
 		super(nom, Boolean.FALSE);
@@ -42,10 +44,11 @@ public class Dossier extends Element {
 	
 	/**
 	 * Setter de l'attribut elements.
-	 * @param elements 
+	 * @param elements la collection d'elements
 	 */
 	public void setElements(Collection<Element> elements) {
 		this.elements = elements;
+		this.setChanged();
 	}
 	
 	/**
@@ -54,6 +57,7 @@ public class Dossier extends Element {
 	 */
 	public void addElements(Element element){
 		this.elements.add(element);
+		this.setChanged();
 	}
 	
 	/**
@@ -62,6 +66,7 @@ public class Dossier extends Element {
 	 */
 	public void removeElements(Element element){
 		this.elements.remove(element);
+		this.setChanged();
 	}
 
 }

@@ -9,8 +9,8 @@ import fr.alma.dao.CoursDao;
 import fr.alma.entities.Cours;
 
 /**
- *
- * @author Fusio
+ * Implementation dao de la classe Cours.
+ * @author Cédric Krommenhoek
  */
 public class CoursDaoImpl extends AbstractDaoImpl<Cours> implements CoursDao {
 
