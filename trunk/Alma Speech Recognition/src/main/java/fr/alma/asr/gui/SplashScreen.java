@@ -4,7 +4,7 @@
  * Created on 24 févr. 2010, 13:59:33
  */
 
-package fr.alma.asr.ihm;
+package fr.alma.asr.gui;
 
 /**
  * Classe de type JDialog pour créer un splash screen de chargement.

@@ -1,4 +1,4 @@
-package fr.alma.asr.ihm;
+package fr.alma.asr.gui;
 
 import fr.alma.asr.dao.DossierDao;
 import fr.alma.asr.dao.ElementDao;
