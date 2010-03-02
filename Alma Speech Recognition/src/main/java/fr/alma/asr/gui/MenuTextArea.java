@@ -21,8 +21,10 @@ import javax.swing.JSeparator;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class MenuTextArea extends javax.swing.JPopupMenu {
-	private JMenuItem jMenuItemNote;
-	private JMenuItem jMenuItemNewChapter;
+	private JMenuItem jMenuItemCouper;
+	private JMenuItem jMenuItemCopier;	
+	private JMenuItem jMenuItemColler;	
+
 	private JSeparator jSeparator1;
 
 	/**
@@ -38,21 +40,45 @@ public class MenuTextArea extends javax.swing.JPopupMenu {
 	private void initGUI() {
 		try {
 			{
-				jMenuItemNote = new JMenuItem();
-				this.add(jMenuItemNote);
-				jMenuItemNote.setText("Ajouter Note");
+				jMenuItemCouper = new JMenuItem();
+				this.add(jMenuItemCouper);
+				jMenuItemCouper.setText("Couper");
 			}
+			{
+				jMenuItemCopier = new JMenuItem();
+				this.add(jMenuItemCopier);
+				jMenuItemCopier.setText("Copier");
+			}
+			{
+				jMenuItemColler = new JMenuItem();
+				this.add(jMenuItemColler);
+				jMenuItemColler.setText("Coller");
+			}			
 			{
 				jSeparator1 = new JSeparator();
 				this.add(jSeparator1);
 			}
-			{
-				jMenuItemNewChapter = new JMenuItem();
-				this.add(jMenuItemNewChapter);
-				jMenuItemNewChapter.setText("Nouveau Chapitre");
-			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	public JMenuItem getjMenuItemCouper() {
+		return jMenuItemCouper;
+	}
+
+	public JMenuItem getjMenuItemCopier() {
+		return jMenuItemCopier;
+	}
+
+	public JMenuItem getjMenuItemColler() {
+		return jMenuItemColler;
+	}
+
+	public JSeparator getjSeparator1() {
+		return jSeparator1;
+	}
+	
+	
 }
