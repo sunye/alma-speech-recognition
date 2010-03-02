@@ -1,5 +1,7 @@
 package fr.alma.asr.gui;
 
-public class HomePanel {
+import javax.swing.JPanel;
+
+public class HomePanel extends JPanel{
 
 }

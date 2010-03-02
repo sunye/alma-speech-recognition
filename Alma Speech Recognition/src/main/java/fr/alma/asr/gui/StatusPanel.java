@@ -1,11 +1,14 @@
 package fr.alma.asr.gui;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -22,17 +25,6 @@ import javax.swing.JLabel;
 public class StatusPanel extends javax.swing.JPanel {
 	private JLabel jLabelStatus;
 
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new StatusPanel());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
 	
 	public StatusPanel() {
 		super();
@@ -46,11 +38,21 @@ public class StatusPanel extends javax.swing.JPanel {
 			{
 				jLabelStatus = new JLabel();
 				this.add(jLabelStatus, BorderLayout.EAST);
-				jLabelStatus.setText("Status....");
+				jLabelStatus.setText("Application succesfully loaded.");
 			}
+			this.setBorder(BorderFactory.createMatteBorder(1,0, 0, 0,Color.DARK_GRAY));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+
+	/**
+	 * display text in status bar
+	 * @param text
+	 */
+	public void setStatus(String text){
+		this.jLabelStatus.setText(text);
 	}
 
 }
