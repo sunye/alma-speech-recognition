@@ -3,13 +3,17 @@ import java.awt.BorderLayout;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import javax.swing.ImageIcon;
+import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeListener;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -26,12 +30,14 @@ import javax.swing.JPanel;
 public class ToolBarPanel extends javax.swing.JPanel {
 	private JPanel jPanelRecord;
 	private JLabel labelRecord ;
-
+	private boolean onRec = false;
 
 	private JPanel jPanelEdit;
-	private JLabel jLabelOpen;
-	private JLabel jLabelSave;
+	private JButton jLabelOpen;
+	private JButton jLabelSave;
 
+	private ImageIcon micOn = new ImageIcon("img/micOnWhite.png");
+	private ImageIcon micOff = new ImageIcon("img/micOff.png");
 	/**
 	* Auto-generated main method to display this 
 	* JPanel inside a new JFrame.
@@ -53,26 +59,33 @@ public class ToolBarPanel extends javax.swing.JPanel {
 				jPanelRecord.setLayout(jPanelButtonLayout);
 				this.add(jPanelRecord, BorderLayout.CENTER);
 				{
-					JLabel labelRecord = new JLabel();
-					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
-					labelRecord.setIcon(recordImage);
-					jPanelRecord.add(labelRecord);
-		
+					final JToggleButton rec = new JToggleButton(micOff);
+					
+					jPanelRecord.add(rec);
+					rec.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							onRec=!onRec;
+							if(onRec)
+								rec.setIcon(micOn);
+							else
+								rec.setIcon(micOff);
+						}
+					});
 				}
 			}
 			{
 				jPanelEdit = new JPanel();
 				this.add(jPanelEdit, BorderLayout.WEST);
 				{
-					jLabelSave = new JLabel();
-					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
+					jLabelSave = new JButton();
+					ImageIcon recordImage = new ImageIcon("img/pdf.png");
 					jLabelSave.setIcon(recordImage);
 					jPanelEdit.add(jLabelSave);
 				}
 				{
-					jLabelOpen = new JLabel();
+					jLabelOpen = new JButton();
 					jPanelEdit.add(jLabelOpen);
-					ImageIcon recordImage = new ImageIcon("src/main/resources/text-speak.png");
+					ImageIcon recordImage = new ImageIcon("img/print.png");
 					jLabelOpen.setIcon(recordImage);
 					jPanelEdit.add(jLabelSave);				}
 			}

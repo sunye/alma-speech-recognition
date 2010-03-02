@@ -1,8 +1,15 @@
 package fr.alma.asr.gui;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 
 
 /**
@@ -17,7 +24,17 @@ import javax.swing.GroupLayout.Alignment;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class MainWindows extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
+
+	{
+		//Set Look & Feel
+		try {
+			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	private JMenuItem helpMenuItem;
 	private JMenu jMenuHelp;
@@ -27,7 +44,6 @@ public class MainWindows extends javax.swing.JFrame {
 	private JMenuItem copyMenuItem;
 	private JMenuItem cutMenuItem;
 	private JMenu jMenuEdition;
-	private JMenuItem exitMenuItem;
 	private JSeparator jSeparator2;
 	private JMenuItem closeFileMenuItem;
 	private JMenuItem saveAsMenuItem;
@@ -35,20 +51,22 @@ public class MainWindows extends javax.swing.JFrame {
 	private StatusPanel statusPannel;
 	private JMenuItem openFileMenuItem;
 	private JMenuItem newFileMenuItem;
+	private JMenuItem parametersMenuItem;
 	private JMenu jMenuFile;
 	private JMenuBar jMenuBar;
 	
+	//Panels list
+	private JTabbedPane tabbedPane;
+	private HomePanel homePanel;
+	private HashMap<String,WorkPanel> workPanelList;	
 	private ToolBarPanel toolBarPannel;
-	private ExplorerPanel explorerPannel;
-	private WorkPanel workPannel;
-	/**
-	* Auto-generated main method to display this JFrame
-	*/
+	private StatusPanel statusPanel;
 	
-	public MainWindows() {
-		super();
-		initGUI();
-	}
+	/*Parameters variables*/
+	private String workPlanPosition = "right";
+	private boolean workShowPlan = true;
+	private boolean workShowCourses =true;
+	
 	
 	private void initGUI() {
 		try {
@@ -56,23 +74,36 @@ public class MainWindows extends javax.swing.JFrame {
 				BorderLayout thisLayout = new BorderLayout();
 				this.setTitle("Alma Speech Recognition");
 				getContentPane().setLayout(thisLayout);
+				
+
 				{
 					toolBarPannel = new ToolBarPanel();
 					getContentPane().add(toolBarPannel, BorderLayout.NORTH);
 				}
+				
 				{
-					explorerPannel = new ExplorerPanel();
-					getContentPane().add(explorerPannel, BorderLayout.WEST);
-					explorerPannel.setPreferredSize(new java.awt.Dimension(189, 509));
+					tabbedPane = new JTabbedPane();
+					getContentPane().add(tabbedPane, BorderLayout.CENTER);
+					tabbedPane.setOpaque(true);
+					
 				}
+				
 				{
-					workPannel = new WorkPanel();
-					getContentPane().add(workPannel, BorderLayout.CENTER);
+					homePanel = new HomePanel();
+					tabbedPane.add(homePanel, " Home");
+					tabbedPane.setIconAt(0, new ImageIcon("img/home24.png"));
+					workPanelList = new HashMap<String,WorkPanel>();
 				}
+
 				{
-					statusPannel = new StatusPanel();
-					getContentPane().add(statusPannel, BorderLayout.SOUTH);
+					statusPanel = new StatusPanel();
+					getContentPane().add(statusPanel, BorderLayout.SOUTH);
+					
 				}
+				
+				
+				addNewWorkPanel("Mathématiques");
+				
 			}
 			this.setSize(800, 600);
 			{
@@ -85,36 +116,40 @@ public class MainWindows extends javax.swing.JFrame {
 					{
 						newFileMenuItem = new JMenuItem();
 						jMenuFile.add(newFileMenuItem);
-						newFileMenuItem.setText("New");
+						newFileMenuItem.setText("Nouveau cours");
 					}
 					{
 						openFileMenuItem = new JMenuItem();
 						jMenuFile.add(openFileMenuItem);
-						openFileMenuItem.setText("Open");
+						openFileMenuItem.setText("Ouvrir");
 					}
 					{
 						saveMenuItem = new JMenuItem();
 						jMenuFile.add(saveMenuItem);
-						saveMenuItem.setText("Save");
+						saveMenuItem.setText("Enregistrer");
 					}
 					{
 						saveAsMenuItem = new JMenuItem();
 						jMenuFile.add(saveAsMenuItem);
-						saveAsMenuItem.setText("Save As ...");
+						saveAsMenuItem.setText("Enregistrer sous...");
 					}
 					{
-						closeFileMenuItem = new JMenuItem();
-						jMenuFile.add(closeFileMenuItem);
-						closeFileMenuItem.setText("Close");
+						jSeparator1 = new JSeparator();
+						jMenuFile.add(jSeparator1);
+					}
+					{
+						parametersMenuItem = new JMenuItem();
+						jMenuFile.add(parametersMenuItem);
+						parametersMenuItem.setText("Préférences...");
 					}
 					{
 						jSeparator2 = new JSeparator();
 						jMenuFile.add(jSeparator2);
 					}
 					{
-						exitMenuItem = new JMenuItem();
-						jMenuFile.add(exitMenuItem);
-						exitMenuItem.setText("Exit");
+						closeFileMenuItem = new JMenuItem();
+						jMenuFile.add(closeFileMenuItem);
+						closeFileMenuItem.setText("Quitter");
 					}
 				}
 				{
@@ -153,6 +188,14 @@ public class MainWindows extends javax.swing.JFrame {
 					{
 						helpMenuItem = new JMenuItem();
 						jMenuHelp.add(helpMenuItem);
+						helpMenuItem.setText("A propos");
+					}
+					{
+						jMenuHelp.add(jSeparator1);
+					}
+					{
+						helpMenuItem = new JMenuItem();
+						jMenuHelp.add(helpMenuItem);
 						helpMenuItem.setText("Aide");
 					}
 				}
@@ -163,9 +206,50 @@ public class MainWindows extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		MainWindows mainWindows = new MainWindows();
-		mainWindows.setVisible(true);
+
+	
+	/**
+	 * Add a work panel as a new tab.
+	 * @param name name of the module.
+	 */
+	public void addNewWorkPanel(String name){
+		WorkPanel workPanel = new WorkPanel();
+		this.tabbedPane.add(name,workPanel);
+		tabbedPane.setIconAt(tabbedPane.getTabCount()-1, new ImageIcon("img/RSSfolder24.png"));
+		this.workPanelList.put(name, workPanel);
+	}
+	
+	
+	/**
+	 * Display text in status bar
+	 * @param text
+	 */
+	public void setLastAction(String text){
+		this.statusPannel.setStatus(text);
 	}
 
+	
+	/**
+	* Auto-generated main method to display this JFrame
+	*/
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainWindow inst = new MainWindow("Alma Speech Recognition");
+				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+				inst.setLocation((screen.width - inst.getSize().width)/2,(screen.height - inst.getSize().height)/2);
+				inst.setLocationRelativeTo(null);
+				inst.setVisible(true);
+			}
+		});
+	}
+	
+	public MainWindow(String title) {
+		super(title);
+		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/appIcon.png"));
+		initGUI();
+	}
+	
+	
 }
