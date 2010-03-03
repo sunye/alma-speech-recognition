@@ -72,6 +72,80 @@ public class MainWindow extends javax.swing.JFrame {
 	private boolean workShowCourses =true;
 	
 	
+	
+	/*Getters and setters*/
+	
+	
+	public JMenuItem getPasteMenuItem() {
+		return pasteMenuItem;
+	}
+
+
+	public void setPasteMenuItem(JMenuItem pasteMenuItem) {
+		this.pasteMenuItem = pasteMenuItem;
+	}
+
+
+	public JMenuItem getCopyMenuItem() {
+		return copyMenuItem;
+	}
+
+
+	public void setCopyMenuItem(JMenuItem copyMenuItem) {
+		this.copyMenuItem = copyMenuItem;
+	}
+
+
+	public JMenuItem getCutMenuItem() {
+		return cutMenuItem;
+	}
+
+
+	public void setCutMenuItem(JMenuItem cutMenuItem) {
+		this.cutMenuItem = cutMenuItem;
+	}
+
+
+	public JMenuItem getSaveAsMenuItem() {
+		return saveAsMenuItem;
+	}
+
+
+	public void setSaveAsMenuItem(JMenuItem saveAsMenuItem) {
+		this.saveAsMenuItem = saveAsMenuItem;
+	}
+
+
+	public JMenuItem getSaveMenuItem() {
+		return saveMenuItem;
+	}
+
+
+	public void setSaveMenuItem(JMenuItem saveMenuItem) {
+		this.saveMenuItem = saveMenuItem;
+	}
+
+
+	public JMenuItem getOpenFileMenuItem() {
+		return openFileMenuItem;
+	}
+
+
+	public void setOpenFileMenuItem(JMenuItem openFileMenuItem) {
+		this.openFileMenuItem = openFileMenuItem;
+	}
+
+
+	public JMenuItem getNewFileMenuItem() {
+		return newFileMenuItem;
+	}
+
+
+	public void setNewFileMenuItem(JMenuItem newFileMenuItem) {
+		this.newFileMenuItem = newFileMenuItem;
+	}
+
+
 	private void initGUI() {
 		try {
 			{
