@@ -26,7 +26,7 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import com.sun.java.swing.plaf.nimbus.TextPanePainter;
+//import com.sun.java.swing.plaf.nimbus.TextPanePainter;
 //
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

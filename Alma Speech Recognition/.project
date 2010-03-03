@@ -1,6 +1,6 @@
 <projectDescription>
   <name>alma-speech-recognition</name>
-  <comment></comment>
+  <comment>Habillage d&apos;un moteur de reconnaissance vocale à destination d&apos;étudiants en situation de handicap. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
