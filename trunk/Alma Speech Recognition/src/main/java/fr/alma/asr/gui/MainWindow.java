@@ -62,6 +62,10 @@ public class MainWindow extends javax.swing.JFrame {
 	private ToolBarPanel toolBarPannel;
 	private StatusPanel statusPanel;
 	
+	
+	//Dialogs
+	private ParametersDialog paramDialog;
+	
 	/*Parameters variables*/
 	private String workPlanPosition = "right";
 	private boolean workShowPlan = true;
@@ -199,6 +203,9 @@ public class MainWindow extends javax.swing.JFrame {
 						helpMenuItem.setText("Aide");
 					}
 				}
+				
+				paramDialog = new ParametersDialog(this);
+				
 			}
 			
 
@@ -226,6 +233,11 @@ public class MainWindow extends javax.swing.JFrame {
 	 */
 	public void setLastAction(String text){
 		this.statusPannel.setStatus(text);
+	}
+	
+	
+	public void showPreferences(){
+		
 	}
 
 	
