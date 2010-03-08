@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 @Entity
 public class Fichier extends Element {
 
+	/** Numéro de série par défaut. */
+	private static final long serialVersionUID = 1L;
+
 	/** Le texte de l'élève. */
 	@Basic
 	private String dataEleve;
@@ -42,7 +45,7 @@ public class Fichier extends Element {
 
 	/**
 	 * Change les données de l'élève.
-	 * @param DataEleve les données à enregistrer.
+	 * @param texte les données à enregistrer.
 	 */
 	public void setDataEleve(String texte) {
 		this.dataEleve = texte;
