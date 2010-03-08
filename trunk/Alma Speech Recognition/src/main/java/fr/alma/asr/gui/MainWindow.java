@@ -180,7 +180,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				
-				addNewWorkPanel("Mathématiques");
+				addNewWorkPanel("MathÃ©matiques");
 				
 			}
 			this.setSize(800, 600);
@@ -218,7 +218,7 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						parametersMenuItem = new JMenuItem();
 						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("Préférences...");
+						parametersMenuItem.setText("PrÃ©fÃ©rences...");
 					}
 					{
 						jSeparator2 = new JSeparator();

@@ -37,6 +37,7 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 		super.delete(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Element> findAllOfDossier(Dossier projet) {
 		EntityManager em = AbstractDaoImpl.getEntityManager();

@@ -18,6 +18,9 @@ import javax.persistence.Temporal;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Element extends AbstractEntity {
 
+	/** Numéro de série par défaut. */
+	private static final long serialVersionUID = 1L;
+	
 	/** Id. */
 	@Id
 	@GeneratedValue

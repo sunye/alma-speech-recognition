@@ -6,15 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Classe Cours.
+ * Classe des entités Cours.
  */
 @Entity
 public class Cours extends AbstractEntity {
 
+	/** Numéro de série par défaut. */
+	private static final long serialVersionUID = 1L;
+	
 	/** Id. */
 	@Id
 	@GeneratedValue
-	private long id;
+	private long id;	
 	/** Nom. */
 	@Basic
 	private String nom;

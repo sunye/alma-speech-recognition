@@ -8,12 +8,15 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
- * Classe Dossier.
+ * Classe des entités Dossier.
  * @author Jérémy Braud
  */
 @Entity
 public class Dossier extends Element {
 
+	/** Numéro de série par défaut. */
+	private static final long serialVersionUID = 1L;
+	
 	/** Elements. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dossierConteneur")
 	private Collection<Element> elements;
