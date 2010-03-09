@@ -48,7 +48,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 	
 	private static ParametersDialog instance;
 	//private MainWindow main = MainWindow.getInstance();
-	private Controller controleur = Controller.getInstance();
+	private Controleur controleur = Controleur.getInstance();
 	
 	public static ParametersDialog getInstance(){
 		if(instance==null)
