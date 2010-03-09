@@ -4,7 +4,7 @@
  * Created on 22 févr. 2010, 16:39:41
  */
 
-package fr.alma.asr.ihm.tree;
+package fr.alma.asr.gui.tree;
 
 /**
  * Classe de type JDialog pour l'ajout d'un élément.

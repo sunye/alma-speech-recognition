@@ -1,4 +1,4 @@
-package fr.alma.asr.ihm.tree;
+package fr.alma.asr.gui.tree;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

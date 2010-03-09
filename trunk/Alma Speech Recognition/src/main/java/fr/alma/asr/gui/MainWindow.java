@@ -2,20 +2,13 @@ package fr.alma.asr.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
 import javax.swing.*;
+
+import fr.alma.asr.gui.tree.PanelArbreCours;
+import fr.alma.asr.gui.tree.PanelArbrePlan;
 
 
 
@@ -31,6 +24,7 @@ import javax.swing.*;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+
 /**
  * Main class for the application
  * Contains method to access all GUI actions
@@ -38,6 +32,9 @@ import javax.swing.*;
  *
  */
 public class MainWindow extends javax.swing.JFrame {
+
+	
+	private static final long serialVersionUID = 658652694660147986L;
 
 	{
 		//Set Look & Feel
@@ -69,7 +66,8 @@ public class MainWindow extends javax.swing.JFrame {
 	private JMenuBar jMenuBar;
 	
 	//Panels list
-	private JTabbedPane tabbedPane;
+	private JTabbedPane tabbedPaneHomeWork;
+	private JTabbedPane tabbedPanePlanCourses;
 	private HomePanel homePanel;
 	private HashMap<String,WorkPanel> workPanelList;	
 	private ToolBarPanel toolBarPannel;
@@ -198,23 +196,30 @@ public class MainWindow extends javax.swing.JFrame {
 				BorderLayout thisLayout = new BorderLayout();
 				this.setTitle("Alma Speech Recognition");
 				getContentPane().setLayout(thisLayout);
+				//TODO maximized
 				this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 				{
 					toolBarPannel = new ToolBarPanel();
 					getContentPane().add(toolBarPannel, BorderLayout.NORTH);
 				}
-				
 				{
-					tabbedPane = new JTabbedPane();
-					getContentPane().add(tabbedPane, BorderLayout.CENTER);
-					tabbedPane.setOpaque(true);
+					tabbedPanePlanCourses = new JTabbedPane();
+					getContentPane().add(tabbedPanePlanCourses, BorderLayout.EAST);
+					tabbedPanePlanCourses.setOpaque(true);
+					tabbedPanePlanCourses.add(new PanelArbreCours());
+					tabbedPanePlanCourses.add(new PanelArbrePlan());
+				}
+				{
+					tabbedPaneHomeWork = new JTabbedPane();
+					getContentPane().add(tabbedPaneHomeWork, BorderLayout.CENTER);
+					
 				}
 				
 				{
 					homePanel = new HomePanel();
-					tabbedPane.add(homePanel, " Home");
-					tabbedPane.setIconAt(0, new ImageIcon("img/home24.png"));
+					tabbedPaneHomeWork.add(homePanel, " Home");
+					tabbedPaneHomeWork.setIconAt(0, new ImageIcon("img/home24.png"));
 					workPanelList = new HashMap<String,WorkPanel>();
 				}
 
@@ -340,8 +345,8 @@ public class MainWindow extends javax.swing.JFrame {
 	 */
 	public void addNewWorkPanel(String name){
 		WorkPanel workPanel = new WorkPanel(this);
-		this.tabbedPane.add(name,workPanel);
-		tabbedPane.setIconAt(tabbedPane.getTabCount()-1, new ImageIcon("img/RSSfolder24.png"));
+		this.tabbedPaneHomeWork.add(name,workPanel);
+		tabbedPaneHomeWork.setIconAt(tabbedPaneHomeWork.getTabCount()-1, new ImageIcon("img/RSSfolder24.png"));
 		this.workPanelList.put(name, workPanel);
 	}
 	
