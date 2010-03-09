@@ -47,7 +47,7 @@ public class WorkPanel extends javax.swing.JPanel {
 					jSplitPane1.add(editPannel, JSplitPane.RIGHT);
 				}
 				{
-					viewPannel = new ViewPanel();
+					viewPannel = ViewPanel.getViewPanel();
 					jSplitPane1.add(viewPannel, JSplitPane.LEFT);
 				}
 			}
