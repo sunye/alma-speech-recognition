@@ -39,7 +39,7 @@ public abstract class Element extends AbstractEntity {
 	private Boolean fichier;
 	/** Dossier conteneur. */
 	@ManyToOne
-	private Dossier dossierConteneur;
+	private Folder dossierConteneur;
 
 	/**
 	 * Constructeur par defaut.
@@ -105,7 +105,7 @@ public abstract class Element extends AbstractEntity {
 	 * Accès au dossier conteneur.
 	 * @return Le dossier conteneur
 	 */
-	public Dossier getDossierConteneur() {
+	public Folder getDossierConteneur() {
 		return dossierConteneur;
 	}
 
@@ -113,7 +113,7 @@ public abstract class Element extends AbstractEntity {
 	 * Change le dossier conteneur.
 	 * @param dossierConteneur Le dossier conteneur
 	 */
-	public void setDossierConteneur(Dossier dossierConteneur) {
+	public void setDossierConteneur(Folder dossierConteneur) {
 		this.dossierConteneur = dossierConteneur;
 		this.setChanged();
 	}

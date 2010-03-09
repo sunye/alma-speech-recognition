@@ -1,7 +1,7 @@
 package fr.alma.asr.dao.impl;
 
 import fr.alma.asr.dao.ElementDao;
-import fr.alma.asr.entities.Dossier;
+import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Element;
 
 import java.util.List;
@@ -20,15 +20,15 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 		Element element = this.find(id);
 		// Suppression des sous-elements d'un projet
 		if (!element.isFile()) {
-			Dossier projet = (Dossier) element;
+			Folder projet = (Folder) element;
 			for (Element contenu : projet.getElements()) {
 				this.delete(contenu.getId());
 			}
 		}
 
 		// Suppression de la reference dans le projet conteneur
-		Dossier conteneur = element.getDossierConteneur();
-		conteneur.removeElements(element);
+		Folder conteneur = element.getDossierConteneur();
+		conteneur.removeElement(element);
 		element.setDossierConteneur(null);
 		this.update(element);
 		this.update(conteneur);
@@ -39,7 +39,7 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Element> findAllOfDossier(Dossier projet) {
+	public List<Element> findAllOfDossier(Folder projet) {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

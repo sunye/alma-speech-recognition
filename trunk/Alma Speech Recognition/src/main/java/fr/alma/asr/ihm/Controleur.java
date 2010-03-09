@@ -1,15 +1,15 @@
 package fr.alma.asr.ihm;
 
-import fr.alma.asr.dao.DossierDao;
+import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.ElementDao;
-import fr.alma.asr.dao.FichierDao;
+import fr.alma.asr.dao.LessonDao;
 import fr.alma.asr.dao.impl.AbstractDaoImpl;
-import fr.alma.asr.dao.impl.DossierDaoImpl;
+import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.dao.impl.ElementDaoImpl;
-import fr.alma.asr.dao.impl.FichierDaoImpl;
-import fr.alma.asr.entities.Dossier;
+import fr.alma.asr.dao.impl.LessonDaoImpl;
+import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Element;
-import fr.alma.asr.entities.Fichier;
+import fr.alma.asr.entities.Lesson;
 
 import java.io.File;
 import java.util.List;
@@ -66,8 +66,8 @@ public final class Controleur {
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:" + chemin);
 		File fichier = new File(chemin + ".h2.db");
 		if (!fichier.exists()) {
-			Dossier dossierRacine = new Dossier("Cours");
-			new DossierDaoImpl().create(dossierRacine);
+			Folder dossierRacine = new Folder("Cours");
+			new FolderDaoImpl().create(dossierRacine);
 		}
 	}
 
@@ -108,8 +108,8 @@ public final class Controleur {
 	 * @param racine la racine de l'arbre.
 	 */
 	public void construireArbreCours(DefaultMutableTreeNode racine) {
-		DossierDao dao = new DossierDaoImpl();
-		Dossier dossierRacine = dao.findDossierRacine();
+		FolderDao dao = new FolderDaoImpl();
+		Folder dossierRacine = dao.findDossierRacine();
 		racine.setUserObject(dossierRacine);
 		construireArbreCoursBis(racine, dossierRacine);
 	}
@@ -119,7 +119,7 @@ public final class Controleur {
 	 * @param racine la racine courante.
 	 * @param dossier le dossier courant.
 	 */
-	private void construireArbreCoursBis(DefaultMutableTreeNode racine, Dossier dossier) {
+	private void construireArbreCoursBis(DefaultMutableTreeNode racine, Folder dossier) {
 		ElementDao dao = new ElementDaoImpl();
 		for (Element elem : dao.findAllOfDossier(dossier)) {
 			DefaultMutableTreeNode rep;
@@ -127,7 +127,7 @@ public final class Controleur {
 				rep = new DefaultMutableTreeNode(elem, false);
 			} else {
 				rep = new DefaultMutableTreeNode(elem);
-				construireArbreCoursBis(rep, (Dossier) elem);
+				construireArbreCoursBis(rep, (Folder) elem);
 			}
 			racine.add(rep);
 		}
@@ -140,8 +140,8 @@ public final class Controleur {
 	public void suppressionElement(DefaultMutableTreeNode node) {
 		ElementDao dao = new ElementDaoImpl();
 		Element element = (Element) node.getUserObject();
-		Dossier dossier = element.getDossierConteneur();
-		dossier.removeElements(element);
+		Folder dossier = element.getDossierConteneur();
+		dossier.removeElement(element);
 		dao.update(dossier);
 		dao.delete(element.getId());
 	}
@@ -153,12 +153,12 @@ public final class Controleur {
 	 * @return l'objet créé
 	 */
 	public Object ajoutFichier(String nom, DefaultMutableTreeNode node) {
-		Fichier file = new Fichier(nom);
-		Dossier dossier = (Dossier) node.getUserObject();
+		Lesson file = new Lesson(nom);
+		Folder dossier = (Folder) node.getUserObject();
 		file.setDossierConteneur(dossier);
 		dossier.addElements(file);
-		new FichierDaoImpl().create(file);
-		new DossierDaoImpl().update(dossier);
+		new LessonDaoImpl().create(file);
+		new FolderDaoImpl().update(dossier);
 		return file;
 	}
 
@@ -169,11 +169,11 @@ public final class Controleur {
 	 * @return l'objet créé
 	 */
 	public Object ajoutDossier(String nom, DefaultMutableTreeNode node) {
-		Dossier folder = new Dossier(nom);
-		Dossier dossier = (Dossier) node.getUserObject();
+		Folder folder = new Folder(nom);
+		Folder dossier = (Folder) node.getUserObject();
 		folder.setDossierConteneur(dossier);
 		dossier.addElements(folder);
-		DossierDao dao = new DossierDaoImpl();
+		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
 		dao.update(dossier);
 		return folder;
@@ -187,8 +187,8 @@ public final class Controleur {
 	 */
 	public void deplacerElement(DefaultMutableTreeNode node, DefaultMutableTreeNode cible, int index) {
 		Element element = (Element) node.getUserObject();
-		Dossier dossierSource = element.getDossierConteneur();
-		Dossier dossierCible = (Dossier) cible.getUserObject();
+		Folder dossierSource = element.getDossierConteneur();
+		Folder dossierCible = (Folder) cible.getUserObject();
 
 		// vérifie si on est plus hors index lors d'une réorganisation par ex
 		if ((index == dossierCible.getElements().size()) && (dossierSource.getId() == dossierCible.getId())) {
@@ -196,7 +196,7 @@ public final class Controleur {
 		}
 
 		System.out.println(index);
-		dossierSource.removeElements(element);
+		dossierSource.removeElement(element);
 		dossierCible.addElementIndex(element, index);
 		element.setDossierConteneur(dossierCible);
 
@@ -222,7 +222,7 @@ public final class Controleur {
 	public void afficherProprietes(DefaultMutableTreeNode node) {
 		Element elem = (Element) node.getUserObject();
 		String chemin = "/";
-		Dossier dossier = elem.getDossierConteneur();
+		Folder dossier = elem.getDossierConteneur();
 		while (dossier != null) {
 			chemin = "/" + dossier.getNom() + chemin;
 			dossier = dossier.getDossierConteneur();
@@ -260,8 +260,8 @@ public final class Controleur {
 	 * @param classerParCreation si la liste doit être classé par ordre de création
 	 * @return la liste des fichiers
 	 */
-	List<Fichier> getListeFichiers(Boolean classerParCreation) {
-		FichierDao dao = new FichierDaoImpl();
+	List<Lesson> getListeFichiers(Boolean classerParCreation) {
+		LessonDao dao = new LessonDaoImpl();
 		return dao.findAll(classerParCreation);
 	}
 

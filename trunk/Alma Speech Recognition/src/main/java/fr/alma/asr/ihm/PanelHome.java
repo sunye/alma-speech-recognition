@@ -6,7 +6,7 @@
 
 package fr.alma.asr.ihm;
 
-import fr.alma.asr.entities.Fichier;
+import fr.alma.asr.entities.Lesson;
 import java.util.List;
 
 /**
@@ -84,8 +84,8 @@ public class PanelHome extends javax.swing.JPanel {
 	}
 
 	private void updateListeFichiers() {
-		List<Fichier> listeFichier = controleur.getListeFichiers(classerParCreation);
-		for (Fichier fichier : listeFichier) {
+		List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
+		for (Lesson fichier : listeFichier) {
 			System.out.println(fichier);
 		}
 	}
