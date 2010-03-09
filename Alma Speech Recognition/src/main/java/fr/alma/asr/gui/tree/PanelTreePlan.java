@@ -6,7 +6,7 @@
 
 package fr.alma.asr.gui.tree;
 
-import fr.alma.asr.ihm.Controleur;
+import fr.alma.asr.gui.Controleur;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -14,10 +14,10 @@ import javax.swing.tree.DefaultTreeModel;
  * Classe de type JPanel pour afficher l'arbre du plan d'un cours.
  * @author Braud Jeremy
  */
-public class PanelArbrePlan extends javax.swing.JPanel {
+public class PanelTreePlan extends javax.swing.JPanel {
 
     /** Creates new form PanelPlan. */
-    public PanelArbrePlan() {
+    public PanelTreePlan() {
 		initialisation();
         initComponents();
     }

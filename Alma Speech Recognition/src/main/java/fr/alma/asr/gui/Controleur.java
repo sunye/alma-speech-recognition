@@ -1,15 +1,20 @@
 package fr.alma.asr.gui;
 
+import fr.alma.asr.gui.tree.DialogProprietes;
 import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.ElementDao;
 import fr.alma.asr.dao.LessonDao;
+import fr.alma.asr.dao.RootDao;
 import fr.alma.asr.dao.impl.AbstractDaoImpl;
 import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.dao.impl.ElementDaoImpl;
 import fr.alma.asr.dao.impl.LessonDaoImpl;
+import fr.alma.asr.dao.impl.RootDaoImpl;
 import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Element;
 import fr.alma.asr.entities.Lesson;
+import fr.alma.asr.entities.Root;
+import fr.alma.asr.entities.Subject;
 
 import java.io.File;
 import java.util.List;
@@ -66,8 +71,10 @@ public final class Controleur {
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:" + chemin);
 		File fichier = new File(chemin + ".h2.db");
 		if (!fichier.exists()) {
-			Folder dossierRacine = new Folder("Cours");
-			new FolderDaoImpl().create(dossierRacine);
+//			Folder dossierRacine = new Folder("Cours");
+//			new FolderDaoImpl().create(dossierRacine);
+			Root racine = new Root("Cours");
+			new RootDaoImpl().create(racine);
 		}
 	}
 
@@ -108,10 +115,13 @@ public final class Controleur {
 	 * @param racine la racine de l'arbre.
 	 */
 	public void construireArbreCours(DefaultMutableTreeNode racine) {
-		FolderDao dao = new FolderDaoImpl();
-		Folder dossierRacine = dao.findDossierRacine();
+		RootDao dao = new RootDaoImpl();
+		Root dossierRacine = dao.findRoot();
 		racine.setUserObject(dossierRacine);
-		construireArbreCoursBis(racine, dossierRacine);
+		for (Subject cours : dossierRacine.getModules()) {
+			DefaultMutableTreeNode noeud = new DefaultMutableTreeNode(cours);
+			construireArbreCoursBis(noeud, cours);
+		}
 	}
 
 	/**

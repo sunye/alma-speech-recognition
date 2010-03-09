@@ -92,4 +92,21 @@ public class Root extends AbstractEntity {
 		this.modules.remove(module);
 	}
 
+	/**
+	 * Getter de l'attribut nom.
+	 * @return nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * Permet un affichage simplifié.
+	 * @return le nom de l'élément
+	 */
+	@Override
+	public String toString() {
+		return this.getNom();
+	}
+
 }

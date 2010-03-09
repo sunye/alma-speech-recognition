@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
-import fr.alma.asr.gui.tree.PanelArbreCours;
-import fr.alma.asr.gui.tree.PanelArbrePlan;
+import fr.alma.asr.gui.tree.PanelTreeCours;
+import fr.alma.asr.gui.tree.PanelTreePlan;
 
 
 
@@ -207,8 +207,8 @@ public class MainWindow extends javax.swing.JFrame {
 					tabbedPanePlanCourses = new JTabbedPane();
 					getContentPane().add(tabbedPanePlanCourses, BorderLayout.EAST);
 					tabbedPanePlanCourses.setOpaque(true);
-					tabbedPanePlanCourses.add(new PanelArbreCours());
-					tabbedPanePlanCourses.add(new PanelArbrePlan());
+					tabbedPanePlanCourses.add(new PanelTreeCours());
+					tabbedPanePlanCourses.add(new PanelTreePlan());
 				}
 				{
 					tabbedPaneHomeWork = new JTabbedPane();

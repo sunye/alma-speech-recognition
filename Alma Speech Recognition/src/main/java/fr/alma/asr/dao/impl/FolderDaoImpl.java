@@ -19,7 +19,7 @@ public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao 
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		String requete = "FROM Dossier WHERE dossierconteneur_id = NULL";
+		String requete = "FROM Folder WHERE dossierconteneur_id = NULL";
 		Folder resultat = (Folder) em.createQuery(requete).getSingleResult();
 
 		tx.commit();

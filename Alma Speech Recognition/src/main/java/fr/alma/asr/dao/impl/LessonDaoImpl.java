@@ -18,7 +18,7 @@ public class LessonDaoImpl extends AbstractDaoImpl<Lesson> implements LessonDao 
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		String requete = "FROM Fichier ORDER BY ";
+		String requete = "FROM Lesson ORDER BY ";
 		if (classerParCreation) {
 			requete += "dateCreation DESC";
 		} else {
