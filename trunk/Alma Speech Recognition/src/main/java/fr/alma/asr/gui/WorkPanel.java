@@ -25,21 +25,12 @@ public class WorkPanel extends javax.swing.JPanel {
 	private JSplitPane jSplitPane1;
 	private EditPanel editPannel;
 	private ViewPanel viewPannel;
-
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new WorkPanel());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
 	
-	public WorkPanel() {
+	private MainWindow mainWindow;
+
+	public WorkPanel(MainWindow mainWindow) {
 		super();
+		this.mainWindow = mainWindow;
 		initGUI();
 	}
 	
@@ -52,7 +43,7 @@ public class WorkPanel extends javax.swing.JPanel {
 				jSplitPane1 = new JSplitPane();
 				this.add(jSplitPane1);
 				{
-					editPannel = new EditPanel();
+					editPannel = new EditPanel(mainWindow);
 					jSplitPane1.add(editPannel, JSplitPane.RIGHT);
 				}
 				{

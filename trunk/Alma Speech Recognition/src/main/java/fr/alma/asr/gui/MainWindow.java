@@ -224,7 +224,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				
-				addNewWorkPanel("Mathématiques");
+				addNewWorkPanel("Mathï¿½matiques");
 				
 			}
 			this.setSize(800, 600);
@@ -262,7 +262,7 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						parametersMenuItem = new JMenuItem();
 						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("Préférences...");
+						parametersMenuItem.setText("Prï¿½fï¿½rences...");
 						parametersMenuItem.addActionListener(new MenuItemListener(this));
 					}
 					{
@@ -340,7 +340,7 @@ public class MainWindow extends javax.swing.JFrame {
 	 * @param name name of the module.
 	 */
 	public void addNewWorkPanel(String name){
-		WorkPanel workPanel = new WorkPanel();
+		WorkPanel workPanel = new WorkPanel(this);
 		this.tabbedPane.add(name,workPanel);
 		tabbedPane.setIconAt(tabbedPane.getTabCount()-1, new ImageIcon("img/RSSfolder24.png"));
 		this.workPanelList.put(name, workPanel);
