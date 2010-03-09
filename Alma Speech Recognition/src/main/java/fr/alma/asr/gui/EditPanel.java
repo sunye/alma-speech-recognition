@@ -40,6 +40,8 @@ import javax.swing.text.html.HTMLEditorKit;
  */
 public class EditPanel extends javax.swing.JPanel {
 
+	private MainWindow mainWindow;
+	
 	private JTextPane textPane;
 	private HTMLEditorKit htmlEditorKit;
 	private HTMLDocument htmlDocument;
@@ -53,9 +55,11 @@ public class EditPanel extends javax.swing.JPanel {
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
 	 */
 
-	public EditPanel() {
+	public EditPanel(MainWindow mainWindow) {
 		super();
+		this.mainWindow = mainWindow;
 		initGUI();
+		
 	}
 
 	private void initGUI() {
@@ -160,15 +164,17 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		if (a != null) {
 			menuText.getjMenuItemCouper().addActionListener(a);
+			mainWindow.getCutMenuItem().setAction(a);
 		}
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		if (a != null) {
 			menuText.getjMenuItemCopier().addActionListener(a);
+			mainWindow.getCopyMenuItem().setAction(a);
 		}
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
 		if (a != null) {
 			menuText.getjMenuItemColler().addActionListener(a);
-
+			mainWindow.getPasteMenuItem().setAction(a);
 		}
 		bar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
