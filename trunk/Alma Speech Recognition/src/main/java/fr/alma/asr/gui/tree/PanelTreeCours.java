@@ -6,7 +6,7 @@
 
 package fr.alma.asr.gui.tree;
 
-import fr.alma.asr.ihm.Controleur;
+import fr.alma.asr.gui.Controleur;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -14,10 +14,10 @@ import javax.swing.tree.DefaultTreeModel;
  * Classe de type JPanel pour afficher l'arbre des cours.
  * @author Braud Jeremy
  */
-public class PanelArbreCours extends javax.swing.JPanel {
+public class PanelTreeCours extends javax.swing.JPanel {
 
     /** Creates new form PanelCours. */
-    public PanelArbreCours() {
+    public PanelTreeCours() {
 		initialisation();
         initComponents();
     }
@@ -44,6 +44,7 @@ public class PanelArbreCours extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(arbreCours);
         arbreCours.setTransferHandler(new MyTransferHandler());
+        arbreCours.setCellRenderer(new MyTreeRenderer());
 
         DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();
         treeModel.setAsksAllowsChildren(true);
@@ -149,9 +150,9 @@ public class PanelArbreCours extends javax.swing.JPanel {
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			String nom;
 			if (this.isFile) {
-				nom = new DialogNouvelElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
+				nom = new DialogNewElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
 			} else {
-				nom = new DialogNouvelElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
+				nom = new DialogNewElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
 			}
 			if (nom != null) {
 				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
@@ -206,9 +207,14 @@ public class PanelArbreCours extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 
+	/** Le noeud racine. */
 	private DefaultMutableTreeNode racineCours;
+	/** Le controleur. */
 	private Controleur controleur;
 
+	/**
+	 * Initialisation du panel.
+	 */
 	private void initialisation() {
 		this.controleur = Controleur.getInstance();
 		this.racineCours = new DefaultMutableTreeNode("Cours");

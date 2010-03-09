@@ -4,7 +4,7 @@
  * Created on 7 mars 2010, 15:52:55
  */
 
-package fr.alma.asr.ihm;
+package fr.alma.asr.gui.tree;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

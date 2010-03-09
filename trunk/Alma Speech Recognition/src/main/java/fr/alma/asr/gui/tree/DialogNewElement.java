@@ -10,7 +10,7 @@ package fr.alma.asr.gui.tree;
  * Classe de type JDialog pour l'ajout d'un élément.
  * @author Braud Jeremy
  */
-public class DialogNouvelElement extends javax.swing.JDialog {
+public class DialogNewElement extends javax.swing.JDialog {
 	
 	/**
 	 * Creates new form DialogNouvelElement.
@@ -18,7 +18,7 @@ public class DialogNouvelElement extends javax.swing.JDialog {
 	 * @param titre le titre de la fenetre
 	 * @param label le vtexte de la fenetre
 	 */
-    public DialogNouvelElement(java.awt.Frame parent, String titre, String label) {
+    public DialogNewElement(java.awt.Frame parent, String titre, String label) {
         super(parent, true);
 		setLocationRelativeTo(null);
         initComponents();
