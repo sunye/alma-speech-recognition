@@ -48,7 +48,7 @@ public class ViewPanel extends javax.swing.JPanel {
 	}
 	
 	
-	public ViewPanel getViewPanel(){
+	public static ViewPanel getViewPanel(){
 		if (viewPanelInstance ==null){
 			viewPanelInstance = new ViewPanel();
 		}
