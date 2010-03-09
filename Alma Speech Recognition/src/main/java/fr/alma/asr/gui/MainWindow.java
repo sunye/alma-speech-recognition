@@ -224,7 +224,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				
-				addNewWorkPanel("Mathï¿½matiques");
+				addNewWorkPanel("Mathématiques");
 				
 			}
 			this.setSize(800, 600);
@@ -262,7 +262,7 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						parametersMenuItem = new JMenuItem();
 						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("Prï¿½fï¿½rences...");
+						parametersMenuItem.setText("Préférences...");
 						parametersMenuItem.addActionListener(new MenuItemListener(this));
 					}
 					{
