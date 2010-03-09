@@ -6,8 +6,9 @@
 
 package fr.alma.asr.ihm;
 
-import fr.alma.asr.ihm.tree.PanelArbreCours;
-import fr.alma.asr.ihm.tree.PanelArbrePlan;
+import fr.alma.asr.gui.tree.PanelArbreCours;
+import fr.alma.asr.gui.tree.PanelArbrePlan;
+
 import javax.swing.ImageIcon;
 
 import javax.swing.tree.DefaultMutableTreeNode;

@@ -86,4 +86,6 @@ public class Moteur {
 		return Java2spchroot.AdaptVocabDialog() == 0;
 	}
 	
+	
+	
 }

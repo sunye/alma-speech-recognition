@@ -4,7 +4,7 @@
  * Created on 9 févr. 2010, 09:57:13
  */
 
-package fr.alma.asr.ihm.tree;
+package fr.alma.asr.gui.tree;
 
 import fr.alma.asr.ihm.Controleur;
 import javax.swing.tree.DefaultMutableTreeNode;

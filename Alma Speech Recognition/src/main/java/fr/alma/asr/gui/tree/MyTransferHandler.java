@@ -1,4 +1,4 @@
-package fr.alma.asr.ihm.tree;
+package fr.alma.asr.gui.tree;
 
 import fr.alma.asr.ihm.Controleur;
 import java.awt.Component;
