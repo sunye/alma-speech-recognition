@@ -74,11 +74,11 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelClasser;
     // End of variables declaration//GEN-END:variables
 
-	private Controleur controleur;
+	private Controller controleur;
 	private Boolean classerParCreation;
 
 	private void initialisation() {
-		this.controleur = Controleur.getInstance();
+		this.controleur = Controller.getInstance();
 		this.classerParCreation = Boolean.FALSE;
 		updateListeFichiers();
 	}
