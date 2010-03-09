@@ -6,7 +6,7 @@
 
 package fr.alma.asr.gui.tree;
 
-import fr.alma.asr.gui.Controleur;
+import fr.alma.asr.gui.Controller;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -160,7 +160,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					Object element = controleur.ajoutFichier(nom, node);
 					node.add(new DefaultMutableTreeNode(element, false));
 				} else {
-					Object element = controleur.ajoutDossier(nom, node);
+					Object element = controleur.ajoutFolder(nom, node);
 					node.add(new DefaultMutableTreeNode(element));
 				}
 				model.nodeChanged(node);
@@ -210,13 +210,13 @@ public class PanelTreeCours extends javax.swing.JPanel {
 	/** Le noeud racine. */
 	private DefaultMutableTreeNode racineCours;
 	/** Le controleur. */
-	private Controleur controleur;
+	private Controller controleur;
 
 	/**
 	 * Initialisation du panel.
 	 */
 	private void initialisation() {
-		this.controleur = Controleur.getInstance();
+		this.controleur = Controller.getInstance();
 		this.racineCours = new DefaultMutableTreeNode("Cours");
 		controleur.construireArbreCours(this.racineCours);
 	}

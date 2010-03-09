@@ -6,7 +6,7 @@
 
 package fr.alma.asr.gui.tree;
 
-import fr.alma.asr.gui.Controleur;
+import fr.alma.asr.gui.Controller;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -57,10 +57,10 @@ public class PanelTreePlan extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
 	private DefaultMutableTreeNode racinePlan;
-	private Controleur controleur;
+	private Controller controleur;
 
 	private void initialisation() {
-		this.controleur = Controleur.getInstance();
+		this.controleur = Controller.getInstance();
 		this.racinePlan = new DefaultMutableTreeNode("Plan");
 		controleur.construireArbrePlan(this.racinePlan);
 	}
