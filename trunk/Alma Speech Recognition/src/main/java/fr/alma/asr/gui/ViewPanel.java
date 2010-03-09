@@ -23,6 +23,10 @@ import javax.swing.JTextArea;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class ViewPanel extends javax.swing.JPanel {
+	
+	
+	public static ViewPanel viewPanelInstance;
+	
 	private JTextArea textArea;
 	private JScrollPane jScrollPane1;
 
@@ -38,9 +42,17 @@ public class ViewPanel extends javax.swing.JPanel {
 		frame.setVisible(true);
 	}
 	
-	public ViewPanel() {
+	private ViewPanel() {
 		super();
 		initGUI();
+	}
+	
+	
+	public ViewPanel getViewPanel(){
+		if (viewPanelInstance ==null){
+			viewPanelInstance = new ViewPanel();
+		}
+		return viewPanelInstance;
 	}
 	
 	private void initGUI() {
