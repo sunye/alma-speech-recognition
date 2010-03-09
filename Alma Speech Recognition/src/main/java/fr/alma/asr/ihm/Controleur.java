@@ -2,6 +2,7 @@ package fr.alma.asr.ihm;
 
 import fr.alma.asr.dao.DossierDao;
 import fr.alma.asr.dao.ElementDao;
+import fr.alma.asr.dao.FichierDao;
 import fr.alma.asr.dao.impl.AbstractDaoImpl;
 import fr.alma.asr.dao.impl.DossierDaoImpl;
 import fr.alma.asr.dao.impl.ElementDaoImpl;
@@ -11,6 +12,7 @@ import fr.alma.asr.entities.Element;
 import fr.alma.asr.entities.Fichier;
 
 import java.io.File;
+import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -21,16 +23,23 @@ public final class Controleur {
 
 	/** L'instance du controleur. */
 	private static Controleur instance = new Controleur();
-	/** L'instance du splash screen. */
-	private static SplashScreen splash;
 
 	/**
 	 * Constructeur privé.
 	 */
 	private Controleur() {
+		connexion();
+	}
+	
+	/** L'instance du splash screen. */
+	private static SplashScreen splash;
+	
+	/**
+	 * Affiche le splash screen.
+	 */
+	public static void debutChargement() {
 		splash = new SplashScreen(null, false);
 		splash.setVisible(true);
-		connexion();
 	}
 
 	/**
@@ -38,6 +47,7 @@ public final class Controleur {
 	 */
 	public static void chargementTermine() {
 		splash.setVisible(false);
+		setInfo("Chargement terminé");
 	}
 
 	/**
@@ -66,6 +76,27 @@ public final class Controleur {
 	 */
 	public void deconnexion() {
 		AbstractDaoImpl.deconnexion();
+	}
+
+	/* ---------------------------------------------------------*/
+	/* ---------------Gestion du panel d'info-------------------*/
+	/* ---------------------------------------------------------*/
+
+	/** Le panel d'info. */
+	private static PanelInfo panelInfo;
+
+	/**
+	 * Enregistrement du panel d'info.
+	 * @param info le PanelInfo
+	 */
+	public static void setPanelInfo(PanelInfo info) {
+		panelInfo = info;
+	}
+
+	public static void setInfo(String information) {
+		if (panelInfo != null) {
+			panelInfo.setInfo(information);
+		}
 	}
 
 	/* ---------------------------------------------------------*/
@@ -109,6 +140,9 @@ public final class Controleur {
 	public void suppressionElement(DefaultMutableTreeNode node) {
 		ElementDao dao = new ElementDaoImpl();
 		Element element = (Element) node.getUserObject();
+		Dossier dossier = element.getDossierConteneur();
+		dossier.removeElements(element);
+		dao.update(dossier);
 		dao.delete(element.getId());
 	}
 
@@ -122,6 +156,7 @@ public final class Controleur {
 		Fichier file = new Fichier(nom);
 		Dossier dossier = (Dossier) node.getUserObject();
 		file.setDossierConteneur(dossier);
+		dossier.addElements(file);
 		new FichierDaoImpl().create(file);
 		new DossierDaoImpl().update(dossier);
 		return file;
@@ -137,10 +172,38 @@ public final class Controleur {
 		Dossier folder = new Dossier(nom);
 		Dossier dossier = (Dossier) node.getUserObject();
 		folder.setDossierConteneur(dossier);
+		dossier.addElements(folder);
 		DossierDao dao = new DossierDaoImpl();
 		dao.create(folder);
 		dao.update(dossier);
 		return folder;
+	}
+
+	/**
+	 * Déplace un fichier dans les dossiers.
+	 * @param node le noeud à déplacer
+	 * @param parent la cible du noeud
+	 * @param index l'index à laquel on veut insérer le noeud
+	 */
+	public void deplacerElement(DefaultMutableTreeNode node, DefaultMutableTreeNode cible, int index) {
+		Element element = (Element) node.getUserObject();
+		Dossier dossierSource = element.getDossierConteneur();
+		Dossier dossierCible = (Dossier) cible.getUserObject();
+
+		// vérifie si on est plus hors index lors d'une réorganisation par ex
+		if ((index == dossierCible.getElements().size()) && (dossierSource.getId() == dossierCible.getId())) {
+			index = index - 1;
+		}
+
+		System.out.println(index);
+		dossierSource.removeElements(element);
+		dossierCible.addElementIndex(element, index);
+		element.setDossierConteneur(dossierCible);
+
+		ElementDao dao = new ElementDaoImpl();
+		dao.update(element);
+		dao.update(dossierSource);
+		dao.update(dossierCible);
 	}
 
 	/**
@@ -157,8 +220,18 @@ public final class Controleur {
 	 * @param node le noeud sélectionné
 	 */
 	public void afficherProprietes(DefaultMutableTreeNode node) {
-		//TODO Afficher les propriétés d'un élément
-		System.out.println("Propriétés...");
+		Element elem = (Element) node.getUserObject();
+		String chemin = "/";
+		Dossier dossier = elem.getDossierConteneur();
+		while (dossier != null) {
+			chemin = "/" + dossier.getNom() + chemin;
+			dossier = dossier.getDossierConteneur();
+		}
+		if (elem.isFile()) {
+			new DialogProprietes(null, elem.getNom(), "Fichier", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
+		} else {
+			new DialogProprietes(null, elem.getNom(), "Dossier", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
+		}
 	}
 
 	/**
@@ -176,6 +249,20 @@ public final class Controleur {
 	 */
 	public void construireArbrePlan(DefaultMutableTreeNode racine) {
 		
+	}
+
+	/* ---------------------------------------------------------*/
+	/* --------------Gestion du panel d'acceuil-----------------*/
+	/* ---------------------------------------------------------*/
+
+	/**
+	 * Accède à la liste des fichiers.
+	 * @param classerParCreation si la liste doit être classé par ordre de création
+	 * @return la liste des fichiers
+	 */
+	List<Fichier> getListeFichiers(Boolean classerParCreation) {
+		FichierDao dao = new FichierDaoImpl();
+		return dao.findAll(classerParCreation);
 	}
 
 }

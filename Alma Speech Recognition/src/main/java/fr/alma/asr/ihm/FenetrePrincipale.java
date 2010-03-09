@@ -9,15 +9,17 @@ package fr.alma.asr.ihm;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Classe gérant la fenetre principale.
  * @author Braud Jeremy
  */
 public class FenetrePrincipale extends javax.swing.JFrame {
 
-    /** Creates new form FenetrePrincipale */
+    /** Creates new form FenetrePrincipale. */
     public FenetrePrincipale() {
+		Controleur.debutChargement();
         initComponents();
 		initialisation();
+		Controleur.chargementTermine();
     }
 
     /** This method is called from within the constructor to
@@ -43,6 +45,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMA Speech!");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(600, 400));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         panelCentre.setLayout(new java.awt.BorderLayout());
 
@@ -63,6 +67,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         toolBar.add(jButton1);
 
         panelCentre.add(toolBar, java.awt.BorderLayout.NORTH);
+
+        getContentPane().add(panelCentre);
 
         menuFichier.setText("Fichier");
 
@@ -94,17 +100,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,21 +108,22 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 	}//GEN-LAST:event_itemQuitterActionPerformed
 
 	private void itemAProposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAProposActionPerformed
-		String mess = "Instrumentation de la méthode GTD!\n";
-        mess += "\nProgrammé par :\n" +
-                "    -Braud Jérémy\n" +
-				"    -Bremard Nicolas\n" +
-				"    -Lucas Boris\n" +
-                "    -Krommenhoek Cédric\n\n" +
-                "Contacts :\n" +
-                "     prenom.nom@etu.univ-nantes.fr";
+		String mess = "<html><body>Speech root!<br><br>" +
+				"Programme de reconnaissance vocale destiné aux personnes malentendente,<br>" +
+				"basé sur le moteur de reconnaissance vocal speech root d'IBM.<br><br>";
+        mess += "Programmé par :<br>" +
+                "    -<a href=\"http://www.google.fr\">Braud Jérémy</a><br>" +
+				"    -<a href=\"http://www.google.fr\">Hervouet Gaetan</a><br>" +
+                "    -<a href=\"http://www.google.fr\">Krommenhoek Cédric</a><br>" +
+				"    -<a href=\"http://www.google.fr\">Levin Damien</a>" +
+				"</body></html>";
         JOptionPane.showMessageDialog(null, mess, "A propos", JOptionPane.INFORMATION_MESSAGE);
 	}//GEN-LAST:event_itemAProposActionPerformed
 
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 		new FenetrePrincipale().setVisible(true);
     }
 
@@ -150,6 +146,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 	private void initialisation() {
 		setLocationRelativeTo(null);
 
+		PanelInfo panelInfo = new PanelInfo();
+		getContentPane().add(panelInfo);
+
 		PanelCentral panelCentral = new PanelCentral();
 		this.panelCentre.add(panelCentral, java.awt.BorderLayout.CENTER);
 
@@ -162,8 +161,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 		} catch (Exception e) {
 			System.out.println("LookAndFeel non supporté.");
 		}
-
-		Controleur.chargementTermine();
 	}
 
 }

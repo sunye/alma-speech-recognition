@@ -58,7 +58,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			{
-				this.setTitle("Paramètres");
+				this.setTitle("ParamÃ¨tres");
 				this.setModal(true);
 				this.setLocationRelativeTo(null);
 				
@@ -76,7 +76,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 					{
 						labelWorkPlanPanel = new JLabel();
 						guiParamPane.add(labelWorkPlanPanel, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-						labelWorkPlanPanel.setText("Position du plan par défaut");
+						labelWorkPlanPanel.setText("Position du plan par dÃ©faut");
 					}
 					{
 						jLabel1 = new JLabel();

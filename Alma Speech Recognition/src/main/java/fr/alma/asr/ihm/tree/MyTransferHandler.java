@@ -1,5 +1,6 @@
 package fr.alma.asr.ihm.tree;
 
+import fr.alma.asr.ihm.Controleur;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -50,8 +51,8 @@ public class MyTransferHandler extends TransferHandler {
 					if (node.isNodeChild(parent)) {
 						return false;
 					}
-//					Controleur controleur = Controleur.getInstance();
-//					controleur.deplacerElement(node, parent, index);
+					Controleur controleur = Controleur.getInstance();
+					controleur.deplacerElement(node, parent, index);
 					
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 					model.removeNodeFromParent(node);
@@ -60,7 +61,6 @@ public class MyTransferHandler extends TransferHandler {
 						index = parent.getChildCount();
 					}
 					model.insertNodeInto(node, parent, index);
-//					controleur.ajoutElement(node, parent, index);
 
 					TreePath newPath = path.pathByAddingChild(node);
 					tree.makeVisible(newPath);

@@ -1,7 +1,7 @@
 package fr.alma.asr.entities;
 
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +19,7 @@ public class Dossier extends Element {
 	
 	/** Elements. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dossierConteneur")
-	private Collection<Element> elements;
+	private List<Element> elements;
 	
 	/**
 	 * Constructeur par défaut.
@@ -41,7 +41,7 @@ public class Dossier extends Element {
 	 * Getter de l'attribut elements.
 	 * @return elements 
 	 */
-	public Collection<Element> getElements() {
+	public List<Element> getElements() {
 		return this.elements;
 	}
 	
@@ -49,7 +49,7 @@ public class Dossier extends Element {
 	 * Setter de l'attribut elements.
 	 * @param elements la collection d'elements
 	 */
-	public void setElements(Collection<Element> elements) {
+	public void setElements(LinkedList<Element> elements) {
 		this.elements = elements;
 		this.setChanged();
 	}
@@ -60,6 +60,16 @@ public class Dossier extends Element {
 	 */
 	public void addElements(Element element){
 		this.elements.add(element);
+		this.setChanged();
+	}
+
+	/**
+	 * Methode permettant d'ajouter des elements à un index donné.
+	 * @param element l'élément ajouté
+	 * @param index l'index
+	 */
+	public void addElementIndex(Element element, int index) {
+		this.elements.add(index, element);
 		this.setChanged();
 	}
 	

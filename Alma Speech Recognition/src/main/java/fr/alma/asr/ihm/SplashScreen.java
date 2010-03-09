@@ -12,7 +12,11 @@ package fr.alma.asr.ihm;
  */
 public class SplashScreen extends javax.swing.JDialog {
 
-    /** Creates new form JSplashScreen */
+    /**
+	 * Creates new form JSplashScreen.
+	 * @param parent la frame parent
+	 * @param modal la modalité
+	 */
     public SplashScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 		setLocationRelativeTo(parent);
@@ -39,8 +43,10 @@ public class SplashScreen extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setUndecorated(true);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/load.gif"))); // NOI18N
         jLabel1.setText("Chargement...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -64,22 +70,11 @@ public class SplashScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+	 * The main function.
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-            public void run() {
-                SplashScreen dialog = new SplashScreen(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-					@Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    public static void main(String[] args) {
+		new SplashScreen(null, true).setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

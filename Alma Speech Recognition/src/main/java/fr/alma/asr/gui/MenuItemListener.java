@@ -16,7 +16,7 @@ public class MenuItemListener implements ActionListener {
 		
 		JMenuItem source = (JMenuItem)evt.getSource();
 		
-		if(source.getText().equals("Préférences...")){
+		if(source.getText().equals("PrÃ©fÃ©rences...")){
 			main.showParamDialog();
 		}
 		else if(source.getText().equals("Quitter")){
