@@ -3,12 +3,21 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.HashMap;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
+import fr.alma.asr.gui.listener.MenuItemListener;
 import fr.alma.asr.gui.tree.PanelTreeCours;
 import fr.alma.asr.gui.tree.PanelTreePlan;
+
+
 
 
 
@@ -35,7 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 	
 	private static final long serialVersionUID = 658652694660147986L;
-
+	private static MainWindow instance;
 	{
 		//Set Look & Feel
 		try {
@@ -45,80 +54,38 @@ public class MainWindow extends javax.swing.JFrame {
 		}
 	}
 
-
 	private JMenuItem helpMenuItem;
 	private JMenu jMenuHelp;
 	private JMenuItem deleteMenuItem;
-	private JSeparator jSeparator1;
 	private JMenuItem pasteMenuItem;
 	private JMenuItem copyMenuItem;
 	private JMenuItem cutMenuItem;
 	private JMenu jMenuEdition;
-	private JSeparator jSeparator2;
 	private JMenuItem closeFileMenuItem;
 	private JMenuItem saveAsMenuItem;
 	private JMenuItem saveMenuItem;
-	private StatusPanel statusPannel;
 	private JMenuItem openFileMenuItem;
 	private JMenuItem newFileMenuItem;
 	private JMenuItem parametersMenuItem;
 	private JMenu jMenuFile;
 	private JMenuBar jMenuBar;
+
 	
 	//Panels list
 	private JTabbedPane tabbedPaneHomeWork;
 	private JTabbedPane tabbedPanePlanCourses;
-	private HomePanel homePanel;
-	private HashMap<String,WorkPanel> workPanelList;	
+	private HomePanel homePanel;	
 	private ToolBarPanel toolBarPannel;
 	private StatusPanel statusPanel;
+	private JSplitPane splitPanel;
 	
 	
 	//Dialogs
 	private ParametersDialog paramDialog;
-	
-	/*Parameters variables*/
-	private String workPlanPosition = "right";
-	private boolean workShowPlan = true;
-	private boolean workShowCourses =true;
-	
-	
-	
-	/*Getters and setters*/
-	
-	//Parameters
-	public String getWorkPlanPosition() {
-		return workPlanPosition;
-	}
-
-
-	public void setWorkPlanPosition(String workPlanPosition) {
-		this.workPlanPosition = workPlanPosition;
-	}
-
-
-	public boolean isWorkShowPlan() {
-		return workShowPlan;
-	}
-
-
-	public void setWorkShowPlan(boolean workShowPlan) {
-		this.workShowPlan = workShowPlan;
-	}
-
-
-	public boolean isWorkShowCourses() {
-		return workShowCourses;
-	}
-
-
-	public void setWorkShowCourses(boolean workShowCourses) {
-		this.workShowCourses = workShowCourses;
-	}
 
 	
 	
-	//GUI
+	//---------------------------------- Getters and setters ----------------------------------
 	
 	public JMenuItem getPasteMenuItem() {
 		return pasteMenuItem;
@@ -189,7 +156,42 @@ public class MainWindow extends javax.swing.JFrame {
 		this.newFileMenuItem = newFileMenuItem;
 	}
 
+	public ParametersDialog getParamDialog() {
+		return paramDialog;
+	}
+	public JTabbedPane getTabbedPaneHomeWork() {
+		return tabbedPaneHomeWork;
+	}
 
+
+	public void setTabbedPaneHomeWork(JTabbedPane tabbedPaneHomeWork) {
+		this.tabbedPaneHomeWork = tabbedPaneHomeWork;
+	}
+
+
+	public JTabbedPane getTabbedPanePlanCourses() {
+		return tabbedPanePlanCourses;
+	}
+
+
+	public void setTabbedPanePlanCourses(JTabbedPane tabbedPanePlanCourses) {
+		this.tabbedPanePlanCourses = tabbedPanePlanCourses;
+	}
+
+	public StatusPanel getStatusPanel() {
+		return statusPanel;
+	}
+
+
+	public void setStatusPanel(StatusPanel statusPanel) {
+		this.statusPanel = statusPanel;
+	}
+	
+
+	
+	/**
+	 * Main method which build interface
+	 */
 	private void initGUI() {
 		try {
 			{
@@ -197,203 +199,195 @@ public class MainWindow extends javax.swing.JFrame {
 				this.setTitle("Alma Speech Recognition");
 				getContentPane().setLayout(thisLayout);
 				//TODO maximized
-				this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+				//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				
+				/*----------------------------------TOOLBAR CREATION-------------------------------------------*/
 				{
 					toolBarPannel = new ToolBarPanel();
 					getContentPane().add(toolBarPannel, BorderLayout.NORTH);
 				}
 				{
+					jMenuBar = new JMenuBar();
+					setJMenuBar(jMenuBar);
+					{
+						jMenuFile = new JMenu();
+						jMenuBar.add(jMenuFile);
+						jMenuFile.setText("Fichier");
+						{
+							newFileMenuItem = new JMenuItem();
+							jMenuFile.add(newFileMenuItem);
+							newFileMenuItem.setText("Nouveau cours");
+						}
+						{
+							openFileMenuItem = new JMenuItem();
+							jMenuFile.add(openFileMenuItem);
+							openFileMenuItem.setText("Ouvrir");
+						}
+						{
+							saveMenuItem = new JMenuItem();
+							jMenuFile.add(saveMenuItem);
+							saveMenuItem.setText("Enregistrer");
+						}
+						{
+							saveAsMenuItem = new JMenuItem();
+							jMenuFile.add(saveAsMenuItem);
+							saveAsMenuItem.setText("Enregistrer sous...");
+						}
+						{
+							jMenuFile.add(new JSeparator());
+						}
+						{
+							closeFileMenuItem = new JMenuItem();
+							jMenuFile.add(closeFileMenuItem);
+							closeFileMenuItem.setText("Quitter");
+							closeFileMenuItem.addActionListener(new MenuItemListener());
+						}
+					}
+					{
+						jMenuEdition = new JMenu();
+						jMenuBar.add(jMenuEdition);
+						jMenuEdition.setText("Edition");
+						{
+							cutMenuItem = new JMenuItem();
+							jMenuEdition.add(cutMenuItem);
+							cutMenuItem.setText("Couper");
+						}
+						{
+							copyMenuItem = new JMenuItem();
+							jMenuEdition.add(copyMenuItem);
+							copyMenuItem.setText("Copier");
+						}
+						{
+							pasteMenuItem = new JMenuItem();
+							jMenuEdition.add(pasteMenuItem);
+							pasteMenuItem.setText("Coller");
+						}
+						{
+							jMenuEdition.add(new JSeparator());
+						}
+						{
+							deleteMenuItem = new JMenuItem();
+							jMenuEdition.add(deleteMenuItem);
+							deleteMenuItem.setText("Supprimer");
+						}
+						{
+							jMenuEdition.add(new JSeparator());
+						}
+						{
+							parametersMenuItem = new JMenuItem();
+							jMenuEdition.add(parametersMenuItem);
+							parametersMenuItem.setText("Préférences...");
+							parametersMenuItem.addActionListener(new MenuItemListener());
+						}
+					}
+					{
+						jMenuHelp = new JMenu();
+						jMenuBar.add(jMenuHelp);
+						jMenuHelp.setText("Aide");
+						{
+							helpMenuItem = new JMenuItem();
+							jMenuHelp.add(helpMenuItem);
+							helpMenuItem.setText("A propos");
+						}
+						{
+							jMenuHelp.add(new JSeparator());
+						}
+						{
+							helpMenuItem = new JMenuItem();
+							jMenuHelp.add(helpMenuItem);
+							helpMenuItem.setText("Aide");
+						}
+					}
+				}
+				
+				
+				/*----------------------------------Plan,Courses,Work,Home CREATION-------------------------------------------*/
+				{
+					splitPanel = new JSplitPane();
+					getContentPane().add(splitPanel, BorderLayout.CENTER);
+				}
+				{
 					tabbedPanePlanCourses = new JTabbedPane();
-					getContentPane().add(tabbedPanePlanCourses, BorderLayout.EAST);
+					splitPanel.add(tabbedPanePlanCourses, JSplitPane.LEFT);
 					tabbedPanePlanCourses.setOpaque(true);
-					tabbedPanePlanCourses.add(new PanelTreeCours());
-					tabbedPanePlanCourses.add(new PanelTreePlan());
+					tabbedPanePlanCourses.add("Cours", new PanelTreeCours());
+					tabbedPanePlanCourses.setIconAt(0, new ImageIcon(getClass().getResource("/icones/course24.png")));
+					tabbedPanePlanCourses.add("Plan", new PanelTreePlan());
+					tabbedPanePlanCourses.setIconAt(1, new ImageIcon(getClass().getResource("/icones/doc24.png")));
 				}
 				{
 					tabbedPaneHomeWork = new JTabbedPane();
-					getContentPane().add(tabbedPaneHomeWork, BorderLayout.CENTER);
-					
+					splitPanel.add(tabbedPaneHomeWork,JSplitPane.RIGHT);
 				}
-				
 				{
 					homePanel = new HomePanel();
 					tabbedPaneHomeWork.add(homePanel, " Home");
-					tabbedPaneHomeWork.setIconAt(0, new ImageIcon("img/home24.png"));
-					workPanelList = new HashMap<String,WorkPanel>();
+					tabbedPaneHomeWork.setIconAt(0, new ImageIcon(getClass().getResource("/icones/home24.png")));
 				}
-
 				{
 					statusPanel = new StatusPanel();
-					getContentPane().add(statusPanel, BorderLayout.SOUTH);
-					
+					getContentPane().add(statusPanel, BorderLayout.SOUTH);	
 				}
-							
-				
 			}
 			this.setSize(900, 700);
-			{
-				jMenuBar = new JMenuBar();
-				setJMenuBar(jMenuBar);
-				{
-					jMenuFile = new JMenu();
-					jMenuBar.add(jMenuFile);
-					jMenuFile.setText("Fichier");
-					{
-						newFileMenuItem = new JMenuItem();
-						jMenuFile.add(newFileMenuItem);
-						newFileMenuItem.setText("Nouveau cours");
-					}
-					{
-						openFileMenuItem = new JMenuItem();
-						jMenuFile.add(openFileMenuItem);
-						openFileMenuItem.setText("Ouvrir");
-					}
-					{
-						saveMenuItem = new JMenuItem();
-						jMenuFile.add(saveMenuItem);
-						saveMenuItem.setText("Enregistrer");
-					}
-					{
-						saveAsMenuItem = new JMenuItem();
-						jMenuFile.add(saveAsMenuItem);
-						saveAsMenuItem.setText("Enregistrer sous...");
-					}
-					{
-						jSeparator1 = new JSeparator();
-						jMenuFile.add(jSeparator1);
-					}
-					{
-						parametersMenuItem = new JMenuItem();
-						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("Préférences...");
-						parametersMenuItem.addActionListener(new MenuItemListener(this));
-					}
-					{
-						jSeparator2 = new JSeparator();
-						jMenuFile.add(jSeparator2);
-					}
-					{
-						closeFileMenuItem = new JMenuItem();
-						jMenuFile.add(closeFileMenuItem);
-						closeFileMenuItem.setText("Quitter");
-						closeFileMenuItem.addActionListener(new MenuItemListener(this));
-					}
-				}
-				{
-					jMenuEdition = new JMenu();
-					jMenuBar.add(jMenuEdition);
-					jMenuEdition.setText("Edition");
-					{
-						cutMenuItem = new JMenuItem();
-						jMenuEdition.add(cutMenuItem);
-						cutMenuItem.setText("Couper");
-					}
-					{
-						copyMenuItem = new JMenuItem();
-						jMenuEdition.add(copyMenuItem);
-						copyMenuItem.setText("Copier");
-					}
-					{
-						pasteMenuItem = new JMenuItem();
-						jMenuEdition.add(pasteMenuItem);
-						pasteMenuItem.setText("Coller");
-					}
-					{
-						jMenuEdition.add(new JSeparator());
-					}
-					{
-						deleteMenuItem = new JMenuItem();
-						jMenuEdition.add(deleteMenuItem);
-						deleteMenuItem.setText("Supprimer");
-					}
-				}
-				{
-					jMenuHelp = new JMenu();
-					jMenuBar.add(jMenuHelp);
-					jMenuHelp.setText("Aide");
-					{
-						helpMenuItem = new JMenuItem();
-						jMenuHelp.add(helpMenuItem);
-						helpMenuItem.setText("A propos");
-					}
-					{
-						jMenuHelp.add(jSeparator1);
-					}
-					{
-						helpMenuItem = new JMenuItem();
-						jMenuHelp.add(helpMenuItem);
-						helpMenuItem.setText("Aide");
-					}
-				}
-				
-				paramDialog = new ParametersDialog(this);
-				addNewWorkPanel("Mathématiques");
-				addNewWorkPanel("Mathématiquessd");
-			}
-			
-
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	//TODO a passer dans controller
 	/**
 	 * Add a work panel as a new tab.
 	 * @param name name of the module.
 	 */
 	public void addNewWorkPanel(String name){
 		WorkPanel workPanel = new WorkPanel(this);
-		this.tabbedPaneHomeWork.add(name,workPanel);
-		tabbedPaneHomeWork.setIconAt(tabbedPaneHomeWork.getTabCount()-1, new ImageIcon("img/RSSfolder24.png"));
-		this.workPanelList.put(name, workPanel);
-	}
-	
-	
-	/**
-	 * Display text in status bar
-	 * @param text
-	 */
-	public void setLastAction(String text){
-		this.statusPannel.setStatus(text);
-	}
-		
-	/**
-	 * 
-	 */
-	public void showParamDialog(){
-		paramDialog.setVisible(true);
+		tabbedPaneHomeWork.add(name,workPanel);
+	    tabbedPaneHomeWork.setIconAt(tabbedPaneHomeWork.getTabCount()-1, new ImageIcon(getClass().getResource("/icones/RSSfolder24.png")));
+		//workPanelList.put(name, workPanel);
 	}
 
-	/**
-	 * Print text on the view panel
-	 * @param msg : Text to show in the window
-	 */
-	public void showText(String msg){
-		JTextArea txtArea = ViewPanel.getViewPanel().getViewTextArea();
-		txtArea.setText(txtArea.getText()+ "\n" + msg);
-	}
-	
+
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
 	public static void main(String[] args) {
+		Controller.debutChargement();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainWindow inst = new MainWindow("Alma Speech Recognition");
+								
+				MainWindow inst = MainWindow.getInstance();
 				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 				inst.setLocation((screen.width - inst.getSize().width)/2,(screen.height - inst.getSize().height)/2);
 				inst.setLocationRelativeTo(null);
+				Controller.chargementTermine();
 				inst.setVisible(true);
+
+				Controller.addNewWorkPanel("Mathématiques");
+				Controller.addNewWorkPanel("SVT");
 			}
 		});
 	}
 	
-	public MainWindow(String title) {
-		super(title);
+	/**
+	 * Singleton pattern
+	 * @return Return MainWindow isntance
+	 */
+	public static MainWindow getInstance(){
+		if(instance==null){
+			instance = new MainWindow("Alma Speech Recognition");
+		}
+		return instance;
+	}
+	/**
+	 * Private constructor
+	 * @param title Frame title
+	 */
+	private MainWindow(String title) {
+		super(title);		
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
-		setIconImage(Toolkit.getDefaultToolkit().getImage("img/appIcon.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/appIcon.png")));
 		initGUI();
 	}
 	
