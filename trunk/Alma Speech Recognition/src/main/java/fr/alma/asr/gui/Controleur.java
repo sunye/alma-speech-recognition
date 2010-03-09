@@ -1,23 +1,22 @@
 package fr.alma.asr.gui;
 
-import fr.alma.asr.gui.tree.DialogProprietes;
-import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.ElementDao;
+import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.LessonDao;
-import fr.alma.asr.dao.RootDao;
 import fr.alma.asr.dao.impl.AbstractDaoImpl;
-import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.dao.impl.ElementDaoImpl;
+import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.dao.impl.LessonDaoImpl;
-import fr.alma.asr.dao.impl.RootDaoImpl;
-import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Element;
+import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
-import fr.alma.asr.entities.Root;
-import fr.alma.asr.entities.Subject;
+import fr.alma.asr.gui.tree.DialogProprietes;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JTextArea;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -27,8 +26,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public final class Controleur {
 
 	/** L'instance du controleur. */
-	private static Controleur instance = new Controleur();
-
+	private static Controleur instance;
+	
+	private static HashMap<String, WorkPanel> workPanelList;
+	
+	
+	/*------------------------------*/
+	private String workPlanPosition = "right";
+	private boolean workShowPlan = true;
+	private boolean workShowCourses =true;
+	
+	
 	/**
 	 * Constructeur privé.
 	 */
@@ -60,6 +68,10 @@ public final class Controleur {
 	 * @return l'instance du controleur
 	 */
 	public static Controleur getInstance() {
+		workPanelList = new HashMap<String, WorkPanel>();
+		if(instance==null)
+			instance= new Controleur();
+		
 		return instance;
 	}
 
@@ -71,10 +83,8 @@ public final class Controleur {
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:" + chemin);
 		File fichier = new File(chemin + ".h2.db");
 		if (!fichier.exists()) {
-//			Folder dossierRacine = new Folder("Cours");
-//			new FolderDaoImpl().create(dossierRacine);
-			Root racine = new Root("Cours");
-			new RootDaoImpl().create(racine);
+			Folder FolderRacine = new Folder("Cours");
+			new FolderDaoImpl().create(FolderRacine);
 		}
 	}
 
@@ -115,23 +125,20 @@ public final class Controleur {
 	 * @param racine la racine de l'arbre.
 	 */
 	public void construireArbreCours(DefaultMutableTreeNode racine) {
-		RootDao dao = new RootDaoImpl();
-		Root dossierRacine = dao.findRoot();
-		racine.setUserObject(dossierRacine);
-		for (Subject cours : dossierRacine.getModules()) {
-			DefaultMutableTreeNode noeud = new DefaultMutableTreeNode(cours);
-			construireArbreCoursBis(noeud, cours);
-		}
+		FolderDao dao = new FolderDaoImpl();
+		Folder FolderRacine = dao.findDossierRacine();
+		racine.setUserObject(FolderRacine);
+		construireArbreCoursBis(racine, FolderRacine);
 	}
 
 	/**
 	 * Fonction auxiliaire pour construire l'arbre des cours.
 	 * @param racine la racine courante.
-	 * @param dossier le dossier courant.
+	 * @param Folder le Folder courant.
 	 */
-	private void construireArbreCoursBis(DefaultMutableTreeNode racine, Folder dossier) {
+	private void construireArbreCoursBis(DefaultMutableTreeNode racine, Folder Folder) {
 		ElementDao dao = new ElementDaoImpl();
-		for (Element elem : dao.findAllOfDossier(dossier)) {
+		for (Element elem : dao.findAllOfDossier(Folder)) {
 			DefaultMutableTreeNode rep;
 			if (elem.isFile()) {
 				rep = new DefaultMutableTreeNode(elem, false);
@@ -150,9 +157,9 @@ public final class Controleur {
 	public void suppressionElement(DefaultMutableTreeNode node) {
 		ElementDao dao = new ElementDaoImpl();
 		Element element = (Element) node.getUserObject();
-		Folder dossier = element.getDossierConteneur();
-		dossier.removeElement(element);
-		dao.update(dossier);
+		Folder Folder = element.getDossierConteneur();
+		Folder.removeElement(element);
+		dao.update(Folder);
 		dao.delete(element.getId());
 	}
 
@@ -164,56 +171,56 @@ public final class Controleur {
 	 */
 	public Object ajoutFichier(String nom, DefaultMutableTreeNode node) {
 		Lesson file = new Lesson(nom);
-		Folder dossier = (Folder) node.getUserObject();
-		file.setDossierConteneur(dossier);
-		dossier.addElements(file);
+		Folder Folder = (Folder) node.getUserObject();
+		file.setDossierConteneur(Folder);
+		Folder.addElements(file);
 		new LessonDaoImpl().create(file);
-		new FolderDaoImpl().update(dossier);
+		new FolderDaoImpl().update(Folder);
 		return file;
 	}
 
 	/**
-	 * Fonction d'ajout de dossier.
-	 * @param nom le nom du dossier à créer
+	 * Fonction d'ajout de Folder.
+	 * @param nom le nom du Folder à créer
 	 * @param node le noeud parent
 	 * @return l'objet créé
 	 */
-	public Object ajoutDossier(String nom, DefaultMutableTreeNode node) {
+	public Object ajoutFolder(String nom, DefaultMutableTreeNode node) {
 		Folder folder = new Folder(nom);
-		Folder dossier = (Folder) node.getUserObject();
-		folder.setDossierConteneur(dossier);
-		dossier.addElements(folder);
+		Folder Folder = (Folder) node.getUserObject();
+		folder.setDossierConteneur(Folder);
+		Folder.addElements(folder);
 		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
-		dao.update(dossier);
+		dao.update(Folder);
 		return folder;
 	}
 
 	/**
-	 * Déplace un fichier dans les dossiers.
+	 * Déplace un fichier dans les Folders.
 	 * @param node le noeud à déplacer
 	 * @param parent la cible du noeud
 	 * @param index l'index à laquel on veut insérer le noeud
 	 */
 	public void deplacerElement(DefaultMutableTreeNode node, DefaultMutableTreeNode cible, int index) {
 		Element element = (Element) node.getUserObject();
-		Folder dossierSource = element.getDossierConteneur();
-		Folder dossierCible = (Folder) cible.getUserObject();
+		Folder FolderSource = element.getDossierConteneur();
+		Folder FolderCible = (Folder) cible.getUserObject();
 
 		// vérifie si on est plus hors index lors d'une réorganisation par ex
-		if ((index == dossierCible.getElements().size()) && (dossierSource.getId() == dossierCible.getId())) {
+		if ((index == FolderCible.getElements().size()) && (FolderSource.getId() == FolderCible.getId())) {
 			index = index - 1;
 		}
 
 		System.out.println(index);
-		dossierSource.removeElement(element);
-		dossierCible.addElementIndex(element, index);
-		element.setDossierConteneur(dossierCible);
+		FolderSource.removeElement(element);
+		FolderCible.addElementIndex(element, index);
+		element.setDossierConteneur(FolderCible);
 
 		ElementDao dao = new ElementDaoImpl();
 		dao.update(element);
-		dao.update(dossierSource);
-		dao.update(dossierCible);
+		dao.update(FolderSource);
+		dao.update(FolderCible);
 	}
 
 	/**
@@ -232,15 +239,15 @@ public final class Controleur {
 	public void afficherProprietes(DefaultMutableTreeNode node) {
 		Element elem = (Element) node.getUserObject();
 		String chemin = "/";
-		Folder dossier = elem.getDossierConteneur();
-		while (dossier != null) {
-			chemin = "/" + dossier.getNom() + chemin;
-			dossier = dossier.getDossierConteneur();
+		Folder Folder = elem.getDossierConteneur();
+		while (Folder != null) {
+			chemin = "/" + Folder.getNom() + chemin;
+			Folder = Folder.getDossierConteneur();
 		}
 		if (elem.isFile()) {
 			new DialogProprietes(null, elem.getNom(), "Fichier", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
 		} else {
-			new DialogProprietes(null, elem.getNom(), "Dossier", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
+			new DialogProprietes(null, elem.getNom(), "Folder", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
 		}
 	}
 
@@ -270,9 +277,77 @@ public final class Controleur {
 	 * @param classerParCreation si la liste doit être classé par ordre de création
 	 * @return la liste des fichiers
 	 */
-	List<Lesson> getListeFichiers(Boolean classerParCreation) {
+	public List<Lesson> getListeFichiers(Boolean classerParCreation) {
 		LessonDao dao = new LessonDaoImpl();
 		return dao.findAll(classerParCreation);
 	}
+	
+	
+	
+	/*-----------------------------------------------------------*/
+	/*                     MainWindow function                   */
+	/*-----------------------------------------------------------*/
+	
+	/**
+	 * Add a work panel as a new tab.
+	 * @param name name of the module.
+	 */
+	public static void addNewWorkPanel(String name){
+		MainWindow.getInstance().addNewWorkPanel(name);
+	}
+	
+	/**
+	 * Display text in status bar
+	 * @param text
+	 */
+	public void setLastAction(String text){
+		 MainWindow.getInstance().getStatusPanel().setStatus(text);
+	}
+		
+	/**
+	 * Swho the preferences dialog
+	 */
+	public void showParamDialog(){
+		ParametersDialog.getInstance().setVisible(true);
+	}
+
+	/**
+	 * Print text on the view panel
+	 * @param msg : Text to show in the window
+	 */
+	public void showText(String msg){
+		JTextArea txtArea = ViewPanel.getViewPanel().getViewTextArea();
+		txtArea.setText(txtArea.getText()+ "\n" + msg);
+	}
+
+	/*
+	 * GUI Parameters getters and setters
+	 */
+	
+	public String getWorkPlanPosition() {
+		return workPlanPosition;
+	}
+
+	public void setWorkPlanPosition(String workPlanPosition) {
+		this.workPlanPosition = workPlanPosition;
+	}
+
+	public boolean getWorkShowPlan() {
+		return workShowPlan;
+	}
+
+	public void setWorkShowPlan(boolean workShowPlan) {
+		this.workShowPlan = workShowPlan;
+	}
+
+	public void setWorkShowCourses(boolean workShowCourses) {
+		this.workShowCourses = workShowCourses;
+	}
+
+	public boolean getWorkShowCourses() {
+		return workShowCourses;
+	}
+	
+	
 
 }
