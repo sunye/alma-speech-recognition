@@ -36,8 +36,8 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	private JButton jLabelOpen;
 	private JButton jLabelSave;
 
-	private ImageIcon micOn = new ImageIcon("img/micOnWhite.png");
-	private ImageIcon micOff = new ImageIcon("img/micOff.png");
+	private ImageIcon micOn = new ImageIcon(getClass().getResource("/icones/micOnWhite.png"));
+	private ImageIcon micOff = new ImageIcon(getClass().getResource("/icones/micOff.png"));
 	/**
 	* Auto-generated main method to display this 
 	* JPanel inside a new JFrame.
@@ -78,14 +78,14 @@ public class ToolBarPanel extends javax.swing.JPanel {
 				this.add(jPanelEdit, BorderLayout.WEST);
 				{
 					jLabelSave = new JButton();
-					ImageIcon recordImage = new ImageIcon("img/pdf.png");
+					ImageIcon recordImage = new ImageIcon(getClass().getResource("/icones/pdf.png"));
 					jLabelSave.setIcon(recordImage);
 					jPanelEdit.add(jLabelSave);
 				}
 				{
 					jLabelOpen = new JButton();
 					jPanelEdit.add(jLabelOpen);
-					ImageIcon recordImage = new ImageIcon("img/print.png");
+					ImageIcon recordImage = new ImageIcon(getClass().getResource("/icones/print.png"));
 					jLabelOpen.setIcon(recordImage);
 					jPanelEdit.add(jLabelSave);				}
 			}

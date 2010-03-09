@@ -45,13 +45,19 @@ public class ParametersDialog extends javax.swing.JDialog {
 	private JPanel spchRootPanel;
 	private JComboBox cbWokrPlanPosition;
 	private JLabel jLabel1;
-
-	private MainWindow main;
-
 	
-	public ParametersDialog(MainWindow frame) {
-		super(frame);
-		this.main = frame;
+	private static ParametersDialog instance;
+	//private MainWindow main = MainWindow.getInstance();
+	private Controller controleur = Controller.getInstance();
+	
+	public static ParametersDialog getInstance(){
+		if(instance==null)
+			instance = new ParametersDialog();
+		return instance;
+	}
+	
+	private ParametersDialog() {
+		super(MainWindow.getInstance());
 		initGUI();
 	}
 	
@@ -64,7 +70,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 				
 				
 				JTabbedPane tabbedPane = new JTabbedPane();
-				getContentPane().setLayout(new GridLayout(1,1));
+				getContentPane().setLayout(new GridLayout(1, 1));
 				getContentPane().add(tabbedPane);
 
 				getContentPane().add(tabbedPane);
@@ -88,7 +94,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 						cbShowPlan.setText("Afficher Plan");
 						cbShowPlan.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								main.setWorkShowPlan(((JCheckBox)evt.getSource()).isSelected());
+								controleur.setWorkShowPlan(((JCheckBox)evt.getSource()).isSelected());
 							}
 						});
 					}
@@ -101,7 +107,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 						cbWokrPlanPosition.setModel(cbWokrPlanPositionModel);
 						cbWokrPlanPosition.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								main.setWorkPlanPosition(((JComboBox)evt.getSource()).getSelectedItem().toString());
+								controleur.setWorkPlanPosition(((JComboBox)evt.getSource()).getSelectedItem().toString());
 							}
 						});
 					}
@@ -111,7 +117,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 						cbShowCourses.setText("Afficher les modules");
 						cbShowCourses.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								main.setWorkShowCourses(((JCheckBox)evt.getSource()).isSelected());
+								controleur.setWorkShowCourses(((JCheckBox)evt.getSource()).isSelected());
 							}
 						});
 					}
@@ -138,8 +144,8 @@ public class ParametersDialog extends javax.swing.JDialog {
 	}
 	
 	public void setValues(){
-		cbShowCourses.setSelected(main.isWorkShowCourses());
-		cbWokrPlanPosition.setSelectedItem(main.getWorkPlanPosition());
-		cbShowPlan.setSelected(main.isWorkShowPlan());
+		cbShowCourses.setSelected(controleur.getWorkShowCourses());
+		cbWokrPlanPosition.setSelectedItem(controleur.getWorkPlanPosition());
+		cbShowPlan.setSelected(controleur.getWorkShowPlan());
 	}
 }

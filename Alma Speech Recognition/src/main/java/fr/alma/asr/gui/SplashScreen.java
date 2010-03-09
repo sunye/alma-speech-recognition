@@ -6,6 +6,11 @@
 
 package fr.alma.asr.gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
+
 /**
  * Classe de type JDialog pour créer un splash screen de chargement.
  * @author Braud Jeremy
@@ -46,8 +51,14 @@ public class SplashScreen extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setUndecorated(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/load.gif"))); // NOI18N
-        jLabel1.setText("Chargement...");
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((screen.width - getSize().width)/2,(screen.height - getSize().height)/2);
+		setLocationRelativeTo(null);
+		
+        
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/ASRSplash.png")));
+        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/load.gif"))); // NOI18N
+        //jLabel1.setText("Chargement...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
