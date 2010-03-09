@@ -223,7 +223,6 @@ public class MainWindow extends javax.swing.JFrame {
 					
 				}
 				
-				
 				addNewWorkPanel("Mathématiques");
 				
 			}
@@ -354,12 +353,14 @@ public class MainWindow extends javax.swing.JFrame {
 	public void setLastAction(String text){
 		this.statusPannel.setStatus(text);
 	}
-	
-	
+		
 	public void showParamDialog(){
 		paramDialog.setVisible(true);
 	}
 
+	/*public showText(String msg){
+		ViewPanel.getViewTextArea()
+	}*/
 	
 	/**
 	* Auto-generated main method to display this JFrame
