@@ -47,6 +47,9 @@ public class ViewPanel extends javax.swing.JPanel {
 		initGUI();
 	}
 	
+	public JTextArea getViewTextArea(){
+		return this.textArea;
+	}
 	
 	public static ViewPanel getViewPanel(){
 		if (viewPanelInstance ==null){
