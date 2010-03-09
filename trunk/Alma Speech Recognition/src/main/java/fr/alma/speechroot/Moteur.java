@@ -6,8 +6,8 @@ package fr.alma.speechroot;
  */
 public class Moteur {
 	
-	/** Interface avec la DLL */
-	private Java2spchroot java2spchroot;
+	/** Classe contenant la fonction de callback. */
+	private TreatMessageInterface java2spchroot;
 	
 	/**
 	 * Constructeur.
