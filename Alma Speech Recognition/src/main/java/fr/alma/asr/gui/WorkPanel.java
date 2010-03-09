@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -26,8 +27,8 @@ import javax.swing.JSplitPane;
 */
 public class WorkPanel extends javax.swing.JPanel {
 	private JSplitPane jSplitPane1;
-	private EditPanel editPannel;
-	private ViewPanel viewPannel;
+	private EditPanel editPanel;
+	private ViewPanel viewPanel;
 	
 	private MainWindow mainWindow;
 
@@ -46,21 +47,25 @@ public class WorkPanel extends javax.swing.JPanel {
 				jSplitPane1 = new JSplitPane();
 				this.add(jSplitPane1);
 				{
-					editPannel = new EditPanel(mainWindow);
-					jSplitPane1.add(editPannel, JSplitPane.RIGHT);
+					editPanel = new EditPanel(mainWindow);
+					jSplitPane1.add(editPanel, JSplitPane.RIGHT);
 				}
 				{
-					viewPannel = ViewPanel.getViewPanel();
-					jSplitPane1.add(viewPannel, JSplitPane.LEFT);
+					viewPanel = ViewPanel.getViewPanel();
+					addViewPanel(viewPanel);
 				}
 				this.addComponentListener(new ComponentAdapter() {
+					
+					
 					@Override
 					public void componentShown(ComponentEvent e) {
-						WorkPanel.this.add(ViewPanel.getViewPanel().getViewPanel());
+						WorkPanel.this.addViewPanel(ViewPanel.getViewPanel());
+						System.out.println(e);
 					}
+					
 					@Override
 					public void componentHidden(ComponentEvent e) {
-						WorkPanel.this.remove(ViewPanel.getViewPanel().getViewPanel());
+					//	WorkPanel.this.addViewPanel(ViewPanel.getViewPanel());
 
 					}
 					
@@ -71,4 +76,8 @@ public class WorkPanel extends javax.swing.JPanel {
 		}
 	}
 
+	public void addViewPanel(JPanel jPanel){
+		jSplitPane1.add(viewPanel, JSplitPane.LEFT);	
+	}
+	
 }
