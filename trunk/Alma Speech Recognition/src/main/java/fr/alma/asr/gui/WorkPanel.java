@@ -5,11 +5,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
 
@@ -25,17 +22,17 @@ import javax.swing.JSplitPane;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class WorkPanel extends javax.swing.JPanel {
+public class WorkPanel extends JPanel {
 	private JSplitPane jSplitPane1;
 	private EditPanel editPanel;
 	private ViewPanel viewPanel;
-	
-	private MainWindow mainWindow;
 
+	private MainWindow mainWindow;
+	
 	public WorkPanel(MainWindow mainWindow) {
 		super();
-		this.mainWindow = mainWindow;
 		initGUI();
+		this.mainWindow = mainWindow;
 	}
 	
 	private void initGUI() {
@@ -55,17 +52,15 @@ public class WorkPanel extends javax.swing.JPanel {
 					addViewPanel(viewPanel);
 				}
 				this.addComponentListener(new ComponentAdapter() {
-					
-					
+
 					@Override
 					public void componentShown(ComponentEvent e) {
 						WorkPanel.this.addViewPanel(ViewPanel.getViewPanel());
-						System.out.println(e);
 					}
 					
 					@Override
 					public void componentHidden(ComponentEvent e) {
-					//	WorkPanel.this.addViewPanel(ViewPanel.getViewPanel());
+					//	WorkPanel.this.removeViewPanel(ViewPanel.getViewPanel());
 
 					}
 					

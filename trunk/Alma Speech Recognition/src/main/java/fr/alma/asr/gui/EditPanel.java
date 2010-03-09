@@ -17,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.text.SimpleAttributeSet;
@@ -40,7 +39,6 @@ import javax.swing.text.html.HTMLEditorKit;
  */
 public class EditPanel extends javax.swing.JPanel {
 
-	private MainWindow mainWindow;
 	
 	private JTextPane textPane;
 	private HTMLEditorKit htmlEditorKit;
@@ -50,6 +48,7 @@ public class EditPanel extends javax.swing.JPanel {
 	private JPanel toolBarEditPannel;
 	private MenuTextArea menuText;
 
+	private MainWindow mainWindow;
 
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -57,9 +56,8 @@ public class EditPanel extends javax.swing.JPanel {
 
 	public EditPanel(MainWindow mainWindow) {
 		super();
-		this.mainWindow = mainWindow;
 		initGUI();
-		
+		this.mainWindow=mainWindow;
 	}
 
 	private void initGUI() {
@@ -126,28 +124,28 @@ public class EditPanel extends javax.swing.JPanel {
 		if (a != null) {
 			boldButton = bar.add(a);
 			boldButton.setText("");
-			boldButton.setIcon(new ImageIcon("src/main/resources/format-text-bold.png"));
+			boldButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-text-bold.png")));
 
 		}
 		a = textPane.getActionMap().get("font-italic");
 		if (a != null) {
 			italicButton = bar.add(a);
 			italicButton.setText("");
-			italicButton.setIcon(new ImageIcon("src/main/resources/format-text-italic.png"));
+			italicButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-text-italic.png")));
 
 		}
 		a = textPane.getActionMap().get("font-underline");
 		if (a != null) {
 			underlineButton = bar.add(a);
 			underlineButton.setText("");
-			underlineButton.setIcon(new ImageIcon("src/main/resources/format-text-underline.png"));
+			underlineButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-text-underline.png")));
 
 		}
 		
 
 			bar.add(colorButton);
 			colorButton.setText("");
-			colorButton.setIcon(new ImageIcon("src/main/resources/format-fill-color.png"));
+			colorButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-fill-color.png")));
 			
 			
 		//colorButton.addActionListener(new StyledEditorKit.ForegroundAction("",Color.red);
@@ -163,40 +161,42 @@ public class EditPanel extends javax.swing.JPanel {
 		bar.addSeparator();
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		if (a != null) {
-			menuText.getjMenuItemCouper().addActionListener(a);
-			System.out.println(mainWindow.getCutMenuItem());
-			//mainWindow.getCutMenuItem().setAction(a);
+			menuText.getjMenuItemCouper().addActionListener(a);	
+			//TODO ajouter listener
+			//System.out.println(mainWindow.getCutMenuItem());// .setAction(a);
 		}
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		if (a != null) {
 			menuText.getjMenuItemCopier().addActionListener(a);
-			mainWindow.getCopyMenuItem().setAction(a);
+			//TODO ajouter listener
+			//mainWindow.getCopyMenuItem().setAction(a);
 		}
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
 		if (a != null) {
 			menuText.getjMenuItemColler().addActionListener(a);
-			mainWindow.getPasteMenuItem().setAction(a);
+			//TODO ajouter listener
+			//mainWindow.getPasteMenuItem().setAction(a);
 		}
 		bar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
 		if (a != null) {
 			leftButton = bar.add(a);
 			leftButton.setText("");
-			leftButton.setIcon(new ImageIcon("src/main/resources/format-justify-left.png"));
+			leftButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-justify-left.png")));
 
 		}
 		a = new StyledEditorKit.AlignmentAction("center", 1);
 		if (a != null) {
 			centerButton = bar.add(a);
 			centerButton.setText("");
-			centerButton.setIcon(new ImageIcon("src/main/resources/format-justify-center.png"));
+			centerButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-justify-center.png")));
 
 		}
 		a = new StyledEditorKit.AlignmentAction("right", 2);
 		if (a != null) {
 			rightButton = bar.add(a);
 			rightButton.setText("");
-			rightButton.setIcon(new ImageIcon("src/main/resources/format-justify-right.png"));
+			rightButton.setIcon(new ImageIcon(getClass().getResource("/txtformat/format-justify-right.png")));
 
 		}
 		bar.addSeparator();
