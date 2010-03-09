@@ -4,7 +4,7 @@
  * Created on 22 févr. 2010, 16:39:41
  */
 
-package fr.alma.asr.ihm;
+package fr.alma.asr.ihm.tree;
 
 /**
  * Classe de type JDialog pour l'ajout d'un élément.
@@ -29,8 +29,6 @@ public class DialogNouvelElement extends javax.swing.JDialog {
 		try {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
 			javax.swing.SwingUtilities.updateComponentTreeUI(this);
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "ALMA Speech!");
 		} catch (Exception e) {
 			System.out.println("LookAndFeel non supporté.");
 		}

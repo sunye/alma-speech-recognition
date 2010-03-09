@@ -32,7 +32,7 @@ import javax.swing.*;
 /**
  * Main class for the application
  * Contains method to access all GUI actions
- * @author Gaëtan Hervouet
+ * @author GaÃ«tan Hervouet
  *
  */
 public class MainWindow extends javax.swing.JFrame {
@@ -224,7 +224,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				
-				addNewWorkPanel("Mathématiques");
+				addNewWorkPanel("MathÃ©matiques");
 				
 			}
 			this.setSize(800, 600);
@@ -262,7 +262,7 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						parametersMenuItem = new JMenuItem();
 						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("Préférences...");
+						parametersMenuItem.setText("PrÃ©fÃ©rences...");
 						parametersMenuItem.addActionListener(new MenuItemListener(this));
 					}
 					{

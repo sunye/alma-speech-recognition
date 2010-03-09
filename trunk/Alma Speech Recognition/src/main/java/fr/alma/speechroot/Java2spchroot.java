@@ -81,7 +81,7 @@ public class Java2spchroot implements TreatMessageInterface {
 		Process process;
 		try {
 			process = Runtime.getRuntime().exec(SPEECHROOT_FOLDER);
-			StreamReader reader = new StreamReader(process.getInputStream());			
+			StreamReader reader = new StreamReader(process.getInputStream());
 			reader.start();
 			process.waitFor();
 			reader.join();		    
