@@ -8,9 +8,24 @@ package fr.alma.asr.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.GroupLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.LayoutStyle;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 /**
  * Classe de type JDialog pour créer un splash screen de chargement.
  * @author Braud Jeremy
@@ -24,8 +39,7 @@ public class SplashScreen extends javax.swing.JDialog {
 	 */
     public SplashScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-		setLocationRelativeTo(parent);
-        initComponents();
+		initComponents();
 
 		// apparence selon le systeme
 		try {
@@ -34,6 +48,9 @@ public class SplashScreen extends javax.swing.JDialog {
 		} catch (Exception e) {
 			System.out.println("LookAndFeel non supporté.");
 		}
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((screen.width - getSize().width)/2,(screen.height - getSize().height)/2);
+			
     }
 
     /** This method is called from within the constructor to
@@ -51,33 +68,19 @@ public class SplashScreen extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setUndecorated(true);
 
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((screen.width - getSize().width)/2,(screen.height - getSize().height)/2);
-		setLocationRelativeTo(null);
-		
-        
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/ASRSplash.png")));
         //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/load.gif"))); // NOI18N
         //jLabel1.setText("Chargement...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        layout.setVerticalGroup(layout.createSequentialGroup()
+        	.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+        	.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
 
         pack();
+        this.setSize(450, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

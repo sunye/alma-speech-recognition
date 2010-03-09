@@ -80,7 +80,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.FALSE));
 					jpm.add(addFolderMenu);
 
-					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un Fichier");
+					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un cours");
 					addFileMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.TRUE));
 					jpm.add(addFileMenu);
 				} else {
