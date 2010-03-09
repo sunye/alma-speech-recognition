@@ -5,11 +5,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
 import javax.swing.*;
+
 
 
 /**
@@ -24,6 +29,12 @@ import javax.swing.*;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+/**
+ * Main class for the application
+ * Contains method to access all GUI actions
+ * @author Gaëtan Hervouet
+ *
+ */
 public class MainWindow extends javax.swing.JFrame {
 
 	{
@@ -75,6 +86,39 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	/*Getters and setters*/
 	
+	//Parameters
+	public String getWorkPlanPosition() {
+		return workPlanPosition;
+	}
+
+
+	public void setWorkPlanPosition(String workPlanPosition) {
+		this.workPlanPosition = workPlanPosition;
+	}
+
+
+	public boolean isWorkShowPlan() {
+		return workShowPlan;
+	}
+
+
+	public void setWorkShowPlan(boolean workShowPlan) {
+		this.workShowPlan = workShowPlan;
+	}
+
+
+	public boolean isWorkShowCourses() {
+		return workShowCourses;
+	}
+
+
+	public void setWorkShowCourses(boolean workShowCourses) {
+		this.workShowCourses = workShowCourses;
+	}
+
+	
+	
+	//GUI
 	
 	public JMenuItem getPasteMenuItem() {
 		return pasteMenuItem;
@@ -180,7 +224,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				
-				addNewWorkPanel("MathÃ©matiques");
+				addNewWorkPanel("Mathématiques");
 				
 			}
 			this.setSize(800, 600);
@@ -218,7 +262,8 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						parametersMenuItem = new JMenuItem();
 						jMenuFile.add(parametersMenuItem);
-						parametersMenuItem.setText("PrÃ©fÃ©rences...");
+						parametersMenuItem.setText("Préférences...");
+						parametersMenuItem.addActionListener(new MenuItemListener(this));
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -228,6 +273,7 @@ public class MainWindow extends javax.swing.JFrame {
 						closeFileMenuItem = new JMenuItem();
 						jMenuFile.add(closeFileMenuItem);
 						closeFileMenuItem.setText("Quitter");
+						closeFileMenuItem.addActionListener(new MenuItemListener(this));
 					}
 				}
 				{
@@ -310,8 +356,8 @@ public class MainWindow extends javax.swing.JFrame {
 	}
 	
 	
-	public void showPreferences(){
-		
+	public void showParamDialog(){
+		paramDialog.setVisible(true);
 	}
 
 	
