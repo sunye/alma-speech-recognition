@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
@@ -207,7 +209,6 @@ public class MainWindow extends javax.swing.JFrame {
 					tabbedPane = new JTabbedPane();
 					getContentPane().add(tabbedPane, BorderLayout.CENTER);
 					tabbedPane.setOpaque(true);
-					
 				}
 				
 				{
@@ -222,11 +223,10 @@ public class MainWindow extends javax.swing.JFrame {
 					getContentPane().add(statusPanel, BorderLayout.SOUTH);
 					
 				}
-				
-				addNewWorkPanel("Mathématiques");
+							
 				
 			}
-			this.setSize(800, 600);
+			this.setSize(900, 700);
 			{
 				jMenuBar = new JMenuBar();
 				setJMenuBar(jMenuBar);
@@ -295,8 +295,7 @@ public class MainWindow extends javax.swing.JFrame {
 						pasteMenuItem.setText("Coller");
 					}
 					{
-						jSeparator1 = new JSeparator();
-						jMenuEdition.add(jSeparator1);
+						jMenuEdition.add(new JSeparator());
 					}
 					{
 						deleteMenuItem = new JMenuItem();
@@ -324,7 +323,8 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				
 				paramDialog = new ParametersDialog(this);
-				
+				addNewWorkPanel("Mathématiques");
+				addNewWorkPanel("Mathématiquessd");
 			}
 			
 
@@ -354,13 +354,21 @@ public class MainWindow extends javax.swing.JFrame {
 		this.statusPannel.setStatus(text);
 	}
 		
+	/**
+	 * 
+	 */
 	public void showParamDialog(){
 		paramDialog.setVisible(true);
 	}
 
-	/*public showText(String msg){
-		ViewPanel.getViewTextArea()
-	}*/
+	/**
+	 * Print text on the view panel
+	 * @param msg : Text to show in the window
+	 */
+	public void showText(String msg){
+		JTextArea txtArea = ViewPanel.getViewPanel().getViewTextArea();
+		txtArea.setText(txtArea.getText()+ "\n" + msg);
+	}
 	
 	/**
 	* Auto-generated main method to display this JFrame
