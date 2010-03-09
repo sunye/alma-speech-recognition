@@ -1,5 +1,4 @@
 package fr.alma.asr.gui;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -13,10 +12,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 
 /**
@@ -63,7 +60,7 @@ public class ParametersDialog extends javax.swing.JDialog {
 			{
 				this.setTitle("Paramètres");
 				this.setModal(true);
-				this.setLocationRelativeTo(main);
+				this.setLocationRelativeTo(null);
 				
 				
 				JTabbedPane tabbedPane = new JTabbedPane();

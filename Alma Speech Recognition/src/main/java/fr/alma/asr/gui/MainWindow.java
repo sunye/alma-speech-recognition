@@ -196,7 +196,7 @@ public class MainWindow extends javax.swing.JFrame {
 				BorderLayout thisLayout = new BorderLayout();
 				this.setTitle("Alma Speech Recognition");
 				getContentPane().setLayout(thisLayout);
-				
+				this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 				{
 					toolBarPannel = new ToolBarPanel();
