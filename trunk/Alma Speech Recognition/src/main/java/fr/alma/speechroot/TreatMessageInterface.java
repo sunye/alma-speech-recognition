@@ -8,9 +8,9 @@ public interface TreatMessageInterface {
 
 	/**
 	 * Fonction de callback.
-	 * @param msg
-	 * @param body
-	 * @return
+	 * @param msg Code du message
+	 * @param body Corps du message
+	 * @return 0 en cas de succès
 	 */
 	int treatMsgFunction(String msg, String body);
 	

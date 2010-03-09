@@ -70,11 +70,19 @@ public class Moteur {
 		return Java2spchroot.micoff() == 0;
 	}
 	
-	public boolean createVoiceModel() {
+	/**
+	 * Ouverture de l'interface de gestion de la voix.
+	 * @return vrai si l'opération s'est correctement déroulée
+	 */
+	public boolean adaptVoiceModelDialog() {
 		return Java2spchroot.AdaptVoiceDialog() == 0;
 	}
 	
-	public boolean createDictionnary() {
+	/**
+	 * Ouverture de l'interface de gestion des dictionnaires vocaux.
+	 * @return vrai si l'opération s'est correctement déroulée
+	 */
+	public boolean adaptDictionnaryDialog() {
 		return Java2spchroot.AdaptVocabDialog() == 0;
 	}
 	

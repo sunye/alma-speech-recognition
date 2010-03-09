@@ -12,17 +12,17 @@ import java.io.StringWriter;
 public class Java2spchroot implements TreatMessageInterface {
 
 	/**
-	 * Fermeture du microphone
+	 * Fermeture du microphone.
 	 * @return 0 en cas de succès
 	 */
 	public static native int micoff();
 	
 	/**
 	 * Ouverture du microphone.
-	 * @param save_audio_flag Paramètre de sauvegarde du flux audio
+	 * @param saveAudioFlag Paramètre de sauvegarde du flux audio
 	 * @return 0 en cas de succès
 	 */
-	public static native int micon(String save_audio_flag);
+	public static native int micon(String saveAudioFlag);
 	
 	/**
 	 * Démarrage du moteur.
@@ -36,7 +36,7 @@ public class Java2spchroot implements TreatMessageInterface {
 	 */
 	public static native int stopEngine();
 	
-	public static native int RegisterRecognitionCB();
+//	public static native int RegisterRecognitionCB();
 	
 	/**
 	 * Fonction d'initialisation de l'application.
@@ -51,8 +51,18 @@ public class Java2spchroot implements TreatMessageInterface {
 	 */
 	public static native void endInterfaceToSmapi();
 	
+	/**
+	 * Interface de gestion du modèle vocal.
+	 * @return 0 en cas de succès
+	 */
 	public static native int AdaptVoiceDialog();
+	
+	/**
+	 * Interface de gestion des dictionnaires vocaux.
+	 * @return 0 en cas de succès
+	 */
 	public static native int AdaptVocabDialog();
+	
 //	public static native int ManageUserDico();
 
 	/** Initialisation de la requête sur la base de registre. */
@@ -60,8 +70,8 @@ public class Java2spchroot implements TreatMessageInterface {
 	/** Clé registre. */
 	private static final String REGSTR_TOKEN = "REG_SZ";
 	/** Emplacement de la clé registre de Speechroot. */
-	private static final String SPEECHROOT_FOLDER = REGQUERY_UTIL +
-	"\"HKLM\\SOFTWARE\\IBM\\VoiceType\\Engine\\Directories\" /v bin";
+	private static final String SPEECHROOT_FOLDER = REGQUERY_UTIL
+		+ "\"HKLM\\SOFTWARE\\IBM\\VoiceType\\Engine\\Directories\" /v bin";
 
 	/** Chargement de la DLL. */
 	static {
@@ -102,29 +112,49 @@ public class Java2spchroot implements TreatMessageInterface {
 	 * @author Cédric Krommenhoek
 	 */
 	static class StreamReader extends Thread {
+		
+		/** Flux d'entrée. */
 		private InputStream is;
+		/** Flux d'écriture. */
 		private StringWriter sw;
 
+		/**
+		 * Constructeur.
+		 * @param is le flux d'entrée
+		 */
 		StreamReader(InputStream is) {
 			this.is = is;
 			sw = new StringWriter();
 		}
 
+		/**
+		 * Méthode d'exécution du thread.
+		 */
 		public void run() {
 			try {
 				int c;
-				while ((c = is.read()) != -1)
+				while ((c = is.read()) != -1) {
 					sw.write(c);
+				}					
+			} catch (IOException e) { 
+				e.printStackTrace();
 			}
-			catch (IOException e) { ; }
 		}
 
+		/**
+		 * Accès au résultat.
+		 * @return le résultat
+		 */
 		String getResult() {
 			return sw.toString();
 		}
 	}
 
 	/**
+	 * Fonction de callback.
+	 * @param msg Code du message
+	 * @param body Corps du message
+	 * @return 0 en cas de succès
 	 * @see fr.alma.speechroot.TreatMessageInterface#treatMsgFunction(java.lang.String, java.lang.String)
 	 */
 	@Override
