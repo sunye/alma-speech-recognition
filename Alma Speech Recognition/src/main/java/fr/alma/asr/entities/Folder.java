@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
  * @author Jérémy Braud
  */
 @Entity
-public class Dossier extends Element {
+public class Folder extends Element {
 
 	/** Numéro de série par défaut. */
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class Dossier extends Element {
 	/**
 	 * Constructeur par défaut.
 	 */
-	public Dossier() {
+	public Folder() {
 		this.elements = new LinkedList<Element>();
 	}
 	
@@ -32,7 +32,7 @@ public class Dossier extends Element {
 	 * Constructeur.
 	 * @param nom le nom
 	 */
-	public Dossier(String nom) {
+	public Folder(String nom) {
 		super(nom, Boolean.FALSE);
 		this.elements = new LinkedList<Element>();
 	}
@@ -77,7 +77,7 @@ public class Dossier extends Element {
 	 * Methode permettant de supprimer des elements.
 	 * @param element l'élément supprimé
 	 */
-	public void removeElements(Element element){
+	public void removeElement(Element element){
 		this.elements.remove(element);
 		this.setChanged();
 	}

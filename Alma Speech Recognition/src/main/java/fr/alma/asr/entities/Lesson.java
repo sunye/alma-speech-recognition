@@ -8,7 +8,7 @@ import javax.persistence.Entity;
  * @author Jérémy Braud
  */
 @Entity
-public class Fichier extends Element {
+public class Lesson extends Element {
 
 	/** Numéro de série par défaut. */
 	private static final long serialVersionUID = 1L;
@@ -24,14 +24,14 @@ public class Fichier extends Element {
 	/**
 	 * Constructeur par défaut.
 	 */
-	public Fichier() {
+	public Lesson() {
 	}
 
 	/**
 	 * Constructeur.
 	 * @param nom le nom du fichier.
 	 */
-	public Fichier(String nom) {
+	public Lesson(String nom) {
 		super(nom, Boolean.TRUE);
 	}
 

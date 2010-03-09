@@ -1,6 +1,6 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.Dossier;
+import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Element;
 
 import java.util.List;
@@ -16,6 +16,6 @@ public interface ElementDao extends AbstractDao<Element> {
 	 * @param dossier le dossier
 	 * @return une liste d'éléments
 	 */
-	List<Element> findAllOfDossier(Dossier dossier);
+	List<Element> findAllOfDossier(Folder dossier);
 
 }

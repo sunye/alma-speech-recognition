@@ -1,7 +1,7 @@
 package fr.alma.asr.dao.impl;
 
-import fr.alma.asr.dao.DossierDao;
-import fr.alma.asr.entities.Dossier;
+import fr.alma.asr.dao.FolderDao;
+import fr.alma.asr.entities.Folder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -11,16 +11,16 @@ import javax.persistence.EntityTransaction;
  * Implementation dao de la classe Dossier.
  * @author Jérémy Braud
  */
-public class DossierDaoImpl extends AbstractDaoImpl<Dossier> implements DossierDao {
+public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao {
 
 	@Override
-	public Dossier findDossierRacine() {
+	public Folder findDossierRacine() {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
 		String requete = "FROM Dossier WHERE dossierconteneur_id = NULL";
-		Dossier resultat = (Dossier) em.createQuery(requete).getSingleResult();
+		Folder resultat = (Folder) em.createQuery(requete).getSingleResult();
 
 		tx.commit();
 		em.close();
