@@ -6,6 +6,9 @@ package fr.alma.speechroot;
  */
 public class Moteur {
 	
+	/** Singleton du moteur. */
+	private static Moteur moteur;
+	
 	/** Classe contenant la fonction de callback. */
 	private TreatMessageInterface java2spchroot;
 	
@@ -17,6 +20,17 @@ public class Moteur {
 		this.connect();
 	}
 
+	/**
+	 * Méthode d'accès au singleton.
+	 * @return le singleton
+	 */
+	public static Moteur getInstance() {
+		if (moteur == null) {
+			moteur = new Moteur();
+		}
+		return moteur;
+	}
+	
 	/**
 	 * Connexion du moteur.
 	 */
