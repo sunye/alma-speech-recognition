@@ -194,7 +194,7 @@
 				<role>Architect</role>
 			</roles>
 			<organization>Alma</organization>
-			<timezone>+2</timezone>
+			<timezone>+1</timezone>
 		</developer>
 		<developer>
 			<id>gaetan.hervouet</id>
@@ -204,7 +204,7 @@
 				<role>Architect</role>
 			</roles>
 			<organization>Alma</organization>
-			<timezone>+2</timezone>
+			<timezone>+1</timezone>
 		</developer>
 		<developer>
 			<id>cedric.krommenhoek</id>
@@ -214,7 +214,7 @@
 				<role>Architect</role>
 			</roles>
 			<organization>Alma</organization>
-			<timezone>+2</timezone>
+			<timezone>+1</timezone>
 		</developer>
 		<developer>
 			<id>damien.levin</id>
@@ -224,7 +224,7 @@
 				<role>Architect</role>
 			</roles>
 			<organization>Alma</organization>
-			<timezone>+2</timezone>
+			<timezone>+1</timezone>
 		</developer>
 	</developers>
 
