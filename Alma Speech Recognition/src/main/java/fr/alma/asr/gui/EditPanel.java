@@ -164,7 +164,8 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		if (a != null) {
 			menuText.getjMenuItemCouper().addActionListener(a);
-			mainWindow.getCutMenuItem().setAction(a);
+			System.out.println(mainWindow.getCutMenuItem());
+			//mainWindow.getCutMenuItem().setAction(a);
 		}
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		if (a != null) {
