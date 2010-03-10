@@ -2,18 +2,23 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeListener;
+
+import fr.alma.asr.utils.FileExporter;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -80,6 +85,17 @@ public class ToolBarPanel extends javax.swing.JPanel {
 					jLabelSave = new JButton();
 					ImageIcon recordImage = new ImageIcon(getClass().getResource("/icones/pdf.png"));
 					jLabelSave.setIcon(recordImage);
+					jLabelSave.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.showDialog(ToolBarPanel.this, "Enregister");							
+							String outPutFile = fileChooser.getSelectedFile().getAbsolutePath();
+							//TO DO rajouter ce qui va bien
+							FileExporter.createPdf(false, new JTextPane(),outPutFile);
+						}
+					});
 					jPanelEdit.add(jLabelSave);
 				}
 				{
