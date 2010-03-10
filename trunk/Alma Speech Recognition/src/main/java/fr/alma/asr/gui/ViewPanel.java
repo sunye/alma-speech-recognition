@@ -30,18 +30,7 @@ public class ViewPanel extends javax.swing.JPanel {
 	private JTextArea textArea;
 	private JScrollPane jScrollPane1;
 
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new ViewPanel());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-	
+
 	private ViewPanel() {
 		super();
 		initGUI();
