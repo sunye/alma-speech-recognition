@@ -105,6 +105,7 @@
 							<outfile>target/${project.artifactId}-${project.version}-install.exe</outfile>
 							<jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
 							<errTitle>alakai</errTitle>
+							<icon>asr.ico</icon>
 							<jre>
 								<minVersion>1.5.0</minVersion>
 							</jre>
