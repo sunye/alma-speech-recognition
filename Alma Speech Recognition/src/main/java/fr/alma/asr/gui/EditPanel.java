@@ -25,6 +25,8 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import fr.alma.asr.utils.FileExporter;
+
 //import com.sun.java.swing.plaf.nimbus.TextPanePainter;
 //
 /**
@@ -49,10 +51,6 @@ public class EditPanel extends javax.swing.JPanel {
 	private MenuTextArea menuText;
 
 	private MainWindow mainWindow;
-
-	/**
-	 * Auto-generated main method to display this JPanel inside a new JFrame.
-	 */
 
 	public EditPanel(MainWindow mainWindow) {
 		super();
