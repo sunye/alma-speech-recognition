@@ -8,6 +8,8 @@
   <classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar" sourcepath="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/1.5.3/asm-1.5.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
+  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
   <classpathentry kind="var" path="M2_REPO/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar" sourcepath="M2_REPO/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2-sources.jar">
     <attributes>
       <attribute value="jar:file:/C:/Users/Fusio/.m2/repository/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2-javadoc.jar!/" name="javadoc_location"/>
@@ -67,6 +69,7 @@
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-entitymanager/3.4.0.GA/hibernate-entitymanager-3.4.0.GA.jar" sourcepath="M2_REPO/org/hibernate/hibernate-entitymanager/3.4.0.GA/hibernate-entitymanager-3.4.0.GA-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/lowagie/itext/2.0.7/itext-2.0.7.jar" sourcepath="M2_REPO/com/lowagie/itext/2.0.7/itext-2.0.7-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/javassist/javassist/3.4.GA/javassist-3.4.GA.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/bluestemsoftware/open/maven/plugin/launch4j-plugin/1.5.0.0/launch4j-plugin-1.5.0.0.jar" sourcepath="M2_REPO/org/bluestemsoftware/open/maven/plugin/launch4j-plugin/1.5.0.0/launch4j-plugin-1.5.0.0-sources.jar"/>

@@ -95,26 +95,37 @@
 				<executions>
 					<execution>
 						<id>launch4j</id>
-						<phase>verify</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>launch4j</goal>
 						</goals>
 						<configuration>
 							<dontWrapJar>false</dontWrapJar>
 							<headerType>gui</headerType>
-							<outfile>target/${project.artifactId}-${project.version}-install.exe</outfile>
+							<outfile>target/${project.artifactId}-${project.version}.exe</outfile>
 							<jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
-							<errTitle>alakai</errTitle>
+							<errTitle>ASR Manager</errTitle>
 							<icon>asr.ico</icon>
 							<jre>
-								<minVersion>1.5.0</minVersion>
+								<minVersion>1.6.0</minVersion>
 							</jre>
-							<!--<splash>
+							<!--
+								<splash>
 								<file>${basedir}/src/main/installer/images/splash.bmp</file>
-								<waitForWindow>true</waitForWindow>
-								<timeout>60</timeout>
-								<timeoutErr>false</timeoutErr>
-							</splash>-->
+								<waitForWindow>true</waitForWindow> <timeout>60</timeout>
+								<timeoutErr>false</timeoutErr> </splash>
+							-->
+							<versionInfo>
+								<fileVersion>1.0.0.0</fileVersion>
+								<txtFileVersion>${project.version}</txtFileVersion>
+								<fileDescription>${project.description}</fileDescription>
+								<copyright>©Alma</copyright>
+								<productVersion>1.0.0.0</productVersion>
+								<txtProductVersion>${project.version}</txtProductVersion>
+								<productName>${project.name}</productName>
+								<internalName>${project.artifactId}</internalName>
+								<originalFilename>asr.exe</originalFilename>
+							</versionInfo>
 						</configuration>
 					</execution>
 				</executions>
@@ -176,10 +187,10 @@
 			<version>1.5.0.0</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.lowagie</groupId>
-		    <artifactId>itext</artifactId>
-		    <version>2.0.7</version>
-		</dependency>		
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.0.7</version>
+		</dependency>
 	</dependencies>
 
 	<reporting>

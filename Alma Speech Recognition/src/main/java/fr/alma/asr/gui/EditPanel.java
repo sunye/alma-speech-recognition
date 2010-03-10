@@ -1,7 +1,6 @@
 package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +23,6 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
-import fr.alma.asr.utils.FileExporter;
 
 //import com.sun.java.swing.plaf.nimbus.TextPanePainter;
 //
