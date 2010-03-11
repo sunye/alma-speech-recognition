@@ -71,7 +71,7 @@ public class Root extends AbstractEntity {
 	 * Methode permettant d'ajouter des modules.
 	 * @param module l'élément ajouté
 	 */
-	public void addModules(Subject module){
+	public void addModule(Subject module){
 		this.modules.add(module);
 	}
 

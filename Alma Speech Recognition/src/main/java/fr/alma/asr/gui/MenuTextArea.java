@@ -1,10 +1,5 @@
 package fr.alma.asr.gui;
 
-import java.awt.Dimension;
-
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 

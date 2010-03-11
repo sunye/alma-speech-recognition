@@ -74,9 +74,9 @@ public final class Controleur {
 	 * @return l'instance du controleur
 	 */
 	public static Controleur getInstance() {
-		workPanelList = new HashMap<String, WorkPanel>();
 		if(instance==null) {
 			instance = new Controleur();
+			workPanelList = new HashMap<String, WorkPanel>();
 		}
 		return instance;
 	}
@@ -136,6 +136,7 @@ public final class Controleur {
 		racine.setUserObject(dossierRacine);
 		for (Subject cours : dossierRacine.getModules()) {
 			DefaultMutableTreeNode noeud = new DefaultMutableTreeNode(cours);
+			racine.add(noeud);
 			construireArbreCoursBis(noeud, cours);
 		}
 	}
@@ -206,6 +207,21 @@ public final class Controleur {
 	}
 
 	/**
+	 * Fonction d'ajout de module.
+	 * @param nom le nom du module à créer
+	 * @param node le noeud parent
+	 * @return l'objet créé
+	 */
+	public Object ajoutModule(String nom, DefaultMutableTreeNode node) {
+		Subject module = new Subject(nom);
+		Root root = (Root) node.getUserObject();
+		root.addModule(module);
+		new FolderDaoImpl().create(module);
+		new RootDaoImpl().update(root);
+		return module;
+	}
+
+	/**
 	 * Déplace un fichier dans les Folders.
 	 * @param node le noeud à déplacer
 	 * @param parent la cible du noeud
@@ -253,11 +269,15 @@ public final class Controleur {
 			chemin = "/" + Folder.getNom() + chemin;
 			Folder = Folder.getDossierConteneur();
 		}
+		String type = "";
 		if (elem.isFile()) {
-			new DialogProprietes(null, elem.getNom(), "Fichier", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
+			type = "Fichier";
+		} else if (elem instanceof Subject) {
+			type = "Module";
 		} else {
-			new DialogProprietes(null, elem.getNom(), "Folder", chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
+			type = "Dossier";
 		}
+		new DialogProprietes(null, elem.getNom(), type, chemin, elem.getDateCreation(), elem.getDateModification()).setVisible(true);
 	}
 
 	/**
@@ -395,7 +415,5 @@ public final class Controleur {
 	public boolean getWorkShowCourses() {
 		return workShowCourses;
 	}
-	
-	
 
 }

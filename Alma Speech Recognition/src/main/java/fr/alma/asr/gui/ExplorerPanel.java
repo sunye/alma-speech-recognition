@@ -1,14 +1,9 @@
 package fr.alma.asr.gui;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 
 import javax.swing.ImageIcon;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
