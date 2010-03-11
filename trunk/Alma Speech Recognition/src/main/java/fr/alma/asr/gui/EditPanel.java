@@ -51,6 +51,9 @@ public class EditPanel extends javax.swing.JPanel {
 
 	private MainWindow mainWindow;
 
+	private JButton textColorButton;
+	private Color selectedColor;
+
 	public EditPanel(MainWindow mainWindow) {
 		super();
 		this.mainWindow = mainWindow;
@@ -112,7 +115,10 @@ public class EditPanel extends javax.swing.JPanel {
 		JButton boldButton = new JButton();
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();
-		JButton colorButton = new JButton();
+
+		textColorButton = new JButton();
+		JButton chooseColorButton = new JButton();
+
 		JButton leftButton = new JButton();
 		JButton centerButton = new JButton();
 		JButton rightButton = new JButton();
@@ -121,93 +127,87 @@ public class EditPanel extends javax.swing.JPanel {
 		JButton h2Button = new JButton();
 		JButton h3Button = new JButton();
 
-
-
 		Action a = textPane.getActionMap().get("font-bold");
-		if (a != null) {
-			boldButton = bar.add(a);
-			boldButton.setText("");
-			boldButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-text-bold.png")));
 
-		}
+		boldButton = bar.add(a);
+		boldButton.setText("");
+		boldButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-text-bold.png")));
+
 		a = textPane.getActionMap().get("font-italic");
-		if (a != null) {
-			italicButton = bar.add(a);
-			italicButton.setText("");
-			italicButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-text-italic.png")));
 
-		}
+		italicButton = bar.add(a);
+		italicButton.setText("");
+		italicButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-text-italic.png")));
+
 		a = textPane.getActionMap().get("font-underline");
-		if (a != null) {
-			underlineButton = bar.add(a);
-			underlineButton.setText("");
-			underlineButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-text-underline.png")));
 
-		}
+		underlineButton = bar.add(a);
+		underlineButton.setText("");
+		underlineButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-text-underline.png")));
 
-		bar.add(colorButton);
-		colorButton.setText("");
-		colorButton.setIcon(new ImageIcon(getClass().getResource(
+		chooseColorButton.setText("");
+		chooseColorButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-fill-color.png")));
-
-		// colorButton.addActionListener(new
-		// StyledEditorKit.ForegroundAction("",Color.red);
-		colorButton.addActionListener(new ActionListener() {
+		chooseColorButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JColorChooser.showDialog(EditPanel.this,
+				selectedColor = JColorChooser.showDialog(EditPanel.this,
 						"Couleur de la police", Color.black);
+				EditPanel.this.textColorButton
+						.setAction(new StyledEditorKit.ForegroundAction(null,
+								selectedColor));
+				textColorButton.setIcon(new ImageIcon(getClass().getResource(
+						"/txtformat/format-text-color.png")));
+				textColorButton.setText("");
+
 			}
 		});
+		bar.add(chooseColorButton);
+
+		textColorButton.setAction(new StyledEditorKit.ForegroundAction("Noir",
+				Color.black));
+		textColorButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-text-color.png")));
+		textColorButton.setText("");
+
+		bar.add(textColorButton);
 
 		bar.addSeparator();
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
-		if (a != null) {
-			menuText.getjMenuItemCouper().addActionListener(a);
-			// TODO ajouter listener
-			// mainWindow.getCutMenuItem.setAction(a);
-		}
+		menuText.getjMenuItemCouper().addActionListener(a);
+		mainWindow.getCutMenuItem().setAction(a);
+
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
-		if (a != null) {
-			menuText.getjMenuItemCopier().addActionListener(a);
-			// TODO ajouter listener
-			// mainWindow.getCopyMenuItem().setAction(a);
-		}
+		menuText.getjMenuItemCopier().addActionListener(a);
+		mainWindow.getCopyMenuItem().setAction(a);
+
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
-		if (a != null) {
-			menuText.getjMenuItemColler().addActionListener(a);
-			// TODO ajouter listener
-			// mainWindow.getPasteMenuItem().setAction(a);
-		}
+		menuText.getjMenuItemColler().addActionListener(a);
+		mainWindow.getPasteMenuItem().setAction(a);
+
 		bar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
-		if (a != null) {
-			leftButton = bar.add(a);
-			leftButton.setText("");
-			leftButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-justify-left.png")));
+		leftButton = bar.add(a);
+		leftButton.setText("");
+		leftButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-justify-left.png")));
 
-		}
 		a = new StyledEditorKit.AlignmentAction("center", 1);
-		if (a != null) {
-			centerButton = bar.add(a);
-			centerButton.setText("");
-			centerButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-justify-center.png")));
+		centerButton = bar.add(a);
+		centerButton.setText("");
+		centerButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-justify-center.png")));
 
-		}
 		a = new StyledEditorKit.AlignmentAction("right", 2);
-		if (a != null) {
-			rightButton = bar.add(a);
-			rightButton.setText("");
-			rightButton.setIcon(new ImageIcon(getClass().getResource(
-					"/txtformat/format-justify-right.png")));
+		rightButton = bar.add(a);
+		rightButton.setText("");
+		rightButton.setIcon(new ImageIcon(getClass().getResource(
+				"/txtformat/format-justify-right.png")));
 
-		}
 		bar.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -304,7 +304,6 @@ public class EditPanel extends javax.swing.JPanel {
 		});
 		h3Button.setText("Titre 3");
 		bar.add(h3Button);
-
 
 		return bar;
 	}
