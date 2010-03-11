@@ -1,58 +1,76 @@
 package fr.alma.asr.gui;
 
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * @author damien
+ *
+ */
+/**
+ * @author damien
+ *
+ */
 public class ViewPanel extends javax.swing.JPanel {
-	
-	
-	public static ViewPanel viewPanelInstance;
+
+
+	private static ViewPanel viewPanelInstance;
+
+
+	private MainWindow mainWindow;
 	
 	private JTextArea textArea;
 	private JScrollPane jScrollPane1;
 
-
-	private ViewPanel() {
+	/**
+	 * @param mainWindow
+	 */
+	private ViewPanel(MainWindow mainWindow) {
 		super();
+		this.mainWindow = mainWindow;
 		initGUI();
 	}
-	
-	public JTextArea getViewTextArea(){
+
+	/**
+	 * @return
+	 */
+	public JTextArea getViewTextArea() {
 		return this.textArea;
 	}
-	
-	public static ViewPanel getViewPanel(){
-		if (viewPanelInstance ==null){
-			viewPanelInstance = new ViewPanel();
+
+	/**
+	 * @param mainWindow
+	 * @return
+	 */
+	public static ViewPanel getViewPanel(MainWindow mainWindow) {
+		if (viewPanelInstance == null) {
+			viewPanelInstance = new ViewPanel(mainWindow);
 		}
 		return viewPanelInstance;
 	}
 	
+	/**
+	 * @return
+	 */
+	public static ViewPanel getViewPanel() {
+		return viewPanelInstance;
+	}
+
+	/**
+	 * Main method which build interface
+	 */
 	private void initGUI() {
 		try {
-			BoxLayout thisLayout = new BoxLayout(this, javax.swing.BoxLayout.X_AXIS);
+			BoxLayout thisLayout = new BoxLayout(this,
+					javax.swing.BoxLayout.X_AXIS);
 			this.setLayout(thisLayout);
 			setPreferredSize(new Dimension(400, 300));
-			this.setBorder(BorderFactory.createTitledBorder("Visualisation du cours"));
+			this.setBorder(BorderFactory
+					.createTitledBorder("Visualisation du cours"));
 			{
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);

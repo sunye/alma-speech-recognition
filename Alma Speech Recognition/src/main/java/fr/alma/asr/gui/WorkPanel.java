@@ -8,17 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
 
-/**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
 public class WorkPanel extends JPanel {
 
 	private JSplitPane jSplitPane1;
@@ -27,6 +18,9 @@ public class WorkPanel extends JPanel {
 
 	private MainWindow mainWindow;
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		JFrame a = new JFrame();
 		WorkPanel panel = new WorkPanel(null);
@@ -35,6 +29,9 @@ public class WorkPanel extends JPanel {
 		a.setVisible(true);
 	}
 
+	/**
+	 * @param mainWindow
+	 */
 	public WorkPanel(MainWindow mainWindow) {
 		super();
 		this.mainWindow = mainWindow;
@@ -42,6 +39,10 @@ public class WorkPanel extends JPanel {
 
 	}
 
+	/**
+	 * Main method which build interface
+ 
+	 */
 	private void initGUI() {
 		try {
 			BoxLayout thisLayout = new BoxLayout(this,
@@ -56,14 +57,15 @@ public class WorkPanel extends JPanel {
 					jSplitPane1.add(editPanel, JSplitPane.RIGHT);
 				}
 				{
-					viewPanel = ViewPanel.getViewPanel();
+					viewPanel = ViewPanel.getViewPanel(mainWindow);
 					addViewPanel(viewPanel);
 				}
 				this.addComponentListener(new ComponentAdapter() {
 
 					@Override
+					//Displays the single instance of view pannel in the work pannel
 					public void componentShown(ComponentEvent e) {
-						WorkPanel.this.addViewPanel(ViewPanel.getViewPanel());
+						WorkPanel.this.addViewPanel(ViewPanel.getViewPanel(mainWindow));
 					}
 
 					@Override
@@ -78,6 +80,18 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public JTextPane getTextPane() {
+		return this.editPanel.getTextPane();
+	}
+	
+	/**
+	 * @param jPanel
+	 */
 	public void addViewPanel(JPanel jPanel) {
 		jSplitPane1.add(viewPanel, JSplitPane.LEFT);
 	}
