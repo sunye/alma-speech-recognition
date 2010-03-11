@@ -17,7 +17,7 @@ import com.lowagie.text.pdf.PdfWriter;
 public class FileExporter {
 
 	/**
-	 * Methode which provides a way create PDF  documents
+	 * Method which provides a way create PDF  documents
 	 * 
 	 * @param shapes Defines if we use shape instead of fonts
 	 * @param jTextPane The component to printout
