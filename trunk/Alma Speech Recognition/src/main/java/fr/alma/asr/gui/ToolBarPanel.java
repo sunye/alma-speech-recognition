@@ -48,8 +48,9 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	* JPanel inside a new JFrame.
 	*/
 	
-	public ToolBarPanel() {
+	public ToolBarPanel(MainWindow mainWindow) {
 		super();
+		this.mainWindow = mainWindow;
 		initGUI();
 	}
 	
@@ -96,11 +97,12 @@ public class ToolBarPanel extends javax.swing.JPanel {
 						
 						@Override
 						public void actionPerformed(ActionEvent e) {
+
 							JFileChooser fileChooser = new JFileChooser();
-							fileChooser.showDialog(ToolBarPanel.this, "Enregister");							
+							fileChooser.showDialog(null,"Enregister en PDF");
 							String outPutFile = fileChooser.getSelectedFile().getAbsolutePath();
-							//TODO rajouter ce qui va bien
-							FileExporter.createPdf(false, new JTextPane(),outPutFile);
+							Controleur.printOutPdf(outPutFile,mainWindow.getWorkTextPane());
+							
 						}
 					});
 					jPanelEdit.add(jLabelSave);

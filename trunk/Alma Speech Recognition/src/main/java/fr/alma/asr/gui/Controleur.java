@@ -15,12 +15,14 @@ import fr.alma.asr.entities.Lesson;
 import fr.alma.asr.entities.Root;
 import fr.alma.asr.entities.Subject;
 import fr.alma.asr.gui.tree.DialogProprietes;
+import fr.alma.asr.utils.FileExporter;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -31,7 +33,7 @@ public final class Controleur {
 
 	/** L'instance du controleur. */
 	private static Controleur instance;
-	
+
 	private static HashMap<String, WorkPanel> workPanelList;
 	
 	
@@ -275,6 +277,16 @@ public final class Controleur {
 		
 	}
 
+	/**
+	 * 	
+	 * Method which provides a way create PDF  documents
+	 * @param outputFilePath The filePath of the output pdf
+	 * @param jTextPane The component to printout
+	 */
+	public static void printOutPdf(String outputFilePath,JTextPane jTextPane){
+		FileExporter.createPdf(false,jTextPane, outputFilePath);
+	}
+	
 	/* ---------------------------------------------------------*/
 	/* --------------Gestion du panel d'acceuil-----------------*/
 	/* ---------------------------------------------------------*/
