@@ -41,6 +41,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	private JButton jLabelOpen;
 	private JButton jLabelSave;
 
+	private MainWindow mainWindow;
 	private ImageIcon micOn = new ImageIcon(getClass().getResource("/icones/micOnWhite.png"));
 	private ImageIcon micOff = new ImageIcon(getClass().getResource("/icones/micOff.png"));
 	/**
