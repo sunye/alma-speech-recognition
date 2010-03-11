@@ -121,7 +121,7 @@ public class EditPanel extends javax.swing.JPanel {
 		JButton h2Button = new JButton();
 		JButton h3Button = new JButton();
 
-		JButton pButton = new JButton();
+
 
 		Action a = textPane.getActionMap().get("font-bold");
 		if (a != null) {
@@ -305,17 +305,7 @@ public class EditPanel extends javax.swing.JPanel {
 		h3Button.setText("Titre 3");
 		bar.add(h3Button);
 
-		// TODO VIRER CE TEST
-		pButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				try {
-					FileExporter.createPdf(false, textPane, "out.pdf");
-				} catch (Exception ignoredForNow) {
-				}
-			}
-		});
-		pButton.setText("PDF");
-		bar.add(pButton);
+
 		return bar;
 	}
 
@@ -339,4 +329,11 @@ public class EditPanel extends javax.swing.JPanel {
 		});
 	}
 
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public JTextPane getTextPane() {
+		return textPane;
+	}
 }
