@@ -14,8 +14,14 @@ public class MenuItemListener implements ActionListener {
 		
 		JMenuItem source = (JMenuItem)evt.getSource();
 		
-		if(source.getText().equals("Préférences...")){
+		if(source.getText().equals("Préférences interface...")){
 			Controleur.getInstance().showParamDialog();
+		}
+		else if(source.getText().equals("Options du dictionnaire...")){
+			Controleur.getInstance().showDicoParam();
+		}
+		else if(source.getText().equals("Options du  moteur...")){
+			Controleur.getInstance().showOptParam();
 		}
 		else if(source.getText().equals("Quitter")){
 			System.exit(0);

@@ -66,7 +66,9 @@ public class MainWindow extends javax.swing.JFrame {
 	private JMenuItem saveMenuItem;
 	private JMenuItem openFileMenuItem;
 	private JMenuItem newFileMenuItem;
-	private JMenuItem parametersMenuItem;
+	private JMenuItem guiParametersMenuItem;
+	private JMenuItem dicoParametersMenuItem;
+	private JMenuItem optParametersMenuItem;
 	private JMenu jMenuFile;
 	private JMenuBar jMenuBar;
 
@@ -79,10 +81,6 @@ public class MainWindow extends javax.swing.JFrame {
 	private StatusPanel statusPanel;
 	private JSplitPane splitPanel;
 	
-	
-	//Dialogs
-	private ParametersDialog paramDialog;
-
 	
 	
 	//---------------------------------- Getters and setters ----------------------------------
@@ -156,9 +154,6 @@ public class MainWindow extends javax.swing.JFrame {
 		this.newFileMenuItem = newFileMenuItem;
 	}
 
-	public ParametersDialog getParamDialog() {
-		return paramDialog;
-	}
 	public JTabbedPane getTabbedPaneHomeWork() {
 		return tabbedPaneHomeWork;
 	}
@@ -274,10 +269,22 @@ public class MainWindow extends javax.swing.JFrame {
 							jMenuEdition.add(new JSeparator());
 						}
 						{
-							parametersMenuItem = new JMenuItem();
-							jMenuEdition.add(parametersMenuItem);
-							parametersMenuItem.setText("Préférences...");
-							parametersMenuItem.addActionListener(new MenuItemListener());
+							guiParametersMenuItem = new JMenuItem();
+							jMenuEdition.add(guiParametersMenuItem);
+							guiParametersMenuItem.setText("Préférences interface...");
+							guiParametersMenuItem.addActionListener(new MenuItemListener());
+						}
+						{
+							dicoParametersMenuItem = new JMenuItem();
+							jMenuEdition.add(dicoParametersMenuItem);
+							dicoParametersMenuItem.setText("Options du dictionnaire...");
+							dicoParametersMenuItem.addActionListener(new MenuItemListener());
+						}
+						{
+							optParametersMenuItem = new JMenuItem();
+							jMenuEdition.add(optParametersMenuItem);
+							optParametersMenuItem.setText("Options du moteur...");
+							optParametersMenuItem.addActionListener(new MenuItemListener());
 						}
 					}
 					{

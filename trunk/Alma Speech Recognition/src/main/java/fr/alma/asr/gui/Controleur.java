@@ -326,6 +326,35 @@ public final class Controleur {
 		JTextArea txtArea = ViewPanel.getViewPanel().getViewTextArea();
 		txtArea.setText(txtArea.getText()+ "\n" + msg);
 	}
+	
+	/**
+	 * Start Viavoic engine
+	 */
+	public void startEngine(){
+		//TODO appeler fonction moteur
+	}
+	
+	/**
+	 * Stop viavoice engine
+	 */
+	public void stopEngine(){
+		//TODO appeler fonction moteur
+	}
+	
+	/**
+	 * Show the parameters dialog for dico
+	 */
+	public void showDicoParam(){
+		//TODO appeler fonction moteur
+	}
+	
+	/**
+	 * Show the parameter dialog for egine options
+	 */
+	public void showOptParam(){
+		//TODO appeler fonction moteur
+	}
+	
 
 	/*
 	 * GUI Parameters getters and setters

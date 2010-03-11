@@ -70,10 +70,17 @@ public class ToolBarPanel extends javax.swing.JPanel {
 					rec.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							onRec=!onRec;
-							if(onRec)
+							if(onRec){
+								Controleur.getInstance().startEngine();
+								Controleur.getInstance().setLastAction("Moteur démarré.");
 								rec.setIcon(micOn);
-							else
+							}	
+							else{
+								Controleur.getInstance().startEngine();
+								Controleur.getInstance().setLastAction("Moteur stoppé.");
 								rec.setIcon(micOff);
+							}
+								
 						}
 					});
 				}
@@ -92,7 +99,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 							JFileChooser fileChooser = new JFileChooser();
 							fileChooser.showDialog(ToolBarPanel.this, "Enregister");							
 							String outPutFile = fileChooser.getSelectedFile().getAbsolutePath();
-							//TO DO rajouter ce qui va bien
+							//TODO rajouter ce qui va bien
 							FileExporter.createPdf(false, new JTextPane(),outPutFile);
 						}
 					});
