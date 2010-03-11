@@ -1,8 +1,6 @@
 package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 
-import java.awt.Dimension;
-import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeListener;
 
 import fr.alma.asr.utils.FileExporter;
 
@@ -70,6 +65,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 					
 					jPanelRecord.add(rec);
 					rec.addActionListener(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent evt) {
 							onRec=!onRec;
 							if(onRec){

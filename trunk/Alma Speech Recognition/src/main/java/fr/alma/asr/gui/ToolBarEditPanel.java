@@ -1,13 +1,8 @@
 package fr.alma.asr.gui;
+
 import java.awt.BorderLayout;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-
 import javax.swing.ImageIcon;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

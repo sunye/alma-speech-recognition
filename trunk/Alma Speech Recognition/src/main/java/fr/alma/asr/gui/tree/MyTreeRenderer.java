@@ -23,8 +23,8 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 	 */
 	public MyTreeRenderer() {
 		super();
-		subject_opened = new ImageIcon("img/jtree/subject_opened.png");
-		subject_closed = new ImageIcon("img/jtree/subject_closed.png");
+		subject_opened = new ImageIcon(getClass().getResource("/jtree/subject_opened.png"));
+		subject_closed = new ImageIcon(getClass().getResource("/jtree/subject_closed.png"));
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 		if (!leaf) {
 			DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
 			Object obj = node.getUserObject();
-			if (obj.getClass().isInstance(Subject.class)) {
+			if (obj instanceof Subject) {
 				if (expanded) {
 					setIcon(subject_opened);
 				} else {

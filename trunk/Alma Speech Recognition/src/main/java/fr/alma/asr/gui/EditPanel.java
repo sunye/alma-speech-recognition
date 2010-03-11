@@ -210,6 +210,7 @@ public class EditPanel extends javax.swing.JPanel {
 
 		bar.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
 					HTML.Tag htmlTag = HTML.Tag.H1;
@@ -242,6 +243,7 @@ public class EditPanel extends javax.swing.JPanel {
 		bar.add(h1Button);
 
 		h2Button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
 					HTML.Tag htmlTag = HTML.Tag.H2;
@@ -273,6 +275,7 @@ public class EditPanel extends javax.swing.JPanel {
 		bar.add(h2Button);
 
 		h3Button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
 					HTML.Tag htmlTag = HTML.Tag.H3;
@@ -316,14 +319,16 @@ public class EditPanel extends javax.swing.JPanel {
 		parent.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
-				if (e.isPopupTrigger())
+				if (e.isPopupTrigger()) {
 					menu.show(parent, e.getX(), e.getY());
+				}
 			}
 
 			@Override
 			public void mouseReleased(java.awt.event.MouseEvent e) {
-				if (e.isPopupTrigger())
+				if (e.isPopupTrigger()) {
 					menu.show(parent, e.getX(), e.getY());
+				}
 			}
 		});
 	}

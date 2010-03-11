@@ -11,10 +11,6 @@ import javax.swing.JTextArea;
  * @author damien
  *
  */
-/**
- * @author damien
- *
- */
 public class ViewPanel extends javax.swing.JPanel {
 
 

@@ -13,8 +13,8 @@ package fr.alma.asr.gui.tree;
 public class DialogNewModule extends javax.swing.JDialog {
 
     /** Creates new form DialogNewModule. */
-    public DialogNewModule(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DialogNewModule(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
     }
 
@@ -106,7 +106,7 @@ public class DialogNewModule extends javax.swing.JDialog {
 	 * @param evt l'evenement capturé
 	 */
 	private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-		
+		this.name = new String(this.textNom.getText());
 		this.setVisible(false);
 	}//GEN-LAST:event_validerActionPerformed
 

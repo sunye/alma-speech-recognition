@@ -1,14 +1,10 @@
 package fr.alma.asr.gui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo

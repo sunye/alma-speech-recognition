@@ -74,36 +74,45 @@ public class PanelTreeCours extends javax.swing.JPanel {
 				DefaultMutableTreeNode node =  (DefaultMutableTreeNode)arbreCours.getLastSelectedPathComponent();
 				//On n'a plus qu'à générer notre menu contextuel !
 				javax.swing.JPopupMenu jpm = new javax.swing.JPopupMenu();
-
-				if (node.getAllowsChildren()) {
-					javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
-					addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.FALSE));
-					jpm.add(addFolderMenu);
-
-					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un cours");
-					addFileMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.TRUE));
-					jpm.add(addFileMenu);
-				} else {
-
-					javax.swing.JMenuItem openMenu = new javax.swing.JMenuItem("Ouvrir");
-					openMenu.addActionListener(new TreeOpenMenuListener(node));
-					jpm.add(openMenu);
-
-					javax.swing.JMenuItem impressionMenu = new javax.swing.JMenuItem("Imprimer");
-					impressionMenu.addActionListener(new TreeImpressMenuListener(node));
-					jpm.add(impressionMenu);
-				}
-
-				// on efface pas la racine
+				
+				// traitement différent pour la racine
 				if (row != 0) {
+
+					if (node.getAllowsChildren()) {
+						javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
+						addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.FALSE));
+						jpm.add(addFolderMenu);
+
+						javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un cours");
+						addFileMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.TRUE));
+						jpm.add(addFileMenu);
+					} else {
+
+						javax.swing.JMenuItem openMenu = new javax.swing.JMenuItem("Ouvrir");
+						openMenu.addActionListener(new TreeOpenMenuListener(node));
+						jpm.add(openMenu);
+
+						javax.swing.JMenuItem impressionMenu = new javax.swing.JMenuItem("Imprimer");
+						impressionMenu.addActionListener(new TreeImpressMenuListener(node));
+						jpm.add(impressionMenu);
+					}
+
 					javax.swing.JMenuItem eraseMenu = new javax.swing.JMenuItem("Effacer cet élément");
 					eraseMenu.addActionListener(new TreeEraseMenuListener(node));
 					jpm.add(eraseMenu);
-				}
 
-				javax.swing.JMenuItem propertiesMenu = new javax.swing.JMenuItem("Propriétés");
-				propertiesMenu.addActionListener(new TreePropertiesMenuListener(node));
-				jpm.add(propertiesMenu);
+					javax.swing.JMenuItem propertiesMenu = new javax.swing.JMenuItem("Propriétés");
+					propertiesMenu.addActionListener(new TreePropertiesMenuListener(node));
+					jpm.add(propertiesMenu);
+				} else {
+					javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un Module");
+					addFolderMenu.addActionListener(new TreeRootMenuListener(node, Boolean.TRUE));
+					jpm.add(addFolderMenu);
+
+//					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Supprimer un module");
+//					addFileMenu.addActionListener(new TreeRootMenuListener(node, Boolean.FALSE));
+//					jpm.add(addFileMenu);
+				}
 
 				jpm.show(arbreCours, evt.getX(), evt.getY());
 			}
@@ -199,6 +208,33 @@ public class PanelTreeCours extends javax.swing.JPanel {
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			controleur.ouvrir(node);
+		}
+	}
+
+	class TreeRootMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		private Boolean ajouter;
+		public TreeRootMenuListener(DefaultMutableTreeNode node, Boolean ajouter){
+			this.node = node;
+			this.ajouter = ajouter;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
+			if (this.ajouter) {
+				String nom = new DialogNewModule(null).showDialog();
+				if (nom != null) {
+					Object element = controleur.ajoutModule(nom, this.node);
+					this.node.add(new DefaultMutableTreeNode(element));
+					model.nodeChanged(this.node);
+				}
+			} else {
+				DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
+				controleur.suppressionElement(this.node);
+				model.removeNodeFromParent(this.node);
+				model.nodeChanged(parentNode);
+			}
+			arbreCours.updateUI();
 		}
 	}
 
