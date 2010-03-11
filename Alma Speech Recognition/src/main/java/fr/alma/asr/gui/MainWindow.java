@@ -198,7 +198,7 @@ public class MainWindow extends javax.swing.JFrame {
 				
 				/*----------------------------------TOOLBAR CREATION-------------------------------------------*/
 				{
-					toolBarPannel = new ToolBarPanel();
+					toolBarPannel = new ToolBarPanel(this);
 					getContentPane().add(toolBarPannel, BorderLayout.NORTH);
 				}
 				{
@@ -398,5 +398,12 @@ public class MainWindow extends javax.swing.JFrame {
 		initGUI();
 	}
 	
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public JTextPane getWorkTextPane() {
+		return ((WorkPanel)getTabbedPaneHomeWork().getSelectedComponent()).getTextPane();
+	}
 	
 }
