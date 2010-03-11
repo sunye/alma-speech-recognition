@@ -1,8 +1,10 @@
 package fr.alma.asr.gui;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,7 +49,6 @@ public class ParametersDialog extends javax.swing.JDialog {
 	private JLabel jLabel1;
 	
 	private static ParametersDialog instance;
-	//private MainWindow main = MainWindow.getInstance();
 	private Controleur controleur = Controleur.getInstance();
 	
 	public static ParametersDialog getInstance(){
@@ -66,9 +67,11 @@ public class ParametersDialog extends javax.swing.JDialog {
 			{
 				this.setTitle("Paramètres");
 				this.setModal(true);
-				this.setLocationRelativeTo(null);
+				this.setLocationRelativeTo(MainWindow.getInstance());
 				
-				
+				Dimension mainWindow =  MainWindow.getInstance().getSize();
+				setLocation((mainWindow.width - this.getSize().width)/2,(mainWindow.height - this.getSize().height)/2);
+								
 				JTabbedPane tabbedPane = new JTabbedPane();
 				getContentPane().setLayout(new GridLayout(1, 1));
 				getContentPane().add(tabbedPane);
