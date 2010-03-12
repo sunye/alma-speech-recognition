@@ -3,17 +3,13 @@ package fr.alma.asr.gui;
 import fr.alma.asr.dao.ElementDao;
 import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.LessonDao;
-import fr.alma.asr.dao.RootDao;
 import fr.alma.asr.dao.impl.AbstractDaoImpl;
 import fr.alma.asr.dao.impl.ElementDaoImpl;
 import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.dao.impl.LessonDaoImpl;
-import fr.alma.asr.dao.impl.RootDaoImpl;
 import fr.alma.asr.entities.Element;
 import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
-import fr.alma.asr.entities.Root;
-import fr.alma.asr.entities.Subject;
 import fr.alma.asr.gui.tree.DialogProprietes;
 import fr.alma.asr.utils.FileExporter;
 
@@ -90,8 +86,8 @@ public final class Controleur {
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:" + chemin);
 		File fichier = new File(chemin + ".h2.db");
 		if (!fichier.exists()) {
-			Root racine = new Root("Cours");
-			new RootDaoImpl().create(racine);
+			Folder racine = new Folder("Cours");
+			new FolderDaoImpl().create(racine);
 		}
 	}
 
@@ -132,14 +128,10 @@ public final class Controleur {
 	 * @param racine la racine de l'arbre.
 	 */
 	public void construireArbreCours(DefaultMutableTreeNode racine) {
-		RootDao dao = new RootDaoImpl();
-		Root dossierRacine = dao.findRoot();
+		FolderDao dao = new FolderDaoImpl();
+		Folder dossierRacine = dao.findDossierRacine();
 		racine.setUserObject(dossierRacine);
-		for (Subject cours : dossierRacine.getModules()) {
-			DefaultMutableTreeNode noeud = new DefaultMutableTreeNode(cours);
-			racine.add(noeud);
-			construireArbreCoursBis(noeud, cours);
-		}
+		construireArbreCoursBis(racine, dossierRacine);
 	}
 
 	/**
@@ -196,30 +188,18 @@ public final class Controleur {
 	 * @param node le noeud parent
 	 * @return l'objet créé
 	 */
-	public Object ajoutFolder(String nom, DefaultMutableTreeNode node) {
+	public Object ajoutFolder(String nom, DefaultMutableTreeNode node, boolean isModule) {
 		Folder folder = new Folder(nom);
-		Folder Folder = (Folder) node.getUserObject();
-		folder.setDossierConteneur(Folder);
-		Folder.addElements(folder);
+		Folder conteneur = (Folder) node.getUserObject();
+		folder.setDossierConteneur(conteneur);
+		if (isModule) {
+			folder.setModule();
+		}
+		conteneur.addElements(folder);
 		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
-		dao.update(Folder);
+		dao.update(conteneur);
 		return folder;
-	}
-
-	/**
-	 * Fonction d'ajout de module.
-	 * @param nom le nom du module à créer
-	 * @param node le noeud parent
-	 * @return l'objet créé
-	 */
-	public Object ajoutModule(String nom, DefaultMutableTreeNode node) {
-		Subject module = new Subject(nom);
-		Root root = (Root) node.getUserObject();
-		root.addModule(module);
-		new FolderDaoImpl().create(module);
-		new RootDaoImpl().update(root);
-		return module;
 	}
 
 	/**
@@ -273,7 +253,7 @@ public final class Controleur {
 		String type = "";
 		if (elem.isFile()) {
 			type = "Fichier";
-		} else if (elem instanceof Subject) {
+		} else if (((Folder)elem).isModule()) {
 			type = "Module";
 		} else {
 			type = "Dossier";

@@ -32,7 +32,7 @@ public class Lesson extends Element {
 	 * @param nom le nom du fichier.
 	 */
 	public Lesson(String nom) {
-		super(nom, Boolean.TRUE);
+		super(nom);
 	}
 
 	/**
@@ -67,6 +67,11 @@ public class Lesson extends Element {
 	public void setDataProf(String texte) {
 		this.dataProf = texte;
 		this.setChanged();
+	}
+
+	@Override
+	public boolean isFile() {
+		return true;
 	}
 
 }
