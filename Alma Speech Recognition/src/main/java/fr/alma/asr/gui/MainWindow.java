@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -15,6 +16,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
 import fr.alma.asr.gui.listener.MenuItemListener;
+import fr.alma.asr.gui.tabbedpane.TabContainer;
+import fr.alma.asr.gui.tabbedpane.TabbedPane;
 import fr.alma.asr.gui.tree.PanelTreeCours;
 import fr.alma.asr.gui.tree.PanelTreePlan;
 
@@ -75,7 +78,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 	
 	//Panels list
-	private JTabbedPane tabbedPaneHomeWork;
+	private TabContainer tabbedPaneHomeWork;
 	private JTabbedPane tabbedPanePlanCourses;
 	private HomePanel homePanel;	
 	private ToolBarPanel toolBarPannel;
@@ -155,14 +158,10 @@ public class MainWindow extends javax.swing.JFrame {
 		this.newFileMenuItem = newFileMenuItem;
 	}
 
-	public JTabbedPane getTabbedPaneHomeWork() {
+	public TabContainer getTabbedPaneHomeWork() {
 		return tabbedPaneHomeWork;
 	}
 
-
-	public void setTabbedPaneHomeWork(JTabbedPane tabbedPaneHomeWork) {
-		this.tabbedPaneHomeWork = tabbedPaneHomeWork;
-	}
 
 
 	public JTabbedPane getTabbedPanePlanCourses() {
@@ -324,13 +323,12 @@ public class MainWindow extends javax.swing.JFrame {
 					tabbedPanePlanCourses.setIconAt(1, new ImageIcon(getClass().getResource("/icones/doc24.png")));
 				}
 				{
-					tabbedPaneHomeWork = new JTabbedPane();
+					tabbedPaneHomeWork = new TabContainer();
 					splitPanel.add(tabbedPaneHomeWork,JSplitPane.RIGHT);
 				}
 				{
 					homePanel = new HomePanel();
-					tabbedPaneHomeWork.add(homePanel, " Home");
-					tabbedPaneHomeWork.setIconAt(0, new ImageIcon(getClass().getResource("/icones/home24.png")));
+					tabbedPaneHomeWork.add(homePanel, " Home", new ImageIcon(getClass().getResource("/icones/home24.png")));
 				}
 				{
 					statusPanel = new StatusPanel();
@@ -351,9 +349,7 @@ public class MainWindow extends javax.swing.JFrame {
 	 */
 	public void addNewWorkPanel(String name){
 		WorkPanel workPanel = new WorkPanel(this);
-		tabbedPaneHomeWork.add(name,workPanel);
-	    tabbedPaneHomeWork.setIconAt(tabbedPaneHomeWork.getTabCount()-1, new ImageIcon(getClass().getResource("/icones/RSSfolder24.png")));
-		//workPanelList.put(name, workPanel);
+		tabbedPaneHomeWork.add(workPanel,name,new ImageIcon(getClass().getResource("/icones/RSSfolder24.png")));
 	}
 
 
@@ -404,7 +400,11 @@ public class MainWindow extends javax.swing.JFrame {
 	 * @return JTextPane textPane
 	 */
 	public JTextPane getWorkTextPane() {
-		return ((WorkPanel)getTabbedPaneHomeWork().getSelectedComponent()).getTextPane();
+		return ((WorkPanel)getTabbedPaneHomeWork().getSelectedComponent()).getWorkTextPane();
+	}
+	
+	public WorkPanel getCurrentWorkPane() {
+		return ((WorkPanel)getTabbedPaneHomeWork().getSelectedComponent());
 	}
 	
 }
