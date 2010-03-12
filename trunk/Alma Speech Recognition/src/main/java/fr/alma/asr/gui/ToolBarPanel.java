@@ -72,11 +72,13 @@ public class ToolBarPanel extends javax.swing.JPanel {
 								Controleur.getInstance().startEngine();
 								Controleur.getInstance().setLastAction("Moteur démarré.");
 								rec.setIcon(micOn);
+								Controleur.getInstance().setModified(true);
 							}	
 							else{
 								Controleur.getInstance().startEngine();
 								Controleur.getInstance().setLastAction("Moteur stoppé.");
 								rec.setIcon(micOff);
+								Controleur.getInstance().setAllUnModified();
 							}
 								
 						}

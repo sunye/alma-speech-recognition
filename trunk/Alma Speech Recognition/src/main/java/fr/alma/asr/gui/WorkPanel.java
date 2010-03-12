@@ -85,9 +85,10 @@ public class WorkPanel extends JPanel {
 	 * 
 	 * @return JTextPane textPane
 	 */
-	public JTextPane getTextPane() {
+	public JTextPane getWorkTextPane() {
 		return this.editPanel.getTextPane();
 	}
+	
 	
 	/**
 	 * @param jPanel

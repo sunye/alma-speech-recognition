@@ -17,6 +17,7 @@ import fr.alma.asr.entities.Subject;
 import fr.alma.asr.gui.tree.DialogProprietes;
 import fr.alma.asr.utils.FileExporter;
 
+import java.awt.Component;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -385,6 +386,22 @@ public final class Controleur {
 	 */
 	public void showOptParam(){
 		//TODO appeler fonction moteur
+	}
+	
+	/**
+	 * Set the current panel displayed on screen modified/unmodified.
+	 * If true, a icon show that the panel has modification which haven't been saved.
+	 * @param modified true : display icon/ false hide icon
+	 */
+	public void setModified(boolean modified){
+		MainWindow.getInstance().getTabbedPaneHomeWork().setCurrentModified(modified);
+	}
+	
+	/**
+	 * After a "save all" action, all the tabbed pane are set to unmodified.
+	 */
+	public void setAllUnModified(){
+		MainWindow.getInstance().getTabbedPaneHomeWork().setAllUnModified();
 	}
 	
 
