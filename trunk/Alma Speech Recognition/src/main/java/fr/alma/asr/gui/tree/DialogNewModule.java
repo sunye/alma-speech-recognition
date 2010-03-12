@@ -15,6 +15,7 @@ public class DialogNewModule extends javax.swing.JDialog {
     /** Creates new form DialogNewModule. */
     public DialogNewModule(java.awt.Frame parent) {
         super(parent, true);
+		setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -34,6 +35,7 @@ public class DialogNewModule extends javax.swing.JDialog {
         checkBoxDossiers = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nouveau module");
 
         labelName.setText("Entrez le nom du nouveau module :");
 

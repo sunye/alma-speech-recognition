@@ -1,6 +1,6 @@
 package fr.alma.asr.gui.tree;
 
-import fr.alma.asr.entities.Subject;
+import fr.alma.asr.entities.Folder;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -32,8 +32,8 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 		if (!leaf) {
 			DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
-			Object obj = node.getUserObject();
-			if (obj instanceof Subject) {
+			Folder folder = (Folder) node.getUserObject();
+			if (folder.isModule()) {
 				if (expanded) {
 					setIcon(subject_opened);
 				} else {

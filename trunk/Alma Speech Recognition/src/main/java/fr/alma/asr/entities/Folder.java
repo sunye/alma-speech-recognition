@@ -2,6 +2,7 @@ package fr.alma.asr.entities;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,10 @@ public class Folder extends Element {
 
 	/** Numéro de série par défaut. */
 	private static final long serialVersionUID = 1L;
+
+	/** Module. */
+	@Basic
+	private boolean isModule;
 	
 	/** Elements. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dossierConteneur")
@@ -25,6 +30,7 @@ public class Folder extends Element {
 	 * Constructeur par défaut.
 	 */
 	public Folder() {
+		this.isModule = false;
 		this.elements = new LinkedList<Element>();
 	}
 	
@@ -33,7 +39,8 @@ public class Folder extends Element {
 	 * @param nom le nom
 	 */
 	public Folder(String nom) {
-		super(nom, Boolean.FALSE);
+		super(nom);
+		this.isModule = false;
 		this.elements = new LinkedList<Element>();
 	}
 	
@@ -80,6 +87,26 @@ public class Folder extends Element {
 	public void removeElement(Element element){
 		this.elements.remove(element);
 		this.setChanged();
+	}
+
+	/**
+	 * Définit le dossier en tant que module.
+	 */
+	public void setModule() {
+		this.isModule = true;
+	}
+
+	/**
+	 * Teste si le dossier est un module.
+	 * @return true si c'est un module
+	 */
+	public boolean isModule() {
+		return this.isModule;
+	}
+
+	@Override
+	public boolean isFile() {
+		return false;
 	}
 
 }

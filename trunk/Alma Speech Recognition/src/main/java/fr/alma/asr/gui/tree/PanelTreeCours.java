@@ -80,11 +80,11 @@ public class PanelTreeCours extends javax.swing.JPanel {
 
 					if (node.getAllowsChildren()) {
 						javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un dossier");
-						addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.FALSE));
+						addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, false, false));
 						jpm.add(addFolderMenu);
 
 						javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Ajouter un cours");
-						addFileMenu.addActionListener(new TreeAddElementMenuListener(node, Boolean.TRUE));
+						addFileMenu.addActionListener(new TreeAddElementMenuListener(node, true, false));
 						jpm.add(addFileMenu);
 					} else {
 
@@ -106,12 +106,8 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					jpm.add(propertiesMenu);
 				} else {
 					javax.swing.JMenuItem addFolderMenu = new javax.swing.JMenuItem("Ajouter un Module");
-					addFolderMenu.addActionListener(new TreeRootMenuListener(node, Boolean.TRUE));
+					addFolderMenu.addActionListener(new TreeAddElementMenuListener(node, false, true));
 					jpm.add(addFolderMenu);
-
-//					javax.swing.JMenuItem addFileMenu = new javax.swing.JMenuItem("Supprimer un module");
-//					addFileMenu.addActionListener(new TreeRootMenuListener(node, Boolean.FALSE));
-//					jpm.add(addFileMenu);
 				}
 
 				jpm.show(arbreCours, evt.getX(), evt.getY());
@@ -150,16 +146,20 @@ public class PanelTreeCours extends javax.swing.JPanel {
 
 	class TreeAddElementMenuListener implements java.awt.event.ActionListener{
 		private DefaultMutableTreeNode  node;
-		private Boolean isFile;
-		public TreeAddElementMenuListener(DefaultMutableTreeNode node, Boolean isFile){
+		private boolean isFile;
+		private boolean isModule;
+		public TreeAddElementMenuListener(DefaultMutableTreeNode node, boolean isFile, boolean isModule){
 			this.node = node;
 			this.isFile = isFile;
+			this.isModule = isModule;
 		}
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			String nom;
 			if (this.isFile) {
 				nom = new DialogNewElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
+			} else if (this.isModule) {
+				nom = new DialogNewModule(null).showDialog();
 			} else {
 				nom = new DialogNewElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
 			}
@@ -169,7 +169,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					Object element = controleur.ajoutFichier(nom, node);
 					node.add(new DefaultMutableTreeNode(element, false));
 				} else {
-					Object element = controleur.ajoutFolder(nom, node);
+					Object element = controleur.ajoutFolder(nom, node, this.isModule);
 					node.add(new DefaultMutableTreeNode(element));
 				}
 				model.nodeChanged(node);
@@ -208,33 +208,6 @@ public class PanelTreeCours extends javax.swing.JPanel {
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			controleur.ouvrir(node);
-		}
-	}
-
-	class TreeRootMenuListener implements java.awt.event.ActionListener{
-		private DefaultMutableTreeNode  node;
-		private Boolean ajouter;
-		public TreeRootMenuListener(DefaultMutableTreeNode node, Boolean ajouter){
-			this.node = node;
-			this.ajouter = ajouter;
-		}
-		@Override
-		public void actionPerformed(java.awt.event.ActionEvent e) {
-			DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
-			if (this.ajouter) {
-				String nom = new DialogNewModule(null).showDialog();
-				if (nom != null) {
-					Object element = controleur.ajoutModule(nom, this.node);
-					this.node.add(new DefaultMutableTreeNode(element));
-					model.nodeChanged(this.node);
-				}
-			} else {
-				DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
-				controleur.suppressionElement(this.node);
-				model.removeNodeFromParent(this.node);
-				model.nodeChanged(parentNode);
-			}
-			arbreCours.updateUI();
 		}
 	}
 

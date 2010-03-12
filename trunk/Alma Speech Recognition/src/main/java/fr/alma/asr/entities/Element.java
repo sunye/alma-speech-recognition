@@ -34,9 +34,6 @@ public abstract class Element extends AbstractEntity {
 	/** Nom. */
 	@Basic
 	private String nom;
-	/** Le type d'élément. */
-	@Basic
-	private Boolean fichier;
 	/** Dossier conteneur. */
 	@ManyToOne
 	private Folder dossierConteneur;
@@ -52,9 +49,8 @@ public abstract class Element extends AbstractEntity {
 	 * @param nom le nom de l'élément
 	 * @param estFichier indique si l'élément créé est un fichier
 	 */
-	public Element(String nom, Boolean estFichier) {
+	public Element(String nom) {
 		this.nom = nom;
-		this.fichier = estFichier;
 		this.dateCreation = new Date();
 		this.dateModification = new Date();
 	}
@@ -122,9 +118,7 @@ public abstract class Element extends AbstractEntity {
 	 * Permet de savoir le type concret (fichier ou dossier).
 	 * @return le type
 	 */
-	public Boolean isFile() {
-		return this.fichier;
-	}
+	public abstract boolean isFile();
 
 	/**
 	 * Change la date de modification.
