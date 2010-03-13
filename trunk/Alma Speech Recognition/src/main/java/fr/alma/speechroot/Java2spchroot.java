@@ -36,7 +36,8 @@ public class Java2spchroot implements TreatMessageInterface {
 	 */
 	public static native int stopEngine();
 	
-//	public static native int RegisterRecognitionCB();
+	//TODO Javadoc
+	public static native int RegisterRecognitionCB();
 	
 	/**
 	 * Fonction d'initialisation de l'application.
@@ -150,18 +151,14 @@ public class Java2spchroot implements TreatMessageInterface {
 		}
 	}
 
-	/**
-	 * Fonction de callback.
-	 * @param msg Code du message
-	 * @param body Corps du message
-	 * @return 0 en cas de succès
-	 * @see fr.alma.speechroot.TreatMessageInterface#treatMsgFunction(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public int treatMsgFunction(String msg, String body) {
+//		new Thread(new ThreadTreatMessage(msg, body)).start();
+//		Thread.yield();
 		System.out.println("Message : " + msg);
 		System.out.println("Corps : " + body);
+		System.out.flush();
 		return 0;
 	}
-
+	
 }
