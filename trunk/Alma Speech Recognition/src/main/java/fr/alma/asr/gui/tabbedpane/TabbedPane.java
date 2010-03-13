@@ -29,7 +29,7 @@ public class TabbedPane extends JPanel {
 	private javax.swing.JLabel labelNom;
 	private JButton boutonModified;
 	private JButton boutonIcon;
-	private ImageIcon modified = new ImageIcon(getClass().getResource("/icones/Modify.png"));
+	private ImageIcon modified = new ImageIcon(getClass().getResource("/icones/modifySmall16.png"));
 	private ImageIcon close = new ImageIcon(getClass().getResource("/icones/Close_tabbedPane.png"));
 	private ImageIcon close_hover = new ImageIcon(getClass().getResource("/icones/Close_tabbedPane_hover.png"));
 	private ImageIcon tabIcon ;
@@ -42,7 +42,7 @@ public class TabbedPane extends JPanel {
 		this.tabIcon = icon;
 		this.component = cmp;
 		initComponents();
-		this.labelNom.setText(title);
+		this.labelNom.setText("  "+title+"  ");
 	}
 
 	private void initComponents() {
@@ -116,9 +116,13 @@ public class TabbedPane extends JPanel {
 	public void setModified(boolean modified){
 		if(!modified){
 			panel.remove(boutonModified);
+			//labelNom.setText("  "+labelNom.getText());
 		}
-		else
+		else{
 			panel.add(boutonModified,java.awt.BorderLayout.LINE_START);
+			//labelNom.setText(labelNom.getText().substring(2, labelNom.getText().length()));
+		}
+			
 	}
 	
 }
