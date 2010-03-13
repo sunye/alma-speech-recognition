@@ -35,7 +35,12 @@ public class Moteur {
 	 * Connexion du moteur.
 	 */
 	public void connect() {
-		Java2spchroot.initInterfaceToSmapi(this.java2spchroot, "init message", "init body");
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+				Java2spchroot.initInterfaceToSmapi(java2spchroot, "init message", "init body");				
+//			}			
+//		}).start();
 	}
 	
 	/**
@@ -50,7 +55,12 @@ public class Moteur {
 	 * @return vrai si le moteur est correctement démarré
 	 */
 	public boolean start() {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
 		return Java2spchroot.startEngine() == 0;
+//			}			
+//		}).start();
 	}
 	
 	/**
@@ -67,6 +77,9 @@ public class Moteur {
 	 * @return vrai si le microphone est correctement activé
 	 */
 	public boolean micon(boolean save) {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
 		String msg;
 		if (save) {
 			msg = "SAVE_ON";
@@ -74,6 +87,8 @@ public class Moteur {
 			msg = "SAVE_OFF";
 		}
 		return Java2spchroot.micon(msg) == 0;
+//			}			
+//		}).start();
 	}
 	
 	/**
@@ -81,7 +96,12 @@ public class Moteur {
 	 * @return vrai si le microphone est correctement fermé
 	 */
 	public boolean micoff() {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
 		return Java2spchroot.micoff() == 0;
+//			}			
+//		}).start();
 	}
 	
 	/**
@@ -98,6 +118,11 @@ public class Moteur {
 	 */
 	public boolean adaptDictionnaryDialog() {
 		return Java2spchroot.AdaptVocabDialog() == 0;
+	}
+	
+	//TODO Javadoc
+	public boolean registerRecognitionCB() {
+		return Java2spchroot.RegisterRecognitionCB() == 0;
 	}
 	
 	
