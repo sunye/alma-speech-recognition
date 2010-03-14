@@ -1,7 +1,8 @@
 package fr.alma.asr.entities;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Folder extends Element {
 	
 	/** Elements. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dossierConteneur")
-	private List<Element> elements;
+	private Collection<Element> elements;
 	
 	/**
 	 * Constructeur par défaut.
@@ -48,7 +49,7 @@ public class Folder extends Element {
 	 * Getter de l'attribut elements.
 	 * @return elements 
 	 */
-	public List<Element> getElements() {
+	public Collection<Element> getElements() {
 		return this.elements;
 	}
 	
@@ -66,6 +67,7 @@ public class Folder extends Element {
 	 * @param element l'élément ajouté
 	 */
 	public void addElements(Element element){
+		element.setDossierConteneur(this);
 		this.elements.add(element);
 		this.setChanged();
 	}
@@ -76,7 +78,10 @@ public class Folder extends Element {
 	 * @param index l'index
 	 */
 	public void addElementIndex(Element element, int index) {
-		this.elements.add(index, element);
+		LinkedList<Element> liste = new LinkedList<Element>(this.elements);
+		element.setDossierConteneur(this);
+		liste.add(index, element);
+		this.elements = liste;
 		this.setChanged();
 	}
 	
@@ -109,4 +114,10 @@ public class Folder extends Element {
 		return false;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		Folder folder = (Folder) other;
+		return (this.id == folder.getId() && this.nom.equals(folder.getNom()));
+	}
+	
 }

@@ -24,19 +24,19 @@ public abstract class Element extends AbstractEntity {
 	/** Id. */
 	@Id
 	@GeneratedValue
-	private long id;
+	protected long id;
 	/** Date de création. */
 	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date dateCreation;
+	protected Date dateCreation;
 	/** Dernière date de modification. */
 	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date dateModification;
+	protected Date dateModification;
 	/** Nom. */
 	@Basic
-	private String nom;
+	protected String nom;
 	/** Dossier conteneur. */
 	@ManyToOne
-	private Folder dossierConteneur;
+	protected Folder dossierConteneur;
 
 	/**
 	 * Constructeur par defaut.

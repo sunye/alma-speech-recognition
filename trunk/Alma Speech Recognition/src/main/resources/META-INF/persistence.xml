@@ -13,7 +13,7 @@
           <property name="hibernate.connection.driver_class" 
                                 value="org.h2.Driver" />
           <property name="hibernate.connection.url" 
-                                value="jdbc:h2:~/.gtd/db" />
+                                value="jdbc:h2:~/.asr/db" />
           <property name="hibernate.connection.username" 
                                 value="sa" />
           <property name="hibernate.connection.password" 

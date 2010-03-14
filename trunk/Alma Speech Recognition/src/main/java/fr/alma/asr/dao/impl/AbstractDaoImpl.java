@@ -89,7 +89,10 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	@Override
 	public void deleteAll() {
 		for (AnyEntity entity : findAll()) {
-			delete(entity.getId());
+			long id = entity.getId();
+			if (find(id) != null) {
+				delete(id);
+			}			
 		}		
 	}
 	

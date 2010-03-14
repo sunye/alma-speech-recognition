@@ -1,24 +1,26 @@
 package fr.alma.asr.dao.impl;
 
-import fr.alma.asr.dao.ElementDao;
-import fr.alma.asr.entities.Folder;
-import fr.alma.asr.entities.Element;
-
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import fr.alma.asr.dao.ElementDao;
+import fr.alma.asr.entities.Element;
+import fr.alma.asr.entities.Folder;
 
 /**
  * Implementation dao de la classe Element.
  * @author Jérémy Braud
  */
 public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementDao {
-
+	
 	@Override
 	public void delete(Long id) {
 		Element element = this.find(id);
-		// Suppression des sous-elements d'un projet
+		
+		// Suppression des sous-éléments d'un dossier
 		if (!element.isFile()) {
 			Folder projet = (Folder) element;
 			for (Element contenu : projet.getElements()) {
@@ -26,14 +28,16 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 			}
 		}
 
-		// Suppression de la reference dans le projet conteneur
+		// Suppression de la référence dans le dossier conteneur
 		Folder conteneur = element.getDossierConteneur();
-		conteneur.removeElement(element);
-		element.setDossierConteneur(null);
-		this.update(element);
-		this.update(conteneur);
+		if (conteneur != null) {
+			conteneur.removeElement(element);
+			element.setDossierConteneur(null);
+			this.update(element);
+			this.update(conteneur);
+		}		
 
-		// Suppression de l'element
+		// Suppression de l'élément
 		super.delete(id);
 	}
 
