@@ -12,7 +12,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-
 /**
  * Implementation dao de la classe abstraite.
  * @param <AnyEntity> template
@@ -20,10 +19,17 @@ import javax.persistence.Persistence;
  */
 public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implements AbstractDao<AnyEntity> {
 
+	/**	Singleton factory des EntityManager. */
 	private static EntityManagerFactory emf;
+	/** L'ensemble des propriétés relatives au mécanisme de persistance. */
 	private static HashMap<String, String> specificProperties = new HashMap<String, String>();
+	/** Indique si les propriétés ont été changées, ce qui provoque la mise à jour du singleton. */
 	private static boolean newProperties = false;
 	
+	/**
+	 * Méthode d'accès au singleton factory des EntityManager.
+	 * @return la factory des EntityManager
+	 */
 	private static EntityManagerFactory getEntityManagerFactory() {
 		if (emf == null) {			
 			emf = Persistence.createEntityManagerFactory("speech-recognition", specificProperties);
@@ -35,31 +41,50 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 		return emf;
 	}
 	
+	/**
+	 * Méthode de création d'un nouveau gestionnaire de persistance.
+	 * @return le gestionnaire de persistance
+	 */
 	protected static EntityManager getEntityManager() {
 		return getEntityManagerFactory().createEntityManager();
 	}
 	
+	/**
+	 * Accès à la classe de l'entité courante.
+	 * @return la classe de l'entité
+	 */
 	@SuppressWarnings("unchecked")
 	protected Class<AnyEntity> getEntity() {
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
 		return (Class<AnyEntity>) type.getActualTypeArguments()[0];
 	}
 	
+	/**
+	 * Accès au nom simple de l'entité courante.
+	 * @return le nom de l'entité
+	 */
 	protected String getEntitySimpleName() {
 		return getEntity().getSimpleName();
 	}
 	
+	/**
+	 * Méthode d'ajout ou de modification des propriétés du gestionnaire de persistance.
+	 * @param key la clé de la propriété
+	 * @param value la valeur de la propriété
+	 */
 	public static void addSpecificProperty(String key, String value) {
 		specificProperties.put(key, value);
 		newProperties = true;
 	}
 
+	/**
+	 * Méthode de fermeture de la factory.
+	 */
 	public static void deconnexion() {
 		if (emf != null) {
 			emf.close();
 		}
 	}
-	
 	
 	@Override
 	public Long create(AnyEntity entity) {
