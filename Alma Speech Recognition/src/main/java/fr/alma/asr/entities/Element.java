@@ -24,19 +24,19 @@ public abstract class Element extends AbstractEntity {
 	/** Id. */
 	@Id
 	@GeneratedValue
-	protected long id;
+	private long id;
 	/** Date de création. */
 	@Temporal(javax.persistence.TemporalType.DATE)
-	protected Date dateCreation;
+	private Date dateCreation;
 	/** Dernière date de modification. */
 	@Temporal(javax.persistence.TemporalType.DATE)
-	protected Date dateModification;
+	private Date dateModification;
 	/** Nom. */
 	@Basic
-	protected String nom;
+	private String nom;
 	/** Dossier conteneur. */
 	@ManyToOne
-	protected Folder dossierConteneur;
+	private Folder dossierConteneur;
 
 	/**
 	 * Constructeur par defaut.
@@ -47,7 +47,6 @@ public abstract class Element extends AbstractEntity {
 	/**
 	 * Constructeur.
 	 * @param nom le nom de l'élément
-	 * @param estFichier indique si l'élément créé est un fichier
 	 */
 	public Element(String nom) {
 		this.nom = nom;
@@ -136,4 +135,15 @@ public abstract class Element extends AbstractEntity {
 		return this.getNom();
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		Element element = (Element) other;
+		return (this.id == element.getId() && this.nom.equals(element.getNom()));
+	}
+	
+	@Override
+	public int hashCode() {
+		return Long.valueOf(this.id).hashCode() + this.nom.hashCode();		
+	}
+	
 }

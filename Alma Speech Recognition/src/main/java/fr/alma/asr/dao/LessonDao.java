@@ -14,6 +14,6 @@ public interface LessonDao extends AbstractDao<Lesson> {
 	 * @param classerParCreation si le classement est par ordre de création
 	 * @return la liste des fichiers
 	 */
-	public List<Lesson> findAll(Boolean classerParCreation);
+	List<Lesson> findAll(Boolean classerParCreation);
 
 }

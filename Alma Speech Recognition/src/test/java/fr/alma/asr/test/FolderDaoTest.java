@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.alma.asr.test;
 
 import java.util.List;
@@ -17,8 +14,7 @@ import fr.alma.asr.dao.impl.FolderDaoImpl;
 import fr.alma.asr.entities.Folder;
 
 /**
- * @author Fusio
- *
+ * @author Cédric Krommenhoek
  */
 public class FolderDaoTest extends TestCase {
 
@@ -29,6 +25,7 @@ public class FolderDaoTest extends TestCase {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
 		AbstractDaoImpl.addSpecificProperty("hibernate.connection.url", "jdbc:h2:./test/db");
 		this.dao = new FolderDaoImpl();
 		this.dao.deleteAll();
@@ -39,6 +36,7 @@ public class FolderDaoTest extends TestCase {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		super.tearDown();
 		this.dao.deleteAll();
 	}
 

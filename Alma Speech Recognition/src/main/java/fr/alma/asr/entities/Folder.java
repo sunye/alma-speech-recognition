@@ -113,11 +113,5 @@ public class Folder extends Element {
 	public boolean isFile() {
 		return false;
 	}
-
-	@Override
-	public boolean equals(Object other) {
-		Folder folder = (Folder) other;
-		return (this.id == folder.getId() && this.nom.equals(folder.getNom()));
-	}
 	
 }
