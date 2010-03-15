@@ -58,6 +58,8 @@ public class MainWindow extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
 	private JMenu jMenuHelp;
+	private JMenuItem undoMenuItem;
+	private JMenuItem redoMenuItem;
 	private JMenuItem deleteMenuItem;
 	private JMenuItem pasteMenuItem;
 	private JMenuItem copyMenuItem;
@@ -86,6 +88,15 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	
 	//---------------------------------- Getters and setters ----------------------------------
+	
+	
+	public JMenuItem getRedoMenuItem() {
+		return redoMenuItem;
+	}
+	
+	public JMenuItem getUndoMenuItem() {
+		return undoMenuItem;
+	}
 	
 	public JMenuItem getPasteMenuItem() {
 		return pasteMenuItem;
@@ -240,6 +251,19 @@ public class MainWindow extends javax.swing.JFrame {
 						jMenuEdition = new JMenu();
 						jMenuBar.add(jMenuEdition);
 						jMenuEdition.setText("Edition");
+						{
+							undoMenuItem = new JMenuItem();
+							jMenuEdition.add(undoMenuItem);
+							undoMenuItem.setText("Annuler");
+						}						
+						{
+							redoMenuItem = new JMenuItem();
+							jMenuEdition.add(redoMenuItem);
+							redoMenuItem.setText("Rétablir");
+						}
+						{
+							jMenuEdition.add(new JSeparator());
+						}
 						{
 							cutMenuItem = new JMenuItem();
 							jMenuEdition.add(cutMenuItem);
