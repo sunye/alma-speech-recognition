@@ -3,29 +3,43 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.ListCellRenderer;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
-import fr.alma.asr.utils.FileExporter;
 
 //import com.sun.java.swing.plaf.nimbus.TextPanePainter;
 //
@@ -41,15 +55,20 @@ import fr.alma.asr.utils.FileExporter;
  */
 public class EditPanel extends javax.swing.JPanel {
 
+	
+	 
 	private JTextPane textPane;
-	private HTMLEditorKit htmlEditorKit;
-	private HTMLDocument htmlDocument;
+	private StyledEditorKit editorKit;
+	private Document document;
+	private UndoManager undoManager;
 
 	private JScrollPane jScrollPane1;
 	private JPanel toolBarEditPannel;
 	private MenuTextArea menuText;
 
 	private MainWindow mainWindow;
+	private JComboBox jComboBoxFont;
+	private JComboBox jComboBoxFontSize;
 
 	private JButton textColorButton;
 	private Color selectedColor;
@@ -73,13 +92,49 @@ public class EditPanel extends javax.swing.JPanel {
 				jScrollPane1.setPreferredSize(new java.awt.Dimension(60, 19));
 				{
 					textPane = new JTextPane();
-					htmlEditorKit = new HTMLEditorKit();
-					htmlDocument = (HTMLDocument) htmlEditorKit
-							.createDefaultDocument();
-					textPane.setContentType("text/html");
+					editorKit = new StyledEditorKit();
+					document = editorKit.createDefaultDocument();
+					undoManager = new UndoManager();
+
+					// Listen for undo and redo events
+					document
+							.addUndoableEditListener(new UndoableEditListener() {
+								@Override
+								public void undoableEditHappened(
+										UndoableEditEvent e) {
+									undoManager.addEdit(e.getEdit());
+
+								}
+							});
+
+					textPane.getActionMap().put("Undo",
+							new AbstractAction("Undo") {
+								public void actionPerformed(ActionEvent evt) {
+									try {
+										if (undoManager.canUndo()) {
+											undoManager.undo();
+										}
+									} catch (CannotUndoException e) {
+									}
+								}
+							});
+
+					textPane.getActionMap().put("Redo",
+							new AbstractAction("Redo") {
+								public void actionPerformed(ActionEvent evt) {
+									try {
+										if (undoManager.canRedo()) {
+											undoManager.redo();
+										}
+									} catch (CannotUndoException e) {
+									}
+								}
+							});
+
 					textPane.setEditable(true);
-					textPane.setEditorKit(htmlEditorKit);
-					textPane.setDocument(htmlDocument);
+					textPane.setEditorKit(editorKit);
+					textPane.setDocument(document);
+
 					menuText = new MenuTextArea();
 
 					jScrollPane1.setViewportView(textPane);
@@ -112,6 +167,8 @@ public class EditPanel extends javax.swing.JPanel {
 
 		JToolBar bar = new JToolBar();
 
+		JButton testButton  = new JButton();
+		
 		JButton boldButton = new JButton();
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();
@@ -175,19 +232,28 @@ public class EditPanel extends javax.swing.JPanel {
 		textColorButton.setText("");
 
 		bar.add(textColorButton);
+		bar.add(getJComboBoxFontSize());
+		bar.add(getJComboBoxFont());
 
 		bar.addSeparator();
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		menuText.getjMenuItemCouper().addActionListener(a);
-		mainWindow.getCutMenuItem().setAction(a);
+		//mainWindow.getCutMenuItem().setAction(a);
 
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		menuText.getjMenuItemCopier().addActionListener(a);
-		mainWindow.getCopyMenuItem().setAction(a);
+		//mainWindow.getCopyMenuItem().setAction(a);
 
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
 		menuText.getjMenuItemColler().addActionListener(a);
-		mainWindow.getPasteMenuItem().setAction(a);
+		//mainWindow.getPasteMenuItem().setAction(a);
+		
+		
+		a = textPane.getActionMap().get("Undo");
+		testButton.addActionListener(a);
+		testButton.setText("test Undo");
+		bar.add(testButton);
+		//mainWindow.getPasteMenuItem().setAction(a);
 
 		bar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
@@ -202,12 +268,16 @@ public class EditPanel extends javax.swing.JPanel {
 		centerButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-center.png")));
 
-		a = new StyledEditorKit.AlignmentAction("right", 2);
+		
+		a = new StyledEditorKit.AlignmentAction("right", 2);				
 		rightButton = bar.add(a);
 		rightButton.setText("");
 		rightButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-right.png")));
 
+
+		
+		
 		bar.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
 			@Override
@@ -246,27 +316,15 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					HTML.Tag htmlTag = HTML.Tag.H2;
-					Hashtable htmlAttribs = new Hashtable();
+
 					String selText = textPane.getSelectedText();
+					
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
+					
+					System.out.println(selText);
 
-					textPane.select(selStart, selStart + textLength);
-					SimpleAttributeSet sasTag = new SimpleAttributeSet();
-					SimpleAttributeSet sasAttr = new SimpleAttributeSet();
 
-					Enumeration attribEntries = htmlAttribs.keys();
-					while (attribEntries.hasMoreElements()) {
-						Object entryKey = attribEntries.nextElement();
-						Object entryValue = htmlAttribs.get(entryKey);
-						sasAttr.addAttribute(entryKey, entryValue);
-						htmlAttribs.remove(entryKey);
-					}
-					sasTag.addAttribute(htmlTag, sasAttr);
-					textPane.setCharacterAttributes(sasTag, false);
-					textPane.setText(textPane.getText());
-					textPane.select(selStart, selStart + textLength);
 				} catch (Exception ignoredForNow) {
 				}
 			}
@@ -278,29 +336,12 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					HTML.Tag htmlTag = HTML.Tag.H3;
-					Hashtable htmlAttribs = new Hashtable();
-					String selText = textPane.getSelectedText();
-
+				String selText = textPane.getSelectedText();
+					
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
-
-					textPane.select(selStart, selStart + textLength);
-					SimpleAttributeSet sasTag = new SimpleAttributeSet();
-					SimpleAttributeSet sasAttr = new SimpleAttributeSet();
-
-					Enumeration attribEntries = htmlAttribs.keys();
-					while (attribEntries.hasMoreElements()) {
-						Object entryKey = attribEntries.nextElement();
-						Object entryValue = htmlAttribs.get(entryKey);
-						sasAttr.addAttribute(entryKey, entryValue);
-						htmlAttribs.remove(entryKey);
-					}
-					sasTag.addAttribute(htmlTag, sasAttr);
-					textPane.setCharacterAttributes(sasTag, false);
-					textPane.setText(textPane.getText());
-					textPane.select(selStart, selStart + textLength);
-
+					
+					System.out.println(selText);
 				} catch (Exception ignoredForNow) {
 				}
 			}
@@ -339,5 +380,106 @@ public class EditPanel extends javax.swing.JPanel {
 	 */
 	public JTextPane getTextPane() {
 		return textPane;
+	}
+	
+	private JComboBox getJComboBoxFontSize() {
+		
+		if(jComboBoxFontSize == null) {
+			
+			Vector<Integer> fontSize = new Vector<Integer>();
+			for (int i=10;i<35;i++){
+				fontSize.add(i);
+			}
+			
+			ComboBoxModel jComboBoxFontSizeModel = new DefaultComboBoxModel(fontSize);
+			jComboBoxFontSize = new JComboBox();
+		 	jComboBoxFontSize.setModel(jComboBoxFontSizeModel);		 	
+		 	
+		 	jComboBoxFontSize.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textPane.getActionMap().put("size",new StyledEditorKit.FontSizeAction("size",(Integer)jComboBoxFontSize.getSelectedItem()));
+					textPane.getActionMap().get("size").actionPerformed(e);
+				}
+			});
+		}
+		return jComboBoxFontSize;
+	}
+	
+	private JComboBox getJComboBoxFont() {
+		if(jComboBoxFont == null) {
+			
+			//Get the local graphics environment
+			GraphicsEnvironment ge;
+			ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			
+			//Get the font names from the graphics environment
+			String[] fontNames = ge.getAvailableFontFamilyNames();
+			
+			ComboBoxModel jComboBoxFontModel =	new DefaultComboBoxModel(fontNames);
+			jComboBoxFont = new JComboBox();
+			jComboBoxFont.setModel(jComboBoxFontModel);
+			
+			
+			//Change the celle renderer
+			jComboBoxFont.setRenderer(new DefaultListCellRenderer() {
+				
+				@Override
+				public Component getListCellRendererComponent(JList list, Object value,
+						int index, boolean isSelected, boolean cellHasFocus) {
+					
+					//Get the default cell renderer  
+			        JLabel label = (JLabel) ((ListCellRenderer)super.getListCellRendererComponent(list,  
+			                                                                   value,  
+			                                                                   index,  
+			                                                                   isSelected,  
+			                                                                   cellHasFocus));  
+			  
+			        //Create a font based on the item value  
+			        Font itemFont = new Font((String) value, Font.PLAIN, 24);  
+			  
+			        if (itemFont.canDisplayUpTo((String) value) == -1)  
+			        {  
+			                //Set the font of the label  
+			                label.setFont(itemFont);  
+			        }  
+			        else  
+			        {  
+			                //Create a font based on the item value  
+			                String fontName = label.getFont().getFontName();  
+			                Font largerFont = new Font(fontName, Font.PLAIN, 24);  
+			             
+			                //Set the font of the label  
+			                label.setFont(largerFont);  
+			        }  
+			  
+			        return label;  
+			    }  ;
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//Set the actiion
+			jComboBoxFont.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textPane.getActionMap().put("font",new StyledEditorKit.FontFamilyAction("font", (String)jComboBoxFont.getSelectedItem()));
+					textPane.getActionMap().get("font").actionPerformed(e);
+				}
+			});
+			
+		}
+		return jComboBoxFont;
 	}
 }
