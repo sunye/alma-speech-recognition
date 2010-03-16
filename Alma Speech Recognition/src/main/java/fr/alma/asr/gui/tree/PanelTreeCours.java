@@ -35,7 +35,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
         arbreCours = new javax.swing.JTree(this.racineCours);
 
         arbreCours.setDragEnabled(true);
-        arbreCours.setDropMode(javax.swing.DropMode.INSERT);
+        arbreCours.setDropMode(javax.swing.DropMode.ON);
         arbreCours.setEditable(true);
         arbreCours.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

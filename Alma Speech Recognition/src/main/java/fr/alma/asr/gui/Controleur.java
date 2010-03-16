@@ -270,12 +270,32 @@ public final class Controleur {
 		System.out.println("ouverture du fichier "+node);
 	}
 
+	/** La raine du JTree plan.*/
+	private DefaultMutableTreeNode racinePlan;
+
+	/**
+	 * Définit la racine du JTree plan.
+	 * @param racine la racine
+	 */
+	public void setRacineArbrePlan(DefaultMutableTreeNode racine) {
+	    this.racinePlan = racine;
+	}
+
+	/**
+	 * Mise à jour du JTree plan.
+	 * @param texte le texte à parser
+	 */
+	public void updateTreePlan(String texte) {
+	    construireArbrePlan(this.racinePlan);
+	}
+	
 	/**
 	 * Construit l'arbre du plan de cours.
 	 * @param racine la racine de l'arbre
 	 */
 	public void construireArbrePlan(DefaultMutableTreeNode racine) {
-		
+		//TODO parser le texte et ajouter les différents noeuds
+		System.out.println("Update du jtree!");
 	}
 
 	/**

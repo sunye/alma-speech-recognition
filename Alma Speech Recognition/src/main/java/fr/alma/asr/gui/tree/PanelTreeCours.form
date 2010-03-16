@@ -37,7 +37,7 @@
           <Properties>
             <Property name="dragEnabled" type="boolean" value="true"/>
             <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.editors.EnumEditor">
-              <Value id="INSERT"/>
+              <Value id="ON"/>
             </Property>
             <Property name="editable" type="boolean" value="true"/>
           </Properties>
