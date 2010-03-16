@@ -39,6 +39,12 @@ import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+/**
+ * Text Panel which contains a text area and its edit toolbar.
+ * 
+ * @author damien
+ * 
+ */
 @SuppressWarnings("serial")
 public class EditPanel extends javax.swing.JPanel {
 
@@ -91,7 +97,7 @@ public class EditPanel extends javax.swing.JPanel {
 	}
 
 	/**
-	 * @return
+	 * @return JToolBar editToolBar
 	 */
 	public JToolBar getToolBar() {
 
@@ -179,9 +185,9 @@ public class EditPanel extends javax.swing.JPanel {
 		mainWindow.getPasteMenuItem().addActionListener(a);
 
 		a = textPane.getActionMap().get("Annuler");
-		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));		
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));
 		mainWindow.getUndoMenuItem().setAction(a);
-		
+
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
 		a = textPane.getActionMap().get("Rétablir");
 		mainWindow.getRedoMenuItem().setAction(a);
@@ -227,9 +233,10 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					
-					editorKit.write(System.out,document,0,document.getLength());					
+					editorKit.write(System.out, document, 0, document
+							.getLength());
 				} catch (Exception ignoredForNow) {
+					ignoredForNow.printStackTrace();
 				}
 			}
 		});
@@ -245,9 +252,8 @@ public class EditPanel extends javax.swing.JPanel {
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
 
-					
-				
 				} catch (Exception ignoredForNow) {
+					ignoredForNow.printStackTrace();
 				}
 			}
 		});
@@ -280,17 +286,18 @@ public class EditPanel extends javax.swing.JPanel {
 				}
 			});
 
-			textPane.getActionMap().put("Supprimer", new AbstractAction("Supprimer") {
+			textPane.getActionMap().put("Supprimer",
+					new AbstractAction("Supprimer") {
 
 						public void actionPerformed(ActionEvent evt) {
 
 							String selText = textPane.getSelectedText();
-							
+
 							if (selText != null) {
 
-							int selStart = textPane.getSelectionStart();
-							int textLength = selText.length();
-							
+								int selStart = textPane.getSelectionStart();
+								int textLength = selText.length();
+
 								try {
 									document.remove(selStart, textLength);
 								} catch (BadLocationException e) {
@@ -302,30 +309,35 @@ public class EditPanel extends javax.swing.JPanel {
 						}
 
 					});
-			
-			
-			textPane.getActionMap().put("Annuler", new AbstractAction("Annuler") {
 
-				public void actionPerformed(ActionEvent evt) {
-					try {
-						if (undoManager.canUndo()) {
-							undoManager.undo();								
-						}
-					} catch (CannotUndoException e) {
-					}
-				}
-			});
+			textPane.getActionMap().put("Annuler",
+					new AbstractAction("Annuler") {
 
-			textPane.getActionMap().put("Rétablir", new AbstractAction("Rétablir") {
-				public void actionPerformed(ActionEvent evt) {
-					try {
-						if (undoManager.canRedo()) {
-							undoManager.redo();
+						public void actionPerformed(ActionEvent evt) {
+							try {
+								if (undoManager.canUndo()) {
+									undoManager.undo();
+								}
+							} catch (CannotUndoException e) {
+								e.printStackTrace();
+								;
+							}
 						}
-					} catch (CannotUndoException e) {
-					}
-				}
-			});
+					});
+
+			textPane.getActionMap().put("Rétablir",
+					new AbstractAction("Rétablir") {
+						public void actionPerformed(ActionEvent evt) {
+							try {
+								if (undoManager.canRedo()) {
+									undoManager.redo();
+								}
+							} catch (CannotUndoException e) {
+								e.printStackTrace();
+								;
+							}
+						}
+					});
 
 			textPane.addMouseListener(new MouseAdapter() {
 
@@ -351,7 +363,7 @@ public class EditPanel extends javax.swing.JPanel {
 	}
 
 	/**
-	 * @return
+	 * @return JComboBox fontSizeCombobox
 	 */
 	private JComboBox getJComboBoxFontSize() {
 
@@ -384,7 +396,7 @@ public class EditPanel extends javax.swing.JPanel {
 	}
 
 	/**
-	 * @return
+	 * @return JComboBox fontCombobox
 	 */
 	private JComboBox getJComboBoxFont() {
 		if (jComboBoxFont == null) {
@@ -462,7 +474,7 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get("Rétablir");
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
 		mainWindow.getRedoMenuItem().setAction(a);
-		
+
 		a = textPane.getActionMap().get("Supprimer");
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
 		mainWindow.getDeleteMenuItem().setAction(a);
