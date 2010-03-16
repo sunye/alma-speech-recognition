@@ -35,15 +35,9 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.StyledEditorKit;
-import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
-
-import org.apache.tools.ant.taskdefs.Length;
-
-import com.lowagie.text.html.HtmlWriter;
-import com.sun.xml.internal.txw2.output.XMLWriter;
 
 @SuppressWarnings("serial")
 public class EditPanel extends javax.swing.JPanel {
