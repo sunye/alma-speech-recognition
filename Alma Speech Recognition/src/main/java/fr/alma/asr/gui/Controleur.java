@@ -236,9 +236,9 @@ public final class Controleur {
 		// vérifie si on est plus hors index lors d'une réorganisation par ex
 		if ((index == folderCible.getElements().size())
 				&& (folderSource.getId() == folderCible.getId())) {
-			index = index - 1;
+			index --;
 		}
-
+		//TODO sysout a supprimer
 		System.out.println(index);
 		folderSource.removeElement(element);
 		folderCible.addElementIndex(element, index);
@@ -258,7 +258,7 @@ public final class Controleur {
 	 */
 	public void impression(DefaultMutableTreeNode node) {
 		// TODO activer l'impression
-		System.out.println("Impression...");
+		printLog("Impression...");
 	}
 
 	/**
@@ -296,7 +296,7 @@ public final class Controleur {
 	 */
 	public void ouvrir(DefaultMutableTreeNode node) {
 		// TODO ouvrir le fichier
-		System.out.println("ouverture du fichier " + node);
+		printLog("ouverture du fichier " + node);
 	}
 
 	/** La raine du JTree plan. */
@@ -330,7 +330,7 @@ public final class Controleur {
 	 */
 	public void construireArbrePlan(DefaultMutableTreeNode racine) {
 		// TODO parser le texte et ajouter les différents noeuds
-		System.out.println("Update du jtree!");
+		printLog("Update du jtree!");
 	}
 
 	/**
@@ -408,6 +408,7 @@ public final class Controleur {
 	 */
 	public void startEngine() {
 		// TODO appeler fonction moteur
+		
 	}
 
 	/**
