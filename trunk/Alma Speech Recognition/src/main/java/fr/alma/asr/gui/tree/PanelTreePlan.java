@@ -62,7 +62,7 @@ public class PanelTreePlan extends javax.swing.JPanel {
 	private void initialisation() {
 		this.controleur = Controleur.getInstance();
 		this.racinePlan = new DefaultMutableTreeNode("Plan");
-		controleur.construireArbrePlan(this.racinePlan);
+		controleur.setRacineArbrePlan(this.racinePlan);
 	}
 
 }
