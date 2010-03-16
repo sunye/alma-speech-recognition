@@ -33,6 +33,8 @@ public class Lesson extends Element {
 	 */
 	public Lesson(String nom) {
 		super(nom);
+		this.dataEleve = "";
+		this.dataProf = "";
 	}
 
 	/**

@@ -19,7 +19,7 @@ import javax.persistence.Persistence;
  */
 public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implements AbstractDao<AnyEntity> {
 
-	/**	Singleton factory des EntityManager. */
+	/** Singleton factory des EntityManager. */
 	private static EntityManagerFactory emf;
 	/** L'ensemble des propriétés relatives au mécanisme de persistance. */
 	private static HashMap<String, String> specificProperties = new HashMap<String, String>();
@@ -83,6 +83,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	public static void deconnexion() {
 		if (emf != null) {
 			emf.close();
+			emf = null;
 		}
 	}
 	

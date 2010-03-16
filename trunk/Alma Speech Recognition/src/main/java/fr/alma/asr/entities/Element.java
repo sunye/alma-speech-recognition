@@ -126,10 +126,6 @@ public abstract class Element extends AbstractEntity {
 		this.dateModification = new Date();
 	}
 
-	/**
-	 * Permet un affichage simplifié.
-	 * @return le nom de l'élément
-	 */
 	@Override
 	public String toString() {
 		return this.getNom();

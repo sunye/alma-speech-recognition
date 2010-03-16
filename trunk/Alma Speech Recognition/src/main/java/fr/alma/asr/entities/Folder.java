@@ -57,7 +57,7 @@ public class Folder extends Element {
 	 * Setter de l'attribut elements.
 	 * @param elements la collection d'elements
 	 */
-	public void setElements(LinkedList<Element> elements) {
+	public void setElements(Collection<Element> elements) {
 		this.elements = elements;
 		this.setChanged();
 	}
