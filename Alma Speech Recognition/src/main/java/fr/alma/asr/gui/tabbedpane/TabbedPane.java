@@ -1,9 +1,17 @@
+/*
+ * NewJPanel.java
+ *
+ * Created on 8 févr. 2010, 19:00:03
+ */
+
 package fr.alma.asr.gui.tabbedpane;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,8 +30,8 @@ public class TabbedPane extends JPanel {
 	private JButton boutonModified;
 	private JButton boutonIcon;
 	private ImageIcon modified = new ImageIcon(getClass().getResource("/icones/modifySmall16.png"));
-	private ImageIcon close = new ImageIcon(getClass().getResource("/icones/Close_tabbedPane.png"));
-	private ImageIcon close_hover = new ImageIcon(getClass().getResource("/icones/Close_tabbedPane_hover.png"));
+	private ImageIcon close = new ImageIcon(getClass().getResource("/icones/closeTabbedPane.png"));
+	private ImageIcon close_hover = new ImageIcon(getClass().getResource("/icones/closeTabbedPaneHover.png"));
 	private ImageIcon tabIcon ;
 	private JPanel panel ;
 	
