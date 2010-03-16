@@ -97,8 +97,6 @@ public class EditPanel extends javax.swing.JPanel {
 
 		JToolBar bar = new JToolBar();
 
-		JButton testButton = new JButton();
-
 		JButton boldButton = new JButton();
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();

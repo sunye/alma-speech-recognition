@@ -351,7 +351,6 @@ public final class MainWindow extends javax.swing.JFrame {
 		}
 	}
 
-	// TODO a passer dans controller
 	/**
 	 * Add a work panel as a new tab.
 	 * 
