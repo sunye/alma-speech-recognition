@@ -1,17 +1,9 @@
-/*
- * NewJPanel.java
- *
- * Created on 8 févr. 2010, 19:00:03
- */
-
 package fr.alma.asr.gui.tabbedpane;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
