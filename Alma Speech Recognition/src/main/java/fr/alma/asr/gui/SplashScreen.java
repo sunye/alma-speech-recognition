@@ -40,14 +40,6 @@ public class SplashScreen extends javax.swing.JDialog {
     public SplashScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 		initComponents();
-
-		// apparence selon le systeme
-		try {
-			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-			javax.swing.SwingUtilities.updateComponentTreeUI(this);
-		} catch (Exception e) {
-			System.out.println("LookAndFeel non supporté.");
-		}
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((screen.width - getSize().width)/2,(screen.height - getSize().height)/2);
 			
@@ -83,13 +75,6 @@ public class SplashScreen extends javax.swing.JDialog {
         this.setSize(450, 250);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-	 * The main function.
-    * @param args the command line arguments
-    */
-    public static void main(String[] args) {
-		new SplashScreen(null, true).setVisible(true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

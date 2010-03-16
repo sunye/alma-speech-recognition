@@ -31,7 +31,7 @@ public class TabbedPane extends JPanel {
 	private JButton boutonIcon;
 	private ImageIcon modified = new ImageIcon(getClass().getResource("/icones/modifySmall16.png"));
 	private ImageIcon close = new ImageIcon(getClass().getResource("/icones/closeTabbedPane.png"));
-	private ImageIcon close_hover = new ImageIcon(getClass().getResource("/icones/closeTabbedPaneHover.png"));
+	private ImageIcon closeHover = new ImageIcon(getClass().getResource("/icones/closeTabbedPaneHover.png"));
 	private ImageIcon tabIcon ;
 	private JPanel panel ;
 	
@@ -99,7 +99,7 @@ public class TabbedPane extends JPanel {
 		bouton.setPreferredSize(new java.awt.Dimension(16, 16));
 		bouton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				bouton.setIcon(close_hover);
+				bouton.setIcon(closeHover);
 			}
 			public void mouseExited(java.awt.event.MouseEvent evt) {
 				bouton.setIcon(close);

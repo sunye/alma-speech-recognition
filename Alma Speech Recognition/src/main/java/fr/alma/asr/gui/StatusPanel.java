@@ -38,7 +38,7 @@ public class StatusPanel extends javax.swing.JPanel {
 			}
 			this.setBorder(BorderFactory.createMatteBorder(1,0, 0, 0,Color.DARK_GRAY));
 		} catch (Exception e) {
-			e.printStackTrace();
+			Controleur.printLog(e);
 		}
 	}
 	

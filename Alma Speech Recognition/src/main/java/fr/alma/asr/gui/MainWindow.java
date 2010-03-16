@@ -172,6 +172,137 @@ public final class MainWindow extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Build the toolbar
+	 */
+	private void initToolbar(){
+		
+		toolBarPannel = new ToolBarPanel(this);
+		getContentPane().add(toolBarPannel, BorderLayout.NORTH);
+
+		jMenuBar = new JMenuBar();
+		setJMenuBar(jMenuBar);
+
+		jMenuFile = new JMenu();
+		jMenuBar.add(jMenuFile);
+		jMenuFile.setText("Fichier");
+
+		newFileMenuItem = new JMenuItem();
+		jMenuFile.add(newFileMenuItem);
+		newFileMenuItem.setText("Nouveau cours");
+
+		openFileMenuItem = new JMenuItem();
+		jMenuFile.add(openFileMenuItem);
+		openFileMenuItem.setText("Ouvrir");
+
+		saveMenuItem = new JMenuItem();
+		jMenuFile.add(saveMenuItem);
+		saveMenuItem.setText("Enregistrer");
+
+		saveAsMenuItem = new JMenuItem();
+		jMenuFile.add(saveAsMenuItem);
+		saveAsMenuItem.setText("Enregistrer sous...");
+
+		jMenuFile.add(new JSeparator());
+
+		closeFileMenuItem = new JMenuItem();
+		jMenuFile.add(closeFileMenuItem);
+		closeFileMenuItem.setText("Quitter");
+		closeFileMenuItem.addActionListener(new MenuItemListener());
+
+		jMenuEdition = new JMenu();
+		jMenuBar.add(jMenuEdition);
+		jMenuEdition.setText("Edition");
+
+		undoMenuItem = new JMenuItem();
+		jMenuEdition.add(undoMenuItem);
+		undoMenuItem.setText("Annuler");
+
+		redoMenuItem = new JMenuItem();
+		jMenuEdition.add(redoMenuItem);
+		redoMenuItem.setText("Rétablir");
+
+		jMenuEdition.add(new JSeparator());
+
+		cutMenuItem = new JMenuItem();
+		jMenuEdition.add(cutMenuItem);
+		cutMenuItem.setText("Couper");
+
+		copyMenuItem = new JMenuItem();
+		jMenuEdition.add(copyMenuItem);
+		copyMenuItem.setText("Copier");
+
+		pasteMenuItem = new JMenuItem();
+		jMenuEdition.add(pasteMenuItem);
+		pasteMenuItem.setText("Coller");
+
+		jMenuEdition.add(new JSeparator());
+
+		deleteMenuItem = new JMenuItem();
+		jMenuEdition.add(deleteMenuItem);
+		deleteMenuItem.setText("Supprimer");
+
+		jMenuEdition.add(new JSeparator());
+
+		guiParametersMenuItem = new JMenuItem();
+		jMenuEdition.add(guiParametersMenuItem);
+		guiParametersMenuItem.setText("Préférences interface...");
+		guiParametersMenuItem.addActionListener(new MenuItemListener());
+
+		dicoParametersMenuItem = new JMenuItem();
+		jMenuEdition.add(dicoParametersMenuItem);
+		dicoParametersMenuItem.setText("Options du dictionnaire...");
+		dicoParametersMenuItem.addActionListener(new MenuItemListener());
+
+		optParametersMenuItem = new JMenuItem();
+		jMenuEdition.add(optParametersMenuItem);
+		optParametersMenuItem.setText("Options du moteur...");
+		optParametersMenuItem.addActionListener(new MenuItemListener());
+
+		jMenuHelp = new JMenu();
+		jMenuBar.add(jMenuHelp);
+		jMenuHelp.setText("Aide");
+
+		helpMenuItem = new JMenuItem();
+		jMenuHelp.add(helpMenuItem);
+		helpMenuItem.setText("A propos");
+
+		jMenuHelp.add(new JSeparator());
+
+		helpMenuItem = new JMenuItem();
+		jMenuHelp.add(helpMenuItem);
+		helpMenuItem.setText("Aide");
+		
+	}
+	
+	/**
+	 * build Plan,Courses,Work and Home panels
+	 */
+	private void initPanels(){
+		splitPanel = new JSplitPane();
+		getContentPane().add(splitPanel, BorderLayout.CENTER);
+
+		tabbedPanePlanCourses = new JTabbedPane();
+		splitPanel.add(tabbedPanePlanCourses, JSplitPane.LEFT);
+		tabbedPanePlanCourses.setOpaque(true);
+		tabbedPanePlanCourses.add("Cours", new PanelTreeCours());
+		tabbedPanePlanCourses.setIconAt(0, new ImageIcon(getClass()
+				.getResource("/icones/course24.png")));
+		tabbedPanePlanCourses.add("Plan", new PanelTreePlan());
+		tabbedPanePlanCourses.setIconAt(1, new ImageIcon(getClass()
+				.getResource("/icones/doc24.png")));
+
+		tabbedPaneHomeWork = new TabContainer();
+		splitPanel.add(tabbedPaneHomeWork, JSplitPane.RIGHT);
+
+		homePanel = new HomePanel();
+		tabbedPaneHomeWork.add(homePanel, " Home", new ImageIcon(getClass()
+				.getResource("/icones/home24.png")));
+
+		statusPanel = new StatusPanel();
+		getContentPane().add(statusPanel, BorderLayout.SOUTH);
+	}
+	
+	/**
 	 * Main method which build interface
 	 */
 	private void initGUI() {
@@ -182,133 +313,19 @@ public final class MainWindow extends javax.swing.JFrame {
 			// TODO maximized
 			// this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-			/*----------------------------------TOOLBAR CREATION-------------------------------------------*/
-
-			toolBarPannel = new ToolBarPanel(this);
-			getContentPane().add(toolBarPannel, BorderLayout.NORTH);
-
-			jMenuBar = new JMenuBar();
-			setJMenuBar(jMenuBar);
-
-			jMenuFile = new JMenu();
-			jMenuBar.add(jMenuFile);
-			jMenuFile.setText("Fichier");
-
-			newFileMenuItem = new JMenuItem();
-			jMenuFile.add(newFileMenuItem);
-			newFileMenuItem.setText("Nouveau cours");
-
-			openFileMenuItem = new JMenuItem();
-			jMenuFile.add(openFileMenuItem);
-			openFileMenuItem.setText("Ouvrir");
-
-			saveMenuItem = new JMenuItem();
-			jMenuFile.add(saveMenuItem);
-			saveMenuItem.setText("Enregistrer");
-
-			saveAsMenuItem = new JMenuItem();
-			jMenuFile.add(saveAsMenuItem);
-			saveAsMenuItem.setText("Enregistrer sous...");
-
-			jMenuFile.add(new JSeparator());
-
-			closeFileMenuItem = new JMenuItem();
-			jMenuFile.add(closeFileMenuItem);
-			closeFileMenuItem.setText("Quitter");
-			closeFileMenuItem.addActionListener(new MenuItemListener());
-
-			jMenuEdition = new JMenu();
-			jMenuBar.add(jMenuEdition);
-			jMenuEdition.setText("Edition");
-
-			undoMenuItem = new JMenuItem();
-			jMenuEdition.add(undoMenuItem);
-			undoMenuItem.setText("Annuler");
-
-			redoMenuItem = new JMenuItem();
-			jMenuEdition.add(redoMenuItem);
-			redoMenuItem.setText("Rétablir");
-
-			jMenuEdition.add(new JSeparator());
-
-			cutMenuItem = new JMenuItem();
-			jMenuEdition.add(cutMenuItem);
-			cutMenuItem.setText("Couper");
-
-			copyMenuItem = new JMenuItem();
-			jMenuEdition.add(copyMenuItem);
-			copyMenuItem.setText("Copier");
-
-			pasteMenuItem = new JMenuItem();
-			jMenuEdition.add(pasteMenuItem);
-			pasteMenuItem.setText("Coller");
-
-			jMenuEdition.add(new JSeparator());
-
-			deleteMenuItem = new JMenuItem();
-			jMenuEdition.add(deleteMenuItem);
-			deleteMenuItem.setText("Supprimer");
-
-			jMenuEdition.add(new JSeparator());
-
-			guiParametersMenuItem = new JMenuItem();
-			jMenuEdition.add(guiParametersMenuItem);
-			guiParametersMenuItem.setText("Préférences interface...");
-			guiParametersMenuItem.addActionListener(new MenuItemListener());
-
-			dicoParametersMenuItem = new JMenuItem();
-			jMenuEdition.add(dicoParametersMenuItem);
-			dicoParametersMenuItem.setText("Options du dictionnaire...");
-			dicoParametersMenuItem.addActionListener(new MenuItemListener());
-
-			optParametersMenuItem = new JMenuItem();
-			jMenuEdition.add(optParametersMenuItem);
-			optParametersMenuItem.setText("Options du moteur...");
-			optParametersMenuItem.addActionListener(new MenuItemListener());
-
-			jMenuHelp = new JMenu();
-			jMenuBar.add(jMenuHelp);
-			jMenuHelp.setText("Aide");
-
-			helpMenuItem = new JMenuItem();
-			jMenuHelp.add(helpMenuItem);
-			helpMenuItem.setText("A propos");
-
-			jMenuHelp.add(new JSeparator());
-
-			helpMenuItem = new JMenuItem();
-			jMenuHelp.add(helpMenuItem);
-			helpMenuItem.setText("Aide");
-
+			/*----------------------------------TOOLBAR CREATION-------------------------------------------*/			
+			initToolbar();
+			
+			
 			/*----------------------------------Plan,Courses,Work,Home CREATION-------------------------------------------*/
-
-			splitPanel = new JSplitPane();
-			getContentPane().add(splitPanel, BorderLayout.CENTER);
-
-			tabbedPanePlanCourses = new JTabbedPane();
-			splitPanel.add(tabbedPanePlanCourses, JSplitPane.LEFT);
-			tabbedPanePlanCourses.setOpaque(true);
-			tabbedPanePlanCourses.add("Cours", new PanelTreeCours());
-			tabbedPanePlanCourses.setIconAt(0, new ImageIcon(getClass()
-					.getResource("/icones/course24.png")));
-			tabbedPanePlanCourses.add("Plan", new PanelTreePlan());
-			tabbedPanePlanCourses.setIconAt(1, new ImageIcon(getClass()
-					.getResource("/icones/doc24.png")));
-
-			tabbedPaneHomeWork = new TabContainer();
-			splitPanel.add(tabbedPaneHomeWork, JSplitPane.RIGHT);
-
-			homePanel = new HomePanel();
-			tabbedPaneHomeWork.add(homePanel, " Home", new ImageIcon(getClass()
-					.getResource("/icones/home24.png")));
-
-			statusPanel = new StatusPanel();
-			getContentPane().add(statusPanel, BorderLayout.SOUTH);
+			initPanels();
+			
+			
 
 			this.setSize(900, 700);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Controleur.printLog(e);
 		}
 	}
 
