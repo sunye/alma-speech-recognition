@@ -3,13 +3,11 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
@@ -30,30 +28,28 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.StyledEditorKit;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
-//import com.sun.java.swing.plaf.nimbus.TextPanePainter;
-//
-/**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
+import org.apache.tools.ant.taskdefs.Length;
+
+import com.lowagie.text.html.HtmlWriter;
+import com.sun.xml.internal.txw2.output.XMLWriter;
+
+@SuppressWarnings("serial")
 public class EditPanel extends javax.swing.JPanel {
 
 	private JTextPane textPane;
-	private StyledEditorKit editorKit;
+	private RTFEditorKit editorKit;
 	private Document document;
 	private UndoManager undoManager;
 
@@ -85,7 +81,6 @@ public class EditPanel extends javax.swing.JPanel {
 			{
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1, BorderLayout.CENTER);
-				jScrollPane1.setPreferredSize(new java.awt.Dimension(60, 19));
 				jScrollPane1.setViewportView(getTextPane());
 
 			}
@@ -93,6 +88,7 @@ public class EditPanel extends javax.swing.JPanel {
 				toolBarEditPannel = new JPanel();
 				this.add(toolBarEditPannel, BorderLayout.NORTH);
 				toolBarEditPannel.add(getToolBar(), BorderLayout.CENTER);
+				this.setMinimumSize(new java.awt.Dimension(400, 200));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,13 +186,14 @@ public class EditPanel extends javax.swing.JPanel {
 		menuText.getjMenuItemColler().addActionListener(a);
 		mainWindow.getPasteMenuItem().addActionListener(a);
 
-		a = textPane.getActionMap().get("Undo");
+		a = textPane.getActionMap().get("Annuler");
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));		
 		mainWindow.getUndoMenuItem().setAction(a);
-
 		
-		a = textPane.getActionMap().get("Redo");
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
+		a = textPane.getActionMap().get("Rétablir");
 		mainWindow.getRedoMenuItem().setAction(a);
-		
+
 		bar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
 		leftButton = bar.add(a);
@@ -238,14 +235,8 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-
-					String selText = textPane.getSelectedText();
-
-					int selStart = textPane.getSelectionStart();
-					int textLength = selText.length();
-
-					System.out.println(selText);
-
+					
+					editorKit.write(System.out,document,0,document.getLength());					
 				} catch (Exception ignoredForNow) {
 				}
 			}
@@ -262,7 +253,8 @@ public class EditPanel extends javax.swing.JPanel {
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
 
-					System.out.println(selText);
+					
+				
 				} catch (Exception ignoredForNow) {
 				}
 			}
@@ -272,8 +264,6 @@ public class EditPanel extends javax.swing.JPanel {
 
 		return bar;
 	}
-
-
 
 	/**
 	 * 
@@ -285,7 +275,7 @@ public class EditPanel extends javax.swing.JPanel {
 		if (textPane == null) {
 
 			textPane = new JTextPane();
-			editorKit = new StyledEditorKit();
+			editorKit = new RTFEditorKit();
 			document = editorKit.createDefaultDocument();
 			undoManager = new UndoManager();
 
@@ -298,18 +288,43 @@ public class EditPanel extends javax.swing.JPanel {
 				}
 			});
 
-			textPane.getActionMap().put("Undo", new AbstractAction("Undo") {
+			textPane.getActionMap().put("Supprimer", new AbstractAction("Supprimer") {
+
+						public void actionPerformed(ActionEvent evt) {
+
+							String selText = textPane.getSelectedText();
+							
+							if (selText != null) {
+
+							int selStart = textPane.getSelectionStart();
+							int textLength = selText.length();
+							
+								try {
+									document.remove(selStart, textLength);
+								} catch (BadLocationException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+
+						}
+
+					});
+			
+			
+			textPane.getActionMap().put("Annuler", new AbstractAction("Annuler") {
+
 				public void actionPerformed(ActionEvent evt) {
 					try {
 						if (undoManager.canUndo()) {
-							undoManager.undo();
+							undoManager.undo();								
 						}
 					} catch (CannotUndoException e) {
 					}
 				}
 			});
 
-			textPane.getActionMap().put("Redo", new AbstractAction("Redo") {
+			textPane.getActionMap().put("Rétablir", new AbstractAction("Rétablir") {
 				public void actionPerformed(ActionEvent evt) {
 					try {
 						if (undoManager.canRedo()) {
@@ -439,19 +454,25 @@ public class EditPanel extends javax.swing.JPanel {
 		}
 		return jComboBoxFont;
 	}
-	
+
+	// For each Repaint we set the action for Undo and Redo
+	// Each time the tab is displayed
 	@Override
 	public void paint(Graphics g) {
-		// For each Repaint we set the action for Undo and Redo
-		// Each time the tab is displayed 
+
+		super.paint(g);
 		Action a;
-		
-		a = textPane.getActionMap().get("Undo");
+
+		a = textPane.getActionMap().get("Annuler");
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));
 		mainWindow.getUndoMenuItem().setAction(a);
 
-		
-		a = textPane.getActionMap().get("Redo");
+		a = textPane.getActionMap().get("Rétablir");
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
 		mainWindow.getRedoMenuItem().setAction(a);
-		super.paint(g);
+		
+		a = textPane.getActionMap().get("Supprimer");
+		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
+		mainWindow.getDeleteMenuItem().setAction(a);
 	}
 }

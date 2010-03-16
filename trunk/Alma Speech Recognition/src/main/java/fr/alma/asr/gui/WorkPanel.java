@@ -40,15 +40,13 @@ public class WorkPanel extends JPanel {
 	}
 
 	/**
-	 * Main method which build interface
- 
+	 * Main method which build interface. 
 	 */
 	private void initGUI() {
 		try {
 			BoxLayout thisLayout = new BoxLayout(this,
 					javax.swing.BoxLayout.X_AXIS);
 			this.setLayout(thisLayout);
-			setPreferredSize(new Dimension(400, 300));
 			{
 				jSplitPane1 = new JSplitPane();
 				this.add(jSplitPane1);

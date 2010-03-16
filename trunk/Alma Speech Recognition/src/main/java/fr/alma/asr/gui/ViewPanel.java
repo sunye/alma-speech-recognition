@@ -64,19 +64,18 @@ public class ViewPanel extends javax.swing.JPanel {
 			BoxLayout thisLayout = new BoxLayout(this,
 					javax.swing.BoxLayout.X_AXIS);
 			this.setLayout(thisLayout);
-			setPreferredSize(new Dimension(400, 300));
 			this.setBorder(BorderFactory
 					.createTitledBorder("Visualisation du cours"));
 			{
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);
-				jScrollPane1.setPreferredSize(new java.awt.Dimension(68, 19));
 				{
 					textArea = new JTextArea();
 					jScrollPane1.setViewportView(textArea);
 					textArea.setEditable(false);
 				}
 			}
+		this.setMinimumSize(new java.awt.Dimension(400, 200));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
