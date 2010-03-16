@@ -1,24 +1,19 @@
 package fr.alma.asr.gui;
 
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * @author damien
+ * @author Damien lévin
  *
  */
-public class ViewPanel extends javax.swing.JPanel {
+public final class ViewPanel extends javax.swing.JPanel {
 
 
 	private static ViewPanel viewPanelInstance;
 
-
-	private MainWindow mainWindow;
-	
 	private JTextArea textArea;
 	private JScrollPane jScrollPane1;
 
@@ -27,7 +22,6 @@ public class ViewPanel extends javax.swing.JPanel {
 	 */
 	private ViewPanel(MainWindow mainWindow) {
 		super();
-		this.mainWindow = mainWindow;
 		initGUI();
 	}
 
@@ -77,7 +71,7 @@ public class ViewPanel extends javax.swing.JPanel {
 			}
 		this.setMinimumSize(new java.awt.Dimension(400, 200));
 		} catch (Exception e) {
-			e.printStackTrace();
+			Controleur.printLog(e);
 		}
 	}
 

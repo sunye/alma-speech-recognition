@@ -86,7 +86,7 @@ public class HomePanel extends javax.swing.JPanel {
 	private void updateListeFichiers() {
 		List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
 		for (Lesson fichier : listeFichier) {
-			System.out.println(fichier);
+			Controleur.printLog(fichier.toString());
 		}
 	}
 

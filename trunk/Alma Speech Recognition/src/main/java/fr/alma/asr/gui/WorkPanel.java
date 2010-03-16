@@ -1,6 +1,5 @@
 package fr.alma.asr.gui;
 
-import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -74,7 +73,7 @@ public class WorkPanel extends JPanel {
 				});
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Controleur.printLog(e);
 		}
 	}
 
