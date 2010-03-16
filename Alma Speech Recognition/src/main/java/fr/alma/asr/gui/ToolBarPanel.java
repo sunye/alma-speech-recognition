@@ -100,7 +100,13 @@ public class ToolBarPanel extends javax.swing.JPanel {
 							JFileChooser fileChooser = new JFileChooser();
 							fileChooser.showDialog(null,"Enregister en PDF");
 							String outPutFile = fileChooser.getSelectedFile().getAbsolutePath();
+							
+							if (!outPutFile.toUpperCase().endsWith(".PDF")){
+								outPutFile += ".pdf";
+							}
+		
 							Controleur.printOutPdf(outPutFile,mainWindow.getWorkTextPane());
+
 							
 						}
 					});

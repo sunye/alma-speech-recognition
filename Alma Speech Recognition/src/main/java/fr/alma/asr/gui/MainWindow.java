@@ -3,6 +3,7 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -12,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import fr.alma.asr.gui.listener.MenuItemListener;
@@ -89,6 +91,9 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	//---------------------------------- Getters and setters ----------------------------------
 	
+	public JMenuItem getDeleteMenuItem() {
+		return deleteMenuItem;
+	}
 	
 	public JMenuItem getRedoMenuItem() {
 		return redoMenuItem;

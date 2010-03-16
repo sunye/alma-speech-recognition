@@ -11,14 +11,14 @@ import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 
 /**
- * @author Damien
- *
+ * Tool class used to export file in pdf
+ * @author Damien Lévin
+ * 
  */
 public class FileExporter {
 
 	/**
-	 * Method which provides a way create PDF  documents
-	 * 
+	 * Method which provides a way create PDF documents.
 	 * @param shapes Defines if we use shape instead of fonts
 	 * @param jTextPane The component to printout
 	 * @param outputFile The filePath of the output pdf
@@ -28,23 +28,24 @@ public class FileExporter {
 		Document document = new Document();
 		try {
 			PdfWriter writer;
-			if (shapes)
+			if (shapes) {
 				writer = PdfWriter.getInstance(document, new FileOutputStream(
 						outputFile));
-			else
+			} else {
 				writer = PdfWriter.getInstance(document, new FileOutputStream(
 						outputFile));
-			document.open();
-			PdfContentByte cb = writer.getDirectContent();
-			PdfTemplate tp = cb.createTemplate(500, 500);
-			Graphics2D g2;
-			if (shapes)
-				g2 = tp.createGraphicsShapes(500, 500);
-			else
-				g2 = tp.createGraphics(500, 500);
-			jTextPane.print(g2);
-			g2.dispose();
-			cb.addTemplate(tp, 30, 300);
+				document.open();
+				PdfContentByte cb = writer.getDirectContent();
+				PdfTemplate tp = cb.createTemplate(500, 500);
+				Graphics2D g2;
+				if (shapes)
+					g2 = tp.createGraphicsShapes(500, 500);
+				else
+					g2 = tp.createGraphics(500, 500);
+				jTextPane.print(g2);
+				g2.dispose();
+				cb.addTemplate(tp, 30, 300);
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
