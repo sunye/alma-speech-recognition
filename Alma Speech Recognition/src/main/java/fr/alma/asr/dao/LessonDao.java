@@ -1,6 +1,5 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
 import java.util.List;
 
@@ -16,12 +15,5 @@ public interface LessonDao extends AbstractDao<Lesson> {
 	 * @return la liste des fichiers
 	 */
 	List<Lesson> findAll(Boolean classerParCreation);
-
-	/**
-	 * Recherche l'ensemble des éléments contenu dans le module.
-	 * @param dossier le dossier
-	 * @return une liste d'éléments
-	 */
-	List<Lesson> findAllOfModule(Folder dossier, Boolean classerParCreation);
 
 }

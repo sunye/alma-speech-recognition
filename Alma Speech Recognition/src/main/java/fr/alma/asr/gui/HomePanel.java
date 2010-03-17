@@ -171,9 +171,9 @@ public class HomePanel extends javax.swing.JPanel {
 		this.controleur = Controleur.getInstance();
 		this.classerParCreation = Boolean.FALSE;
 		this.classerParModule = Boolean.TRUE;
-		//updateListeFichiers();
+		updateListeFichiers();
 	}
-
+	
 	/**
 	 * Mise à jour de la liste des fichier sur le panel.
 	 */
