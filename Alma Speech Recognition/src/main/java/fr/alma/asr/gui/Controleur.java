@@ -40,9 +40,14 @@ public final class Controleur {
 	private boolean workShowPlan = true;
 	private boolean workShowCourses = true;
 
-	/** Le moteur de reconnaissance vocale. */
-	private RecognitionEngineInterface engine;
 
+    private HashMap<WorkPanel, Lesson> workPanelMap;
+
+    
+	/** Le moteur de reconnaissance vocale. */
+	
+	private RecognitionEngineInterface engine;
+	/** L'instance du controleur. */
 	/**
 	 * Constructeur privé.
 	 */
@@ -468,7 +473,7 @@ public final class Controleur {
 	 * @param msg
 	 */
 	public static void printLog(Level level, String msg){
-		Logger.getLogger("fr.alma.asr").log(level, "Moteur démarré");
+		Logger.getLogger("fr.alma.asr").log(level, msg);
 	}
 
 	/**
