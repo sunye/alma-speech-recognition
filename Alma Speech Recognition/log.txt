@@ -1,2 +1,123 @@
-17/03/10 14:37 - INFO - Moteur d�marr�
-17/03/10 14:37 - INFO - null
+17 mars 2010 15:22:51 - INFO - Moteur démarré
+17 mars 2010 15:22:54 - INFO - null
+17 mars 2010 15:23:23 - INFO - Moteur démarré
+17 mars 2010 15:23:26 - INFO - null
+17 mars 2010 15:26:53 - INFO - Moteur d�marr�
+17 mars 2010 15:26:56 - INFO - null
+17 mars 2010 15:28:44 - INFO - Moteur d�marr�
+17 mars 2010 15:28:45 - INFO - null
+17 mars 2010 15:30:19 - INFO - Moteur démarré
+17 mars 2010 15:30:20 - INFO - null
+17 mars 2010 15:36:36 - INFO - Moteur démarré
+17 mars 2010 15:36:39 - INFO - null
+17 mars 2010 15:36:56 - INFO - Moteur démarré
+17 mars 2010 15:36:59 - INFO - null
+17 mars 2010 15:40:10 - INFO - Moteur démarré
+17 mars 2010 15:40:11 - INFO - Contrôleur prêt
+17 mars 2010 15:40:14 - INFO - null
+17 mars 2010 15:44:40 - INFO - Moteur démarré
+17 mars 2010 15:44:43 - INFO - null
+17 mars 2010 15:44:45 - INFO - <<<--->>>
+17 mars 2010 15:45:14 - INFO - Moteur démarré
+17 mars 2010 15:45:17 - INFO - null
+17 mars 2010 15:45:20 - INFO - <<<--->>>
+17 mars 2010 15:45:54 - INFO - Moteur démarré
+17 mars 2010 15:46:35 - INFO - null
+17 mars 2010 15:46:38 - INFO - <<<--->>>
+17 mars 2010 15:46:41 - INFO - <<<--->>>
+17 mars 2010 15:46:54 - INFO - Moteur démarré
+17 mars 2010 15:46:57 - INFO - null
+17 mars 2010 15:47:00 - INFO - <<<--->>>
+17 mars 2010 15:47:03 - INFO - <<<--->>>
+17 mars 2010 15:47:27 - INFO - Moteur démarré
+17 mars 2010 15:47:29 - INFO - null
+17 mars 2010 15:47:32 - INFO - <<<--->>>
+17 mars 2010 15:47:49 - INFO - Moteur démarré
+17 mars 2010 15:47:52 - INFO - null
+17 mars 2010 15:47:55 - INFO - <<<--->>>
+17 mars 2010 15:47:58 - INFO - <<<--->>>
+17 mars 2010 15:48:47 - INFO - Moteur démarré
+17 mars 2010 15:48:50 - INFO - null
+17 mars 2010 15:48:53 - INFO - <<<--->>>
+17 mars 2010 15:49:37 - INFO - Moteur démarré
+17 mars 2010 15:49:40 - INFO - null
+17 mars 2010 15:50:04 - INFO - Moteur démarré
+17 mars 2010 15:50:06 - INFO - null
+17 mars 2010 15:50:21 - INFO - Moteur démarré
+17 mars 2010 15:50:34 - INFO - null
+17 mars 2010 15:50:39 - INFO - Moteur démarré
+17 mars 2010 15:50:42 - INFO - null
+17 mars 2010 15:51:03 - INFO - Moteur démarré
+17 mars 2010 15:51:05 - INFO - null
+17 mars 2010 15:52:00 - INFO - Moteur démarré
+17 mars 2010 15:52:07 - INFO - null
+17 mars 2010 15:52:20 - INFO - Moteur démarré
+17 mars 2010 15:52:23 - INFO - null
+17 mars 2010 16:00:37 - INFO - Moteur démarré
+17 mars 2010 16:00:39 - INFO - null
+17 mars 2010 16:01:22 - INFO - Moteur démarré
+17 mars 2010 16:01:43 - INFO - Moteur démarré
+17 mars 2010 16:18:30 - INFO - Moteur démarré
+17 mars 2010 16:18:35 - INFO - Ouverture du microphone
+17 mars 2010 16:19:32 - INFO - Moteur démarré
+17 mars 2010 16:19:38 - INFO - Ouverture du microphone
+17 mars 2010 16:19:41 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:19:44 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:19:47 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:19:48 - INFO - Fermeture du microphone
+17 mars 2010 16:19:55 - INFO - Ouverture du microphone
+17 mars 2010 16:19:58 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:01 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:04 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:04 - INFO - Fermeture du microphone
+17 mars 2010 16:20:12 - INFO - Ouverture du microphone
+17 mars 2010 16:20:15 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:18 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:21 - INFO - Voici une phrase reconnue par le moteur de reconnaissance vocale. 
+17 mars 2010 16:20:23 - INFO - Fermeture du microphone
+17 mars 2010 17:13:34 - INFO - Moteur démarré
+17 mars 2010 17:14:33 - INFO - Moteur stoppé
+17 mars 2010 17:14:38 - INFO - Moteur démarré
+17 mars 2010 17:14:52 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:15:38 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:08 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:10 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:10 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:15 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:15 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:17 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:33 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:35 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:36 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:37 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:39 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:39 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:16:43 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:44 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:49 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:57 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:16:58 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:18:33 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:18:34 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:18:47 - INFO - Moteur stoppé
+17 mars 2010 17:19:47 - INFO - Moteur démarré
+17 mars 2010 17:19:59 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:23:27 - INFO - Moteur stoppé
+17 mars 2010 17:23:34 - INFO - Moteur démarré
+17 mars 2010 17:23:40 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:25:21 - INFO - Moteur stoppé
+17 mars 2010 17:24:52 - INFO - Moteur démarré
+17 mars 2010 17:25:27 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:26:08 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:26:11 - INFO - Moteur stoppé
+17 mars 2010 17:26:16 - INFO - Moteur démarré
+17 mars 2010 17:26:22 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:26:37 - INFO - Moteur stoppé
+17 mars 2010 17:26:40 - INFO - Moteur démarré
+17 mars 2010 17:26:46 - INFO - ouverture du fichier Dominique
+17 mars 2010 17:26:49 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:27:02 - INFO - Moteur stoppé
+17 mars 2010 17:27:05 - INFO - Moteur démarré
+17 mars 2010 17:27:11 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:30:25 - INFO - ouverture du fichier wfdsf
+17 mars 2010 17:30:38 - INFO - Moteur stoppé

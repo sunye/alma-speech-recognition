@@ -43,10 +43,10 @@ public final class Controleur implements Observer {
 	private boolean workShowPlan = true;
 	private boolean workShowCourses = true;
 
-	private HashMap<WorkPanel, Lesson> workPanelMap;
+	private final HashMap<WorkPanel, Lesson> workPanelMap;
 
 	/** Le moteur de reconnaissance vocale. */	
-	private RecognitionEngine engine;
+	private final RecognitionEngine engine;
 	
 	/**
 	 * Constructeur privé.
