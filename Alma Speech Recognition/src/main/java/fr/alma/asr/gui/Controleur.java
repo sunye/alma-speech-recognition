@@ -31,6 +31,9 @@ public final class Controleur {
 	/** L'instance du controleur. */
 	private static Controleur instance;
 
+	private HashMap<WorkPanel, Lesson> workPanelMap;
+	
+	
 	/*------------------------------*/
 	private String workPlanPosition = "right";
 	private boolean workShowPlan = true;
@@ -41,6 +44,7 @@ public final class Controleur {
 	 */
 	private Controleur() {
 		connexion();
+		workPanelMap = new HashMap<WorkPanel, Lesson>();
 	}
 
 	/** L'instance du splash screen. */
@@ -70,7 +74,6 @@ public final class Controleur {
 	public static Controleur getInstance() {
 		if (instance == null) {
 			instance = new Controleur();
-			new HashMap<String, WorkPanel>();
 		}
 		return instance;
 	}
@@ -334,13 +337,22 @@ public final class Controleur {
 	}
 
 	/**
-	 * 
-	 * Method which provides a way create PDF documents
-	 * 
-	 * @param outputFilePath
-	 *            The filePath of the output pdf
-	 * @param jTextPane
-	 *            The component to printout
+	 * Enregistre les deux textes d'un cours donné.
+	 * @param cours le cours
+	 * @param prof le texte dicté
+	 * @param eleve le texte saisi
+	 */
+	public void enregistrerCours(WorkPanel onglet, String prof, String eleve) {
+		Lesson cours = this.workPanelMap.get(onglet);
+		cours.setDataProf(prof);
+		cours.setDataEleve(eleve);
+		new LessonDaoImpl().update(cours);
+	}
+
+	/**
+	 * Method which provides a way create PDF  documents.
+	 * @param outputFilePath The filePath of the output pdf
+	 * @param jTextPane The component to printout
 	 */
 	public static void printOutPdf(String outputFilePath, JTextPane jTextPane) {
 		FileExporter.createPdf(false, jTextPane, outputFilePath);

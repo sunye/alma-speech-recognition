@@ -32,6 +32,14 @@ public class HomePanel extends javax.swing.JPanel {
 
         labelClasser = new javax.swing.JLabel();
         comboDate = new javax.swing.JComboBox();
+        jScrollPane = new javax.swing.JScrollPane();
+        panelCours = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         labelClasser.setText("Classer les cours par ordre de :");
 
@@ -42,16 +50,47 @@ public class HomePanel extends javax.swing.JPanel {
             }
         });
 
+        panelCours.setLayout(null);
+
+        jLabel1.setText("jLabel1");
+        panelCours.add(jLabel1);
+        jLabel1.setBounds(0, 0, 34, 14);
+
+        jLabel2.setText("jLabel2");
+        panelCours.add(jLabel2);
+        jLabel2.setBounds(20, 10, 34, 14);
+
+        jLabel3.setText("jLabel3");
+        panelCours.add(jLabel3);
+        jLabel3.setBounds(20, 20, 34, 14);
+
+        jLabel4.setText("jLabel4");
+        panelCours.add(jLabel4);
+        jLabel4.setBounds(20, 30, 34, 14);
+
+        jLabel5.setText("jLabel5");
+        panelCours.add(jLabel5);
+        jLabel5.setBounds(0, 50, 34, 14);
+
+        jLabel6.setText("jLabel6");
+        panelCours.add(jLabel6);
+        jLabel6.setBounds(20, 60, 34, 14);
+
+        jScrollPane.setViewportView(panelCours);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelClasser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelClasser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,7 +99,9 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelClasser)
                     .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -71,7 +112,15 @@ public class HomePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboDate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel labelClasser;
+    private javax.swing.JPanel panelCours;
     // End of variables declaration//GEN-END:variables
 
 	private Controleur controleur;
