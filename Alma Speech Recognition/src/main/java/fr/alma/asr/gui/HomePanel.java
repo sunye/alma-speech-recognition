@@ -8,6 +8,7 @@ package fr.alma.asr.gui;
 
 import fr.alma.asr.entities.Lesson;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Panel d'acceuil.
@@ -135,7 +136,7 @@ public class HomePanel extends javax.swing.JPanel {
 	private void updateListeFichiers() {
 		List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
 		for (Lesson fichier : listeFichier) {
-			Controleur.printLog(fichier.toString());
+			Controleur.printLog(Level.INFO, fichier.toString());
 		}
 	}
 

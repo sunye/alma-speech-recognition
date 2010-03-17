@@ -105,7 +105,7 @@
 							<outfile>target/${project.artifactId}-${project.version}.exe</outfile>
 							<jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
 							<errTitle>ASR Manager</errTitle>
-							<icon>asr.ico</icon>
+							<icon>src/main/resources/asr.ico</icon>
 							<jre>
 								<minVersion>1.6.0</minVersion>
 							</jre>

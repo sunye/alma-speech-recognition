@@ -2,6 +2,7 @@ package fr.alma.asr.gui;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.logging.Level;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -73,7 +74,7 @@ public class WorkPanel extends JPanel {
 				});
 			}
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 
