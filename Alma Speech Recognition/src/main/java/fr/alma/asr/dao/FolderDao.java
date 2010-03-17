@@ -1,6 +1,7 @@
 package fr.alma.asr.dao;
 
 import fr.alma.asr.entities.Folder;
+import java.util.List;
 
 /**
  * Interface dao de la classe Dossier.
@@ -13,5 +14,11 @@ public interface FolderDao extends AbstractDao<Folder> {
 	 * @return le dossier racine
 	 */
 	Folder findDossierRacine();
+
+	/**
+	 * Accède aux modules.
+	 * @return la liste des modules
+	 */
+	List<Folder> findModules();
 
 }

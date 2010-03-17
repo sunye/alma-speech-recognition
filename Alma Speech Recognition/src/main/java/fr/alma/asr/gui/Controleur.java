@@ -401,8 +401,7 @@ public final class Controleur implements Observer {
 	 */
 	public List<Folder> getListeModules() {
 		FolderDao dao = new FolderDaoImpl();
-//		return dao.findModules();
-		return null;
+		return dao.findModules();
 	}
 
 	/**
@@ -412,7 +411,8 @@ public final class Controleur implements Observer {
 	 * @return la liste des cours du module
 	 */
 	public List<Lesson> getListeFichiers(Folder folder, Boolean classerParCreation) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		LessonDao dao = new LessonDaoImpl();
+		return dao.findAllOfModule(folder, classerParCreation);
 	}
 
 	/*-----------------------------------------------------------*/

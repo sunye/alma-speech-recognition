@@ -1,5 +1,6 @@
 package fr.alma.asr.dao.impl;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -44,6 +45,20 @@ public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao 
 
 		String requete = "FROM Folder WHERE dossierconteneur_id = NULL";
 		Folder resultat = (Folder) em.createQuery(requete).getSingleResult();
+
+		tx.commit();
+		em.close();
+		return resultat;
+	}
+
+	@Override
+	public List<Folder> findModules() {
+		EntityManager em = AbstractDaoImpl.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		String requete = "FROM Folder WHERE isModule = true";
+		List<Folder> resultat = em.createQuery(requete).getResultList();
 
 		tx.commit();
 		em.close();

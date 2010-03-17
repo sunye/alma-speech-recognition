@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import fr.alma.asr.dao.LessonDao;
 import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
+import javax.persistence.Query;
 
 /**
  * Implementation dao de la classe Fichier.
@@ -46,6 +47,23 @@ public class LessonDaoImpl extends AbstractDaoImpl<Lesson> implements LessonDao 
 			requete += "dateModification DESC";
 		}
 		List<Lesson> resultats = em.createQuery(requete).getResultList();
+
+		tx.commit();
+		em.close();
+		return resultats;
+	}
+
+	@Override
+	public List<Lesson> findAllOfModule(Folder dossier, Boolean classerParCreation) {
+		EntityManager em = AbstractDaoImpl.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		//FIXME
+		String requete = "FROM Lesson WHERE dossierconteneur_id = :idModule";
+		Query query = em.createQuery(requete);
+		query.setParameter("idModule", dossier.getId());
+		List<Lesson> resultats = query.getResultList();
 
 		tx.commit();
 		em.close();
