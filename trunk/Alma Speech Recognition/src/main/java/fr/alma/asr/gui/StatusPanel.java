@@ -2,6 +2,7 @@ package fr.alma.asr.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -38,7 +39,7 @@ public class StatusPanel extends javax.swing.JPanel {
 			}
 			this.setBorder(BorderFactory.createMatteBorder(1,0, 0, 0,Color.DARK_GRAY));
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 	

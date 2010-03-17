@@ -1,5 +1,7 @@
 package fr.alma.asr.gui;
 
+import java.util.logging.Level;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
@@ -71,7 +73,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 			}
 		this.setMinimumSize(new java.awt.Dimension(400, 200));
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 

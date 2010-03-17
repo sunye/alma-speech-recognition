@@ -511,7 +511,5 @@ public final class Controleur {
 		return workShowCourses;
 	}
 	
-	
-	
-
 }
+

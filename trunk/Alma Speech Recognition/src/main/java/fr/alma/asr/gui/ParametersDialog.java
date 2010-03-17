@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -34,7 +35,7 @@ public final class ParametersDialog extends javax.swing.JDialog {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
 					.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 
@@ -164,7 +165,7 @@ public final class ParametersDialog extends javax.swing.JDialog {
 			}
 			pack();
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 

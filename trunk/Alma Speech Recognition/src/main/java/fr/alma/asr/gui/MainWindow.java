@@ -3,6 +3,7 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -48,7 +49,7 @@ public final class MainWindow extends javax.swing.JFrame {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
 					.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			Controleur.printLog("Look and feel non supporté.");
+			Controleur.printLog(Level.INFO, "Look and feel non supporté.");
 		}
 	}
 
@@ -325,7 +326,7 @@ public final class MainWindow extends javax.swing.JFrame {
 			this.setSize(900, 700);
 
 		} catch (Exception e) {
-			Controleur.printLog(e);
+			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
 
