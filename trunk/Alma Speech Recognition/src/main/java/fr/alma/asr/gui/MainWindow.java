@@ -41,6 +41,9 @@ import fr.alma.asr.gui.tree.PanelTreePlan;
  */
 public final class MainWindow extends javax.swing.JFrame {
 
+	public static int widthSize = 900;
+	public static int heightSize = 800;
+	
 	private static final long serialVersionUID = 658652694660147986L;
 	private static MainWindow instance;
 	{
@@ -326,7 +329,7 @@ public final class MainWindow extends javax.swing.JFrame {
 			
 			
 
-			this.setSize(900, 700);
+			this.setMinimumSize(new Dimension(widthSize, heightSize));
 
 		} catch (Exception e) {
 			Controleur.printLog(Level.INFO, e.getMessage());

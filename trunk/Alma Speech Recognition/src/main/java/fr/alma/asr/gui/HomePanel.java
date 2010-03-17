@@ -178,7 +178,7 @@ public class HomePanel extends javax.swing.JPanel {
 	 * Mise à jour de la liste des fichier sur le panel.
 	 */
 	private void updateListeFichiers() {
-		if (classerParModule) {
+	/*	if (classerParModule) {
 			List<Folder> listeModules = controleur.getListeModules();
 			List<Lesson> listeCours;
 			for (Folder folder : listeModules) {
@@ -193,7 +193,7 @@ public class HomePanel extends javax.swing.JPanel {
 			for (Lesson fichier : listeFichier) {
 				Controleur.printLog(Level.INFO, fichier.toString());
 			}
-		}
+		}*/
 	}
 
 }
