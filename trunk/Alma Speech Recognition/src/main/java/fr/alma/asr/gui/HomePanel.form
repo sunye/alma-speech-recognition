@@ -22,6 +22,10 @@
                   <Group type="102" attributes="0">
                       <Component id="labelClasser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="comboCours" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboDate" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane" alignment="1" pref="380" max="32767" attributes="0"/>
@@ -36,6 +40,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelClasser" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboCours" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboDate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -48,8 +54,21 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelClasser">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Classer les cours par ordre de :"/>
+        <Property name="text" type="java.lang.String" value="Classer les cours par :"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboCours">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Cours"/>
+            <StringItem index="1" value="Date"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="comboCoursItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboDate">
       <Properties>
@@ -138,5 +157,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="et par date de :"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
