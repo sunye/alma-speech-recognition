@@ -3,7 +3,6 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,7 +20,6 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -37,7 +35,6 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
@@ -65,7 +62,7 @@ public class EditPanel extends javax.swing.JPanel {
 	private JPanel toolBarEditPannel;
 	private MenuTextArea menuText;
 
-	private MainWindow mainWindow;
+	private final MainWindow mainWindow;
 
 	private JComboBox jComboBoxFont;
 	private JComboBox jComboBoxFontSize;

@@ -15,14 +15,14 @@ import java.util.logging.Logger;
  * 
  * @author Cédric Krommenhoek
  */
-public class FileHandler extends Handler {
+public final class FileHandler extends Handler {
 
 	/** Instance du singleton. */
 	private static FileHandler instance;
 
 	/** Le flux de sortie. */
 	private FileWriter fileWriter;
-	
+
 	/** Niveau de log. */
 	private Level level;
 
@@ -36,6 +36,7 @@ public class FileHandler extends Handler {
 
 	/**
 	 * Méthode statique d'accès au singleton.
+	 * 
 	 * @return l'instance du singleton
 	 */
 	public static FileHandler getInstance() {
@@ -47,7 +48,9 @@ public class FileHandler extends Handler {
 
 	/**
 	 * Spécification du fichier de sortie.
-	 * @param pathname le chemin du fichier
+	 * 
+	 * @param pathname
+	 *            le chemin du fichier
 	 */
 	public void setFile(String pathname) {
 		try {
@@ -60,11 +63,11 @@ public class FileHandler extends Handler {
 			}
 		} catch (IOException e) {
 			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
-		}		
+		}
 	}
 
 	@Override
-	public void close() throws SecurityException {
+	public void close() {
 		try {
 			this.fileWriter.close();
 		} catch (IOException e) {
@@ -86,14 +89,18 @@ public class FileHandler extends Handler {
 		if (record.getLevel().intValue() >= this.level.intValue()) {
 			try {
 				Date date = new Date(record.getMillis());
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
-				this.fileWriter.write(dateFormat.format(date) + " - " + record.getLevel() + " - " + record.getMessage() + "\n");
+				SimpleDateFormat dateFormat = new SimpleDateFormat(
+						"dd MMM yyyy HH:mm:ss");
+				this.fileWriter.write(dateFormat.format(date) + " - "
+						+ record.getLevel() + " - " + record.getMessage()
+						+ "\n");
 			} catch (IOException e) {
-				Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
+				Logger.getLogger("fr.alma.asr").log(Level.SEVERE,
+						e.getMessage());
 			}
 		}
 	}
-	
+
 	@Override
 	public void setLevel(Level level) {
 		this.level = level;

@@ -6,12 +6,14 @@ import fr.alma.asr.gui.Controleur;
 
 /**
  * Classe de bouchon des moteurs de reconnaissance vocale.
+ * 
  * @author Cédric Krommenhoek
  */
-public class RecognitionEngineStub extends RecognitionEngine implements Runnable {
-	
+public class RecognitionEngineStub extends RecognitionEngine implements
+		Runnable {
+
 	private Thread thread;
-	
+
 	@Override
 	public boolean closeMic() {
 		if (this.thread.isAlive()) {
@@ -48,15 +50,16 @@ public class RecognitionEngineStub extends RecognitionEngine implements Runnable
 
 	@Override
 	public void run() {
-		while(true) {
+		while (true) {
 			try {
 				Thread.sleep(3000);
+				this.setChanged();
 				this.notifyObservers("Voici une phrase reconnue par le moteur de reconnaissance vocale. ");
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 				break;
 			}
-		}		
+		}
 	}
 
 }

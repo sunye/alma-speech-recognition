@@ -342,11 +342,10 @@ public final class MainWindow extends javax.swing.JFrame {
 			/*----------------------------------Plan,Courses,Work,Home CREATION-------------------------------------------*/
 			initPanels();
 			
-			
-
 			this.setMinimumSize(new Dimension(widthSize, heightSize));
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			Controleur.printLog(Level.INFO, e.getMessage());
 		}
 	}
@@ -368,12 +367,11 @@ public final class MainWindow extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		Controleur.debutChargement();
 		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-
+			public void run() {				
 				MainWindow inst = MainWindow.getInstance();
 				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 				inst.setLocation((screen.width - inst.getSize().width) / 2,
-						(screen.height - inst.getSize().height) / 2);
+						(screen.height - inst.getSize().height) / 2);				
 				inst.setLocationRelativeTo(null);
 				Controleur.chargementTermine();
 				inst.setVisible(true);
