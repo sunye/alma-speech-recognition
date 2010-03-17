@@ -3,6 +3,8 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
@@ -15,6 +17,7 @@ import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -30,6 +33,7 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
@@ -65,6 +69,9 @@ public class EditPanel extends javax.swing.JPanel {
 	private JButton textColorButton;
 	private Color selectedColor;
 
+	
+	private JToolBar toolBar;
+	
 	public EditPanel(MainWindow mainWindow) {
 		super();
 		this.mainWindow = mainWindow;
@@ -85,10 +92,11 @@ public class EditPanel extends javax.swing.JPanel {
 
 			}
 			{
-				toolBarEditPannel = new JPanel();
+				toolBarEditPannel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				toolBar = new JToolBar();
+				toolBarEditPannel.add(toolBar);
+				initToolBar();
 				this.add(toolBarEditPannel, BorderLayout.NORTH);
-				toolBarEditPannel.add(getToolBar(), BorderLayout.CENTER);
-				this.setMinimumSize(new java.awt.Dimension(400, 200));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,10 +107,9 @@ public class EditPanel extends javax.swing.JPanel {
 	/**
 	 * @return JToolBar editToolBar
 	 */
-	public JToolBar getToolBar() {
+	public void initToolBar() {
 
-		JToolBar bar = new JToolBar();
-
+		
 		JButton boldButton = new JButton();
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();
@@ -120,21 +127,21 @@ public class EditPanel extends javax.swing.JPanel {
 
 		Action a = textPane.getActionMap().get("font-bold");
 
-		boldButton = bar.add(a);
+		boldButton = toolBar.add(a);
 		boldButton.setText("");
 		boldButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-text-bold.png")));
 
 		a = textPane.getActionMap().get("font-italic");
 
-		italicButton = bar.add(a);
+		italicButton = toolBar.add(a);
 		italicButton.setText("");
 		italicButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-text-italic.png")));
 
 		a = textPane.getActionMap().get("font-underline");
 
-		underlineButton = bar.add(a);
+		underlineButton = toolBar.add(a);
 		underlineButton.setText("");
 		underlineButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-text-underline.png")));
@@ -157,7 +164,7 @@ public class EditPanel extends javax.swing.JPanel {
 
 			}
 		});
-		bar.add(chooseColorButton);
+		toolBar.add(chooseColorButton);
 
 		textColorButton.setAction(new StyledEditorKit.ForegroundAction("Noir",
 				Color.black));
@@ -165,12 +172,12 @@ public class EditPanel extends javax.swing.JPanel {
 				"/txtformat/format-text-color.png")));
 		textColorButton.setText("");
 
-		bar.add(textColorButton);
+		toolBar.add(textColorButton);
 
-		bar.add(getJComboBoxFontSize());
-		bar.add(getJComboBoxFont());
+		toolBar.add(getJComboBoxFontSize());
+		toolBar.add(getJComboBoxFont());
 
-		bar.addSeparator();
+		toolBar.addSeparator();
 
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		menuText.getjMenuItemCouper().addActionListener(a);
@@ -192,32 +199,31 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get("Rétablir");
 		mainWindow.getRedoMenuItem().setAction(a);
 
-		bar.addSeparator();
+		toolBar.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
-		leftButton = bar.add(a);
+		leftButton = toolBar.add(a);
 		leftButton.setText("");
 		leftButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-left.png")));
 
 		a = new StyledEditorKit.AlignmentAction("center", 1);
-		centerButton = bar.add(a);
+		centerButton = toolBar.add(a);
 		centerButton.setText("");
 		centerButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-center.png")));
 
 		a = new StyledEditorKit.AlignmentAction("right", 2);
-		rightButton = bar.add(a);
+		rightButton = toolBar.add(a);
 		rightButton.setText("");
 		rightButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-right.png")));
 
-		bar.addSeparator();
+		toolBar.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
 					String selText = textPane.getSelectedText();
-
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
 
@@ -227,7 +233,7 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h1Button.setText("Titre");
-		bar.add(h1Button);
+		toolBar.add(h1Button);
 
 		h2Button.addActionListener(new ActionListener() {
 			@Override
@@ -241,7 +247,7 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h2Button.setText("Titre 2");
-		bar.add(h2Button);
+		toolBar.add(h2Button);
 
 		h3Button.addActionListener(new ActionListener() {
 			@Override
@@ -258,9 +264,8 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h3Button.setText("Titre 3");
-		bar.add(h3Button);
-
-		return bar;
+		toolBar.add(h3Button);
+	
 	}
 
 	/**
@@ -478,5 +483,15 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get("Supprimer");
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
 		mainWindow.getDeleteMenuItem().setAction(a);
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return String formated Text of the pane
+	 */
+	public String getFormatedText(){
+		return textPane.getText();
 	}
 }

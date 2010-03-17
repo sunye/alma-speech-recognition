@@ -105,7 +105,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 								outPutFile += ".pdf";
 							}
 		
-							Controleur.printOutPdf(outPutFile,mainWindow.getWorkTextPane());
+							Controleur.printOutPdf(outPutFile,mainWindow.getEditTextPane());
 
 							
 						}

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class ToolBarEditPanel extends javax.swing.JPanel {
+	
 	private JLabel labelRecord ;
 
 
