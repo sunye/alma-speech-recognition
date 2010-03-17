@@ -3,6 +3,8 @@ package fr.alma.asr.gui;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -20,31 +22,41 @@ import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
 import fr.alma.asr.gui.tree.DialogProprietes;
 import fr.alma.asr.utils.FileExporter;
+import fr.alma.asr.utils.FileHandler;
+import fr.alma.asr.utils.RecognitionEngineInterface;
+import fr.alma.asr.utils.RecognitionEngineStub;
 
 /**
- * Controleur de l'IHM.
- * 
- * @author Braud Jeremy
+ * Contrôleur de l'IHM.
+ * @author Jérémy Braud
  */
 public final class Controleur {
 
 	/** L'instance du controleur. */
 	private static Controleur instance;
 
-	private HashMap<WorkPanel, Lesson> workPanelMap;
-	
-	
 	/*------------------------------*/
 	private String workPlanPosition = "right";
 	private boolean workShowPlan = true;
 	private boolean workShowCourses = true;
+
+	/** Le moteur de reconnaissance vocale. */
+	private RecognitionEngineInterface engine;
 
 	/**
 	 * Constructeur privé.
 	 */
 	private Controleur() {
 		connexion();
-		workPanelMap = new HashMap<WorkPanel, Lesson>();
+		try {
+			FileHandler handler = FileHandler.getInstance();
+			handler.setFile("log.txt");
+			Logger.getLogger("fr.alma.asr").addHandler(handler);
+		} catch (Exception e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
+		}
+		this.engine = new RecognitionEngineStub();
+		this.engine.start();
 	}
 
 	/** L'instance du splash screen. */
@@ -68,12 +80,13 @@ public final class Controleur {
 
 	/**
 	 * Accès à l'instance du controleur.
-	 * 
+	 *
 	 * @return l'instance du controleur
 	 */
 	public static Controleur getInstance() {
 		if (instance == null) {
 			instance = new Controleur();
+			new HashMap<String, WorkPanel>();
 		}
 		return instance;
 	}
@@ -108,7 +121,7 @@ public final class Controleur {
 
 	/**
 	 * Enregistrement du panel d'info.
-	 * 
+	 *
 	 * @param info
 	 *            le PanelInfo
 	 */
@@ -128,7 +141,7 @@ public final class Controleur {
 
 	/**
 	 * Construit l'arbre des cours.
-	 * 
+	 *
 	 * @param racine
 	 *            la racine de l'arbre.
 	 */
@@ -141,7 +154,7 @@ public final class Controleur {
 
 	/**
 	 * Fonction auxiliaire pour construire l'arbre des cours.
-	 * 
+	 *
 	 * @param racine
 	 *            la racine courante.
 	 * @param Folder
@@ -164,7 +177,7 @@ public final class Controleur {
 
 	/**
 	 * Détruit un élément de l'arbre.
-	 * 
+	 *
 	 * @param node
 	 *            le noeud sélectionné
 	 */
@@ -179,7 +192,7 @@ public final class Controleur {
 
 	/**
 	 * Fonction d'ajout de fichier.
-	 * 
+	 *
 	 * @param nom
 	 *            le nom du fichier à créer
 	 * @param node
@@ -198,7 +211,7 @@ public final class Controleur {
 
 	/**
 	 * Fonction d'ajout de Folder.
-	 * 
+	 *
 	 * @param nom
 	 *            le nom du Folder à créer
 	 * @param node
@@ -222,7 +235,7 @@ public final class Controleur {
 
 	/**
 	 * Déplace un fichier dans les Folders.
-	 * 
+	 *
 	 * @param node
 	 *            le noeud à déplacer
 	 * @param parent
@@ -255,18 +268,18 @@ public final class Controleur {
 
 	/**
 	 * Fonction d'impression.
-	 * 
+	 *
 	 * @param node
 	 *            le noeud à imprimer
 	 */
 	public void impression(DefaultMutableTreeNode node) {
 		// TODO activer l'impression
-		printLog("Impression...");
+		printLog(Level.INFO, "Impression...");
 	}
 
 	/**
 	 * Affichage des propriétés d'un noeud.
-	 * 
+	 *
 	 * @param node
 	 *            le noeud sélectionné
 	 */
@@ -293,13 +306,13 @@ public final class Controleur {
 
 	/**
 	 * Ouvre le fichier correspondant au noeud.
-	 * 
+	 *
 	 * @param node
 	 *            le noeud sélectionné
 	 */
 	public void ouvrir(DefaultMutableTreeNode node) {
 		// TODO ouvrir le fichier
-		printLog("ouverture du fichier " + node);
+		printLog(Level.INFO, "ouverture du fichier " + node);
 	}
 
 	/** La raine du JTree plan. */
@@ -307,7 +320,7 @@ public final class Controleur {
 
 	/**
 	 * Définit la racine du JTree plan.
-	 * 
+	 *
 	 * @param racine
 	 *            la racine
 	 */
@@ -317,7 +330,7 @@ public final class Controleur {
 
 	/**
 	 * Mise à jour du JTree plan.
-	 * 
+	 *
 	 * @param texte
 	 *            le texte à parser
 	 */
@@ -327,32 +340,23 @@ public final class Controleur {
 
 	/**
 	 * Construit l'arbre du plan de cours.
-	 * 
+	 *
 	 * @param racine
 	 *            la racine de l'arbre
 	 */
 	public void construireArbrePlan(DefaultMutableTreeNode racine) {
 		// TODO parser le texte et ajouter les différents noeuds
-		printLog("Update du jtree!");
+		printLog(Level.INFO, "Update du jtree!");
 	}
 
 	/**
-	 * Enregistre les deux textes d'un cours donné.
-	 * @param cours le cours
-	 * @param prof le texte dicté
-	 * @param eleve le texte saisi
-	 */
-	public void enregistrerCours(WorkPanel onglet, String prof, String eleve) {
-		Lesson cours = this.workPanelMap.get(onglet);
-		cours.setDataProf(prof);
-		cours.setDataEleve(eleve);
-		new LessonDaoImpl().update(cours);
-	}
-
-	/**
-	 * Method which provides a way create PDF  documents.
-	 * @param outputFilePath The filePath of the output pdf
-	 * @param jTextPane The component to printout
+	 *
+	 * Method which provides a way create PDF documents
+	 *
+	 * @param outputFilePath
+	 *            The filePath of the output pdf
+	 * @param jTextPane
+	 *            The component to printout
 	 */
 	public static void printOutPdf(String outputFilePath, JTextPane jTextPane) {
 		FileExporter.createPdf(false, jTextPane, outputFilePath);
@@ -364,7 +368,7 @@ public final class Controleur {
 
 	/**
 	 * Accède à la liste des fichiers.
-	 * 
+	 *
 	 * @param classerParCreation
 	 *            si la liste doit être classé par ordre de création
 	 * @return la liste des fichiers
@@ -380,7 +384,7 @@ public final class Controleur {
 
 	/**
 	 * Add a work panel as a new tab.
-	 * 
+	 *
 	 * @param name
 	 *            name of the module.
 	 */
@@ -390,7 +394,7 @@ public final class Controleur {
 
 	/**
 	 * Display text in status bar
-	 * 
+	 *
 	 * @param text
 	 */
 	public void setLastAction(String text) {
@@ -406,7 +410,7 @@ public final class Controleur {
 
 	/**
 	 * Print text on the view panel
-	 * 
+	 *
 	 * @param msg
 	 *            : Text to show in the window
 	 */
@@ -420,7 +424,7 @@ public final class Controleur {
 	 */
 	public void startEngine() {
 		// TODO appeler fonction moteur
-		
+
 	}
 
 	/**
@@ -443,31 +447,20 @@ public final class Controleur {
 	public void showOptParam() {
 		// TODO appeler fonction moteur
 	}
-	
-	
+
 	/**
-	 * Function that print error msg 
+	 * Function that print error msg
 	 * (Here to sysout)
 	 * @param msg
 	 */
-	public static void printLog(String msg){
-		System.out.println(msg);
+	public static void printLog(Level level, String msg){
+		Logger.getLogger("fr.alma.asr").log(level, "Moteur démarré");
 	}
-	
-	/**
-	 * Function that print exception 
-	 * (Here to sysout)
-	 * @param msg
-	 */
-	public static void printLog(Exception e){
-		System.out.println(e.getMessage());
-	}
-	
 
 	/**
 	 * Set the current panel displayed on screen modified/unmodified. If true, a
 	 * icon show that the panel has modification which haven't been saved.
-	 * 
+	 *
 	 * @param modified
 	 *            true : display icon/ false hide icon
 	 */
@@ -510,6 +503,5 @@ public final class Controleur {
 	public boolean getWorkShowCourses() {
 		return workShowCourses;
 	}
-	
-}
 
+}
