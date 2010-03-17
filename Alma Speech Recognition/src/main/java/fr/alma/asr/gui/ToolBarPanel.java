@@ -1,19 +1,15 @@
 package fr.alma.asr.gui;
 import java.awt.BorderLayout;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import fr.alma.asr.utils.FileExporter;
+import javax.swing.JToggleButton;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -69,14 +65,14 @@ public class ToolBarPanel extends javax.swing.JPanel {
 						public void actionPerformed(ActionEvent evt) {
 							onRec=!onRec;
 							if(onRec){
-								Controleur.getInstance().startEngine();
-								Controleur.getInstance().setLastAction("Moteur démarré.");
+								Controleur.getInstance().openMic();
+								Controleur.getInstance().setLastAction("Reconnaissance vocale démarrée.");
 								rec.setIcon(micOn);
 								Controleur.getInstance().setModified(true);
 							}	
 							else{
-								Controleur.getInstance().startEngine();
-								Controleur.getInstance().setLastAction("Moteur stoppé.");
+								Controleur.getInstance().closeMic();
+								Controleur.getInstance().setLastAction("Reconnaissance vocale stoppée.");
 								rec.setIcon(micOff);
 								Controleur.getInstance().setAllUnModified();
 							}

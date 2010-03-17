@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -87,7 +86,7 @@ public class FileHandler extends Handler {
 		if (record.getLevel().intValue() >= this.level.intValue()) {
 			try {
 				Date date = new Date(record.getMillis());
-				SimpleDateFormat dateFormat = new SimpleDateFormat();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
 				this.fileWriter.write(dateFormat.format(date) + " - " + record.getLevel() + " - " + record.getMessage() + "\n");
 			} catch (IOException e) {
 				Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
