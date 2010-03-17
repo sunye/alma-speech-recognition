@@ -3,7 +3,6 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -49,7 +48,7 @@ public final class MainWindow extends javax.swing.JFrame {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
 					.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			Controleur.printLog(Level.INFO, "Look and feel non supporté.");
+			Controleur.printLog("Look and feel non supporté.");
 		}
 	}
 
@@ -198,17 +197,20 @@ public final class MainWindow extends javax.swing.JFrame {
 		saveMenuItem = new JMenuItem();
 		jMenuFile.add(saveMenuItem);
 		saveMenuItem.setText("Enregistrer");
+		saveMenuItem.addActionListener(new MenuItemListener(this));
+
 
 		saveAsMenuItem = new JMenuItem();
 		jMenuFile.add(saveAsMenuItem);
 		saveAsMenuItem.setText("Enregistrer sous...");
+		saveAsMenuItem.addActionListener(new MenuItemListener(this));
 
 		jMenuFile.add(new JSeparator());
 
 		closeFileMenuItem = new JMenuItem();
 		jMenuFile.add(closeFileMenuItem);
 		closeFileMenuItem.setText("Quitter");
-		closeFileMenuItem.addActionListener(new MenuItemListener());
+		closeFileMenuItem.addActionListener(new MenuItemListener(this));
 
 		jMenuEdition = new JMenu();
 		jMenuBar.add(jMenuEdition);
@@ -247,17 +249,17 @@ public final class MainWindow extends javax.swing.JFrame {
 		guiParametersMenuItem = new JMenuItem();
 		jMenuEdition.add(guiParametersMenuItem);
 		guiParametersMenuItem.setText("Préférences interface...");
-		guiParametersMenuItem.addActionListener(new MenuItemListener());
+		guiParametersMenuItem.addActionListener(new MenuItemListener(this));
 
 		dicoParametersMenuItem = new JMenuItem();
 		jMenuEdition.add(dicoParametersMenuItem);
 		dicoParametersMenuItem.setText("Options du dictionnaire...");
-		dicoParametersMenuItem.addActionListener(new MenuItemListener());
+		dicoParametersMenuItem.addActionListener(new MenuItemListener(this));
 
 		optParametersMenuItem = new JMenuItem();
 		jMenuEdition.add(optParametersMenuItem);
 		optParametersMenuItem.setText("Options du moteur...");
-		optParametersMenuItem.addActionListener(new MenuItemListener());
+		optParametersMenuItem.addActionListener(new MenuItemListener(this));
 
 		jMenuHelp = new JMenu();
 		jMenuBar.add(jMenuHelp);
@@ -336,8 +338,7 @@ public final class MainWindow extends javax.swing.JFrame {
 	 * @param name
 	 *            name of the module.
 	 */
-	public void addNewWorkPanel(String name) {
-		WorkPanel workPanel = new WorkPanel(this);
+	public void addNewWorkPanel(WorkPanel workPanel,String name) {
 		tabbedPaneHomeWork.add(workPanel, name, new ImageIcon(getClass()
 				.getResource("/icones/RSSfolder24.png")));
 	}
@@ -357,9 +358,6 @@ public final class MainWindow extends javax.swing.JFrame {
 				inst.setLocationRelativeTo(null);
 				Controleur.chargementTermine();
 				inst.setVisible(true);
-
-				Controleur.addNewWorkPanel("Mathématiques");
-				Controleur.addNewWorkPanel("SVT");
 			}
 		});
 	}
@@ -394,11 +392,24 @@ public final class MainWindow extends javax.swing.JFrame {
 	 * 
 	 * @return JTextPane textPane
 	 */
-	public JTextPane getWorkTextPane() {
+	public JTextPane getEditTextPane() {
 		return ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent())
-				.getWorkTextPane();
+				.getEditPanel().getTextPane();
 	}
-
+	
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public JTextPane getViewTextPane() {
+		return ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent())
+				.getViewPanel().getTextArea();
+	}
+	
+	/**
+	 * 
+	 * @return WorkPanel workPanel
+	 */
 	public WorkPanel getCurrentWorkPane() {
 		return ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent());
 	}

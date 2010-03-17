@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 /**
  * @author Damien lévin
@@ -16,7 +17,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 
 	private static ViewPanel viewPanelInstance;
 
-	private JTextArea textArea;
+	private JTextPane textArea;
 	private JScrollPane jScrollPane1;
 
 	/**
@@ -30,7 +31,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	/**
 	 * @return
 	 */
-	public JTextArea getViewTextArea() {
+	public JTextPane getViewTextPane() {
 		return this.textArea;
 	}
 
@@ -66,15 +67,30 @@ public final class ViewPanel extends javax.swing.JPanel {
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);
 				{
-					textArea = new JTextArea();
+					textArea = new JTextPane();
 					jScrollPane1.setViewportView(textArea);
 					textArea.setEditable(false);
 				}
 			}
-		this.setMinimumSize(new java.awt.Dimension(400, 200));
 		} catch (Exception e) {
 			Controleur.printLog(Level.INFO, e.getMessage());
 		}
+	}
+	
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public JTextPane getTextArea() {
+		return textArea;
+	}
+	
+	/**
+	 * 
+	 * @return String formated Text of the pane
+	 */
+	public String getFormatedText(){
+		return textArea.getText();
 	}
 
 }

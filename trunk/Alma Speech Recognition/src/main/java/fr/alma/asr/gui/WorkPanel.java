@@ -1,5 +1,7 @@
 package fr.alma.asr.gui;
+import java.awt.BorderLayout;
 
+import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.logging.Level;
@@ -15,8 +17,10 @@ public class WorkPanel extends JPanel {
 	private JSplitPane jSplitPane1;
 	private EditPanel editPanel;
 	private ViewPanel viewPanel;
-
 	private MainWindow mainWindow;
+	
+	public static int panelWidth = 800;
+	public static int panelHeight = 600;
 
 	/**
 	 * @param args
@@ -36,6 +40,7 @@ public class WorkPanel extends JPanel {
 		super();
 		this.mainWindow = mainWindow;
 		initGUI();
+		this.setMinimumSize(new Dimension(panelWidth,panelHeight));
 
 	}
 
@@ -44,12 +49,11 @@ public class WorkPanel extends JPanel {
 	 */
 	private void initGUI() {
 		try {
-			BoxLayout thisLayout = new BoxLayout(this,
-					javax.swing.BoxLayout.X_AXIS);
+			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
 			{
 				jSplitPane1 = new JSplitPane();
-				this.add(jSplitPane1);
+				this.add(jSplitPane1, BorderLayout.CENTER);
 				{
 					editPanel = new EditPanel(mainWindow);
 					jSplitPane1.add(editPanel, JSplitPane.RIGHT);
@@ -83,10 +87,17 @@ public class WorkPanel extends JPanel {
 	 * 
 	 * @return JTextPane textPane
 	 */
-	public JTextPane getWorkTextPane() {
-		return this.editPanel.getTextPane();
+	public EditPanel getEditPanel() {
+		return this.editPanel;
 	}
 	
+	/**
+	 * 
+	 * @return JTextPane textPane
+	 */
+	public ViewPanel getViewPanel() {
+		return this.viewPanel;
+	}
 	
 	/**
 	 * @param jPanel

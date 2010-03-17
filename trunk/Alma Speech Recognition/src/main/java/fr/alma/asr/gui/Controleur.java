@@ -350,13 +350,26 @@ public final class Controleur {
 	}
 
 	/**
-	 *
-	 * Method which provides a way create PDF documents
-	 *
-	 * @param outputFilePath
-	 *            The filePath of the output pdf
-	 * @param jTextPane
-	 *            The component to printout
+	 * Enregistre les deux textes d'un cours donné.
+	 * @param cours le cours
+	 * @param prof le texte dicté
+	 * @param eleve le texte saisi
+	 */
+	public void enregistrerCours(WorkPanel onglet, String prof, String eleve) {
+		Lesson cours = this.workPanelMap.get(onglet);
+		
+		System.out.println(eleve);
+		System.out.println(prof);
+		
+		cours.setDataProf(prof);
+		cours.setDataEleve(eleve);
+		new LessonDaoImpl().update(cours);
+	}
+
+	/**
+	 * Method which provides a way create PDF  documents.
+	 * @param outputFilePath The filePath of the output pdf
+	 * @param jTextPane The component to printout
 	 */
 	public static void printOutPdf(String outputFilePath, JTextPane jTextPane) {
 		FileExporter.createPdf(false, jTextPane, outputFilePath);
@@ -383,14 +396,15 @@ public final class Controleur {
 	/*-----------------------------------------------------------*/
 
 	/**
-	 * Add a work panel as a new tab.
-	 *
-	 * @param name
-	 *            name of the module.
+	 * Add a work panel as a new tab in the Controler and MainWindows
+	 * 
+	 * @param String name of the module.
 	 */
-	public static void addNewWorkPanel(String name) {
-		MainWindow.getInstance().addNewWorkPanel(name);
-	}
+	public void addNewWorkPanel(String lessonName) {
+		
+		WorkPanel workPanel = new WorkPanel(MainWindow.getInstance());
+		workPanelMap.put(workPanel, new Lesson(lessonName));
+		MainWindow.getInstance().addNewWorkPanel(workPanel,lessonName);	}
 
 	/**
 	 * Display text in status bar
@@ -415,7 +429,7 @@ public final class Controleur {
 	 *            : Text to show in the window
 	 */
 	public void showText(String msg) {
-		JTextArea txtArea = ViewPanel.getViewPanel().getViewTextArea();
+		JTextPane txtArea = ViewPanel.getViewPanel().getTextArea();
 		txtArea.setText(txtArea.getText() + "\n" + msg);
 	}
 

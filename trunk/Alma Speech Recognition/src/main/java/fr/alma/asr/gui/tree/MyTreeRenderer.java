@@ -17,7 +17,8 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 	ImageIcon subject_opened;
 	/** Image du module fermé.*/
 	ImageIcon subject_closed;
-
+	/** Image du module fermé.*/
+	ImageIcon lessonIcon;
 	/**
 	 * Constructeur par defaut.
 	 */
@@ -25,6 +26,7 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 		super();
 		subject_opened = new ImageIcon(getClass().getResource("/jtree/subject_opened.png"));
 		subject_closed = new ImageIcon(getClass().getResource("/jtree/subject_closed.png"));
+		lessonIcon = new ImageIcon(getClass().getResource("/jtree/application-msword.png"));
 	}
 
 	@Override
@@ -40,6 +42,8 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 					setIcon(subject_closed);
 				}
 			}
+		}else{
+			setIcon(lessonIcon);
 		}
 		return this;
 	}
