@@ -49,7 +49,10 @@ public final class Controleur implements Observer {
 	 * Constructeur privé.
 	 */
 	private Controleur() {
+		
+		workPanelMap = new HashMap<WorkPanel, Lesson>();
 		connexion();
+		
 		try {
 			FileHandler handler = FileHandler.getInstance();
 			handler.setFile("log.txt");
@@ -60,6 +63,7 @@ public final class Controleur implements Observer {
 		this.engine = new RecognitionEngineStub();
 		this.engine.addObserver(this);
 		this.engine.start();
+		
 	}
 
 	/** L'instance du splash screen. */
@@ -310,8 +314,11 @@ public final class Controleur implements Observer {
 	 */
 	public void ouvrir(DefaultMutableTreeNode node) {
 		// TODO ouvrir le fichier
-		Lesson fichier = (Lesson) node.getUserObject();
+		Lesson lesson = (Lesson) node.getUserObject();
+		System.out.println(lesson+"cacaaca");
+		addNewWorkPanel(lesson);
 		printLog(Level.INFO, "ouverture du fichier " + node);
+		
 	}
 
 	/** La raine du JTree plan. */
@@ -417,11 +424,13 @@ public final class Controleur implements Observer {
 	 * 
 	 * @param String name of the module.
 	 */
-	public void addNewWorkPanel(String lessonName) {
+	public void addNewWorkPanel(Lesson lesson) {
 		
 		WorkPanel workPanel = new WorkPanel(MainWindow.getInstance());
-		workPanelMap.put(workPanel, new Lesson(lessonName));
-		MainWindow.getInstance().addNewWorkPanel(workPanel,lessonName);	}
+		workPanelMap.put(workPanel, lesson);
+		MainWindow.getInstance().addNewWorkPanel(workPanel,lesson.getNom());	
+	
+}
 
 	/**
 	 * Display text in status bar
