@@ -2,6 +2,8 @@ package fr.alma.asr.utils;
 
 import java.awt.Graphics2D;
 import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JTextPane;
 
@@ -47,7 +49,7 @@ public class FileExporter {
 				cb.addTemplate(tp, 30, 300);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
 		}
 		document.close();
 	}

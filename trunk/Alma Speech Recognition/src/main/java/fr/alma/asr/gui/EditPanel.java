@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -492,6 +494,12 @@ public class EditPanel extends javax.swing.JPanel {
 	 * @return String formated Text of the pane
 	 */
 	public String getFormatedText(){
-		return textPane.getText();
+		try {
+			System.out.println(document.getText(0,document.getLength()));
+			return document.getText(0,document.getLength());
+		} catch (BadLocationException e) {
+			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
+			return null;
+		}
 	}
 }

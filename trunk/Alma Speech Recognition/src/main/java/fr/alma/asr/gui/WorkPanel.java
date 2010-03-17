@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+
+import fr.alma.asr.entities.Lesson;
 
 public class WorkPanel extends JPanel {
 
@@ -105,5 +108,19 @@ public class WorkPanel extends JPanel {
 	public void addViewPanel(JPanel jPanel) {
 		jSplitPane1.add(viewPanel, JSplitPane.LEFT);
 	}
+	
+	/**
+	 * Set the content of the workpanel
+	 * @param lesson lesson
+	 */
+	public void setLesson(Lesson lesson){
+		try {
+			getViewPanel().getTextArea().getDocument().insertString(0, lesson.getDataProf(), null);
+			getEditPanel().getTextPane().getDocument().insertString(0,lesson.getDataEleve(), null);
 
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 }

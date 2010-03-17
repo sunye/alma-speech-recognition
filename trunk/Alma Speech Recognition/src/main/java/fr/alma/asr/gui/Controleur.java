@@ -40,8 +40,8 @@ public final class Controleur implements Observer {
 	private boolean workShowPlan = true;
 	private boolean workShowCourses = true;
 
-    private HashMap<WorkPanel, Lesson> workPanelMap;
-  
+	private HashMap<WorkPanel, Lesson> workPanelMap;
+
 	/** Le moteur de reconnaissance vocale. */	
 	private RecognitionEngine engine;
 	
@@ -315,7 +315,6 @@ public final class Controleur implements Observer {
 	public void ouvrir(DefaultMutableTreeNode node) {
 		// TODO ouvrir le fichier
 		Lesson lesson = (Lesson) node.getUserObject();
-		System.out.println(lesson+"cacaaca");
 		addNewWorkPanel(lesson);
 		printLog(Level.INFO, "ouverture du fichier " + node);
 		
@@ -362,11 +361,8 @@ public final class Controleur implements Observer {
 	 * @param eleve le texte saisi
 	 */
 	public void enregistrerCours(WorkPanel onglet, String prof, String eleve) {
+
 		Lesson cours = this.workPanelMap.get(onglet);
-		
-		System.out.println(eleve);
-		System.out.println(prof);
-		
 		cours.setDataProf(prof);
 		cours.setDataEleve(eleve);
 		new LessonDaoImpl().update(cours);
@@ -422,15 +418,38 @@ public final class Controleur implements Observer {
 	/**
 	 * Add a work panel as a new tab in the Controler and MainWindows
 	 * 
-	 * @param String name of the module.
+	 * @param String
+	 *            name of the module.
 	 */
 	public void addNewWorkPanel(Lesson lesson) {
-		
-		WorkPanel workPanel = new WorkPanel(MainWindow.getInstance());
-		workPanelMap.put(workPanel, lesson);
-		MainWindow.getInstance().addNewWorkPanel(workPanel,lesson.getNom());	
+
+		boolean isOpened = false;
+
+		for (WorkPanel work : workPanelMap.keySet()) {
+			if (workPanelMap.get(work) == lesson) {
+				isOpened = true;
+			}
+		}
+		if (!isOpened) {
+			WorkPanel workPanel = new WorkPanel(MainWindow.getInstance());
+			workPanelMap.put(workPanel, lesson);
+			workPanel.setLesson(lesson);
+			MainWindow.getInstance()
+					.addNewWorkPanel(workPanel, lesson.getNom());
+		}
+	}
 	
-}
+	
+	/**
+	 * close a work panel in MainWindow and the controler
+	 * 
+	 * @param String
+	 *            name of the module.
+	 */
+	public void closeWorkPanel(WorkPanel workPanel) {
+		workPanelMap.keySet().remove(workPanel);
+	}
+	
 
 	/**
 	 * Display text in status bar
