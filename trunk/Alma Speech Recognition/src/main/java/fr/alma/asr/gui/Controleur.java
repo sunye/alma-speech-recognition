@@ -256,8 +256,7 @@ public final class Controleur implements Observer {
 				&& (folderSource.getId() == folderCible.getId())) {
 			index --;
 		}
-		//TODO sysout a supprimer
-		System.out.println(index);
+
 		folderSource.removeElement(element);
 		folderCible.addElementIndex(element, index);
 		element.setDossierConteneur(folderCible);
@@ -570,6 +569,10 @@ public final class Controleur implements Observer {
 			System.out.println(msg);
 		}
 		
+	}
+	
+	public void stopEngine(){
+		this.engine.stop();
 	}
 
 }
