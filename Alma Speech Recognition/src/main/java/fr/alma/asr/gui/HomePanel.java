@@ -6,6 +6,7 @@
 
 package fr.alma.asr.gui;
 
+import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,6 +33,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         labelClasser = new javax.swing.JLabel();
+        comboCours = new javax.swing.JComboBox();
         comboDate = new javax.swing.JComboBox();
         jScrollPane = new javax.swing.JScrollPane();
         panelCours = new javax.swing.JPanel();
@@ -41,8 +43,16 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
-        labelClasser.setText("Classer les cours par ordre de :");
+        labelClasser.setText("Classer les cours par :");
+
+        comboCours.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cours", "Date" }));
+        comboCours.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCoursItemStateChanged(evt);
+            }
+        });
 
         comboDate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "création", "modification" }));
         comboDate.addItemListener(new java.awt.event.ItemListener() {
@@ -79,6 +89,8 @@ public class HomePanel extends javax.swing.JPanel {
 
         jScrollPane.setViewportView(panelCours);
 
+        jLabel7.setText("et par date de :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,6 +100,10 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelClasser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboCours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
@@ -99,6 +115,8 @@ public class HomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelClasser)
+                    .addComponent(comboCours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
                     .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
@@ -106,12 +124,26 @@ public class HomePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+	/**
+	 * Changement d'état de la combo date.
+	 * @param evt l'évenement capturé
+	 */
 	private void comboDateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDateItemStateChanged
 		this.classerParCreation = comboDate.getSelectedIndex() == 0;
 		updateListeFichiers();
 	}//GEN-LAST:event_comboDateItemStateChanged
 
+	/**
+	 * Changement d'état de la combo cours.
+	 * @param evt l'évenement capturé
+	 */
+	private void comboCoursItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCoursItemStateChanged
+		this.classerParModule = comboCours.getSelectedIndex() == 0;
+		updateListeFichiers();
+	}//GEN-LAST:event_comboCoursItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox comboCours;
     private javax.swing.JComboBox comboDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -119,24 +151,48 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel labelClasser;
     private javax.swing.JPanel panelCours;
     // End of variables declaration//GEN-END:variables
 
+	/** Le controleur. */
 	private Controleur controleur;
+	/** Si on doit classer par création ou modification. */
 	private Boolean classerParCreation;
+	/** Si on tri d'abord par module ou par date. */
+	private Boolean classerParModule;
 
+	/**
+	 * Initialisation.
+	 */
 	private void initialisation() {
 		this.controleur = Controleur.getInstance();
 		this.classerParCreation = Boolean.FALSE;
+		this.classerParModule = Boolean.TRUE;
 		updateListeFichiers();
 	}
 
+	/**
+	 * Mise à jour de la liste des fichier sur le panel.
+	 */
 	private void updateListeFichiers() {
-		List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
-		for (Lesson fichier : listeFichier) {
-			Controleur.printLog(Level.INFO, fichier.toString());
+		if (classerParModule) {
+			List<Folder> listeModules = controleur.getListeModules();
+			List<Lesson> listeCours;
+			for (Folder folder : listeModules) {
+				listeCours = controleur.getListeFichiers(folder, classerParCreation);
+				Controleur.printLog(Level.INFO, folder.toString());
+				for (Lesson lesson : listeCours) {
+					Controleur.printLog(Level.INFO, lesson.toString());
+				}
+			}
+		} else {
+			List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
+			for (Lesson fichier : listeFichier) {
+				Controleur.printLog(Level.INFO, fichier.toString());
+			}
 		}
 	}
 

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -317,6 +316,7 @@ public final class Controleur {
 	 */
 	public void ouvrir(DefaultMutableTreeNode node) {
 		// TODO ouvrir le fichier
+		Lesson fichier = (Lesson) node.getUserObject();
 		printLog(Level.INFO, "ouverture du fichier " + node);
 	}
 
@@ -386,14 +386,32 @@ public final class Controleur {
 
 	/**
 	 * Accède à la liste des fichiers.
-	 *
-	 * @param classerParCreation
-	 *            si la liste doit être classé par ordre de création
+	 * @param classerParCreation si la liste doit être classé par ordre de création
 	 * @return la liste des fichiers
 	 */
 	public List<Lesson> getListeFichiers(Boolean classerParCreation) {
 		LessonDao dao = new LessonDaoImpl();
 		return dao.findAll(classerParCreation);
+	}
+
+	/**
+	 * Accède à la liste des modules.
+	 * @return une liste de module
+	 */
+	public List<Folder> getListeModules() {
+		FolderDao dao = new FolderDaoImpl();
+//		return dao.findModules();
+		return null;
+	}
+
+	/**
+	 * Accède à la liste des fichiers d'un module donné.
+	 * @param folder le module
+	 * @param classerParCreation indique si les fichiers sont classés par ordre de création ou de modifications
+	 * @return la liste des cours du module
+	 */
+	public List<Lesson> getListeFichiers(Folder folder, Boolean classerParCreation) {
+		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
 	/*-----------------------------------------------------------*/
