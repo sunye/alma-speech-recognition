@@ -3,6 +3,9 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
@@ -15,7 +18,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
-import fr.alma.asr.entities.Lesson;
 import fr.alma.asr.gui.listener.MenuItemListener;
 import fr.alma.asr.gui.tabbedpane.TabContainer;
 import fr.alma.asr.gui.tree.PanelTreeCours;
@@ -318,6 +320,18 @@ public final class MainWindow extends javax.swing.JFrame {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setTitle("Alma Speech Recognition");
 			getContentPane().setLayout(thisLayout);
+			
+			this.addWindowListener(new WindowAdapter() {
+				
+				@Override
+				public void windowClosing(WindowEvent e) {
+
+					Controleur.getInstance().stopEngine();
+					Controleur.getInstance().deconnexion();
+					System.exit(0);
+				}
+
+			});
 			// TODO maximized
 			// this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -418,5 +432,7 @@ public final class MainWindow extends javax.swing.JFrame {
 	public WorkPanel getCurrentWorkPane() {
 		return ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent());
 	}
+	
+	
 
 }
