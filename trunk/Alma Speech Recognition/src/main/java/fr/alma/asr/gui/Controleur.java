@@ -26,6 +26,9 @@ import fr.alma.asr.utils.FileExporter;
 import fr.alma.asr.utils.FileHandler;
 import fr.alma.asr.utils.RecognitionEngine;
 import fr.alma.asr.utils.RecognitionEngineStub;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 
 /**
  * Contrôleur de l'IHM.
@@ -406,8 +409,40 @@ public final class Controleur implements Observer {
 	 * @return la liste des cours du module
 	 */
 	public List<Lesson> getListeFichiers(Folder folder, Boolean classerParCreation) {
-		LessonDao dao = new LessonDaoImpl();
-		return dao.findAllOfModule(folder, classerParCreation);
+		List<Lesson> listeCours = getListeFichiersBis(folder);
+		if (classerParCreation) {
+			Collections.sort(listeCours, new Comparator<Lesson>() {
+				@Override
+				public int compare(Lesson o1, Lesson o2) {
+					return o1.getDateCreation().compareTo(o2.getDateCreation());
+				}
+			});
+		} else {
+			Collections.sort(listeCours, new Comparator<Lesson>() {
+				@Override
+				public int compare(Lesson o1, Lesson o2) {
+					return o1.getDateModification().compareTo(o2.getDateModification());
+				}
+			});
+		}
+		return listeCours;
+	}
+
+	/**
+	 * Accède à la liste des fichiers d'un dossier donné.
+	 * @param folder le module
+	 * @return la liste des cours du dossier
+	 */
+	private List<Lesson> getListeFichiersBis(Folder folder) {
+		List<Lesson> listeCours = new LinkedList();
+		for (Element element : folder.getElements()) {
+			if (element.isFile()) {
+				listeCours.add((Lesson) element);
+			} else {
+				listeCours.addAll(getListeFichiersBis((Folder) element));
+			}
+		}
+		return listeCours;
 	}
 
 	/*-----------------------------------------------------------*/

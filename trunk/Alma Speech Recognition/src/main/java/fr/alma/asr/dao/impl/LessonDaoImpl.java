@@ -53,21 +53,4 @@ public class LessonDaoImpl extends AbstractDaoImpl<Lesson> implements LessonDao 
 		return resultats;
 	}
 
-	@Override
-	public List<Lesson> findAllOfModule(Folder dossier, Boolean classerParCreation) {
-		EntityManager em = AbstractDaoImpl.getEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-
-		//FIXME
-		String requete = "FROM Lesson WHERE dossierconteneur_id = :idModule";
-		Query query = em.createQuery(requete);
-		query.setParameter("idModule", dossier.getId());
-		List<Lesson> resultats = query.getResultList();
-
-		tx.commit();
-		em.close();
-		return resultats;
-	}
-
 }
