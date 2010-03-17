@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
+import fr.alma.asr.entities.Lesson;
 import fr.alma.asr.gui.listener.MenuItemListener;
 import fr.alma.asr.gui.tabbedpane.TabContainer;
 import fr.alma.asr.gui.tree.PanelTreeCours;
@@ -337,13 +338,13 @@ public final class MainWindow extends javax.swing.JFrame {
 	}
 
 	/**
-	 * Add a work panel as a new tab.
-	 * 
+	 * Add a work panel as a new tab
+	 * Set the content of the work panel.
 	 * @param name
 	 *            name of the module.
 	 */
-	public void addNewWorkPanel(WorkPanel workPanel,String name) {
-		tabbedPaneHomeWork.add(workPanel, name, new ImageIcon(getClass()
+	public void addNewWorkPanel(WorkPanel workPanel,String lesson) {
+		tabbedPaneHomeWork.add(workPanel, lesson, new ImageIcon(getClass()
 				.getResource("/icones/RSSfolder24.png")));
 	}
 
