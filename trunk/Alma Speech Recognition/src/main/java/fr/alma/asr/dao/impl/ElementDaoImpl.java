@@ -43,14 +43,14 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Element> findAllOfDossier(Folder projet) {
+	public List<Element> findAllOfDossier(Folder dossier) {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
 		String requete = "FROM Element WHERE dossierconteneur_id = :idProjet";
 		Query query = em.createQuery(requete);
-		query.setParameter("idProjet", projet.getId());
+		query.setParameter("idProjet", dossier.getId());
 		List<Element> resultats = query.getResultList();
 
 		tx.commit();

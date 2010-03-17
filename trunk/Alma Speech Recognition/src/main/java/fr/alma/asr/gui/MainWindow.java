@@ -41,8 +41,8 @@ import fr.alma.asr.gui.tree.PanelTreePlan;
  */
 public final class MainWindow extends javax.swing.JFrame {
 
-	public static int widthSize = 900;
-	public static int heightSize = 800;
+	public static int widthSize = 800;
+	public static int heightSize = 600;
 	
 	private static final long serialVersionUID = 658652694660147986L;
 	private static MainWindow instance;
