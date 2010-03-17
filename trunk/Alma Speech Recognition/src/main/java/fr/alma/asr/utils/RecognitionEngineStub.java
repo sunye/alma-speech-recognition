@@ -1,7 +1,6 @@
 package fr.alma.asr.utils;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import fr.alma.asr.gui.Controleur;
 
@@ -9,18 +8,30 @@ import fr.alma.asr.gui.Controleur;
  * Classe de bouchon des moteurs de reconnaissance vocale.
  * @author Cédric Krommenhoek
  */
-public class RecognitionEngineStub implements RecognitionEngineInterface {
-
+public class RecognitionEngineStub extends RecognitionEngine implements Runnable {
+	
+	private Thread thread;
+	
 	@Override
 	public boolean closeMic() {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.thread.isAlive()) {
+			this.thread.interrupt();
+			try {
+				this.thread.join();
+			} catch (InterruptedException e) {
+				Controleur.printLog(Level.SEVERE, e.getMessage());
+			}
+		}
+		Controleur.printLog(Level.INFO, "Fermeture du microphone");
+		return true;
 	}
 
 	@Override
 	public boolean openMic() {
-		// TODO Auto-generated method stub
-		return false;
+		this.thread = new Thread(this);
+		this.thread.start();
+		Controleur.printLog(Level.INFO, "Ouverture du microphone");
+		return true;
 	}
 
 	@Override
@@ -31,8 +42,21 @@ public class RecognitionEngineStub implements RecognitionEngineInterface {
 
 	@Override
 	public boolean stop() {
-		// TODO Auto-generated method stub
-		return false;
+		Controleur.printLog(Level.INFO, "Moteur stoppé");
+		return true;
+	}
+
+	@Override
+	public void run() {
+		while(true) {
+			try {
+				Thread.sleep(3000);
+				this.notifyObservers("Voici une phrase reconnue par le moteur de reconnaissance vocale. ");
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				break;
+			}
+		}		
 	}
 
 }

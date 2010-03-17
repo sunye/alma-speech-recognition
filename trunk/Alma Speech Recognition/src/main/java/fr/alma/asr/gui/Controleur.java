@@ -3,6 +3,8 @@ package fr.alma.asr.gui;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,31 +24,27 @@ import fr.alma.asr.entities.Lesson;
 import fr.alma.asr.gui.tree.DialogProprietes;
 import fr.alma.asr.utils.FileExporter;
 import fr.alma.asr.utils.FileHandler;
-import fr.alma.asr.utils.RecognitionEngineInterface;
+import fr.alma.asr.utils.RecognitionEngine;
 import fr.alma.asr.utils.RecognitionEngineStub;
 
 /**
  * Contrôleur de l'IHM.
  * @author Jérémy Braud
  */
-public final class Controleur {
+public final class Controleur implements Observer {
 
 	/** L'instance du controleur. */
 	private static Controleur instance;
 
-	/*------------------------------*/
 	private String workPlanPosition = "right";
 	private boolean workShowPlan = true;
 	private boolean workShowCourses = true;
 
-
     private HashMap<WorkPanel, Lesson> workPanelMap;
-
-    
-	/** Le moteur de reconnaissance vocale. */
+  
+	/** Le moteur de reconnaissance vocale. */	
+	private RecognitionEngine engine;
 	
-	private RecognitionEngineInterface engine;
-	/** L'instance du controleur. */
 	/**
 	 * Constructeur privé.
 	 */
@@ -60,6 +58,7 @@ public final class Controleur {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
 		}
 		this.engine = new RecognitionEngineStub();
+		this.engine.addObserver(this);
 		this.engine.start();
 	}
 
@@ -84,7 +83,6 @@ public final class Controleur {
 
 	/**
 	 * Accès à l'instance du controleur.
-	 *
 	 * @return l'instance du controleur
 	 */
 	public static Controleur getInstance() {
@@ -125,9 +123,7 @@ public final class Controleur {
 
 	/**
 	 * Enregistrement du panel d'info.
-	 *
-	 * @param info
-	 *            le PanelInfo
+	 * @param info le PanelInfo
 	 */
 	public static void setStatusPanel(StatusPanel info) {
 		panelInfo = info;
@@ -145,9 +141,7 @@ public final class Controleur {
 
 	/**
 	 * Construit l'arbre des cours.
-	 *
-	 * @param racine
-	 *            la racine de l'arbre.
+	 * @param racine la racine de l'arbre.
 	 */
 	public void construireArbreCours(DefaultMutableTreeNode racine) {
 		FolderDao dao = new FolderDaoImpl();
@@ -381,7 +375,7 @@ public final class Controleur {
 	}
 
 	/* --------------------------------------------------------- */
-	/* --------------Gestion du panel d'acceuil----------------- */
+	/* --------------Gestion du panel d'accueil----------------- */
 	/* --------------------------------------------------------- */
 
 	/**
@@ -457,18 +451,17 @@ public final class Controleur {
 	}
 
 	/**
-	 * Start Viavoic engine
+	 * Début de la reconnaissance vocale.
 	 */
-	public void startEngine() {
-		// TODO appeler fonction moteur
-
+	public void openMic() {
+		this.engine.openMic();
 	}
 
 	/**
-	 * Stop viavoice engine
+	 * Fin de la reconnaissance vocale.
 	 */
-	public void stopEngine() {
-		// TODO appeler fonction moteur
+	public void closeMic() {
+		this.engine.closeMic();
 	}
 
 	/**
@@ -539,6 +532,16 @@ public final class Controleur {
 
 	public boolean getWorkShowCourses() {
 		return workShowCourses;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o.getClass().getSuperclass().getSimpleName().equals("RecognitionEngine")) {
+			String msg = (String) arg;
+			//TODO insérer ce message dans le panel lié à la reconnaissance vocale
+			System.out.println(msg);
+		}
+		
 	}
 
 }
