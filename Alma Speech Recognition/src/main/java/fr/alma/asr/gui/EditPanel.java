@@ -336,7 +336,7 @@ public class EditPanel extends javax.swing.JPanel {
 								if (undoManager.canUndo()) {
 									undoManager.undo();
 								}else{
-									mainWindow.getTabbedPaneHomeWork().setCurrentModified(false);
+									Controleur.getInstance().setModified(false);
 
 								}
 							} catch (CannotUndoException e) {
@@ -376,7 +376,7 @@ public class EditPanel extends javax.swing.JPanel {
 				
 				@Override
 				public void keyTyped(KeyEvent e) {
-					mainWindow.getTabbedPaneHomeWork().setCurrentModified(true);
+					Controleur.getInstance().setModified(true);
 				}
 				
 				@Override
