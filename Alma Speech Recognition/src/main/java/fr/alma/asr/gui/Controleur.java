@@ -523,8 +523,8 @@ public final class Controleur implements Observer {
 	 *            Print the last msg in the top of the textpane
 	 */
 	public void showText(String msg) {
-		JTextPane txtArea = ViewPanel.getViewPanel().getTextArea();		
-		txtArea.setText(msg + "\n" + txtArea.getText() );
+	
+		MainWindow.getInstance().setTextViewTextPane(msg);
 	}
 
 	/**
