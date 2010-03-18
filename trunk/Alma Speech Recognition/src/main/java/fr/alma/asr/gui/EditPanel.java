@@ -7,8 +7,15 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.FlavorEvent;
+import java.awt.datatransfer.FlavorListener;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -35,6 +42,8 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
@@ -187,6 +196,8 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		menuText.getjMenuItemCopier().addActionListener(a);
 		mainWindow.getCopyMenuItem().addActionListener(a);
+		
+		
 
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
 		menuText.getjMenuItemColler().addActionListener(a);
@@ -379,10 +390,38 @@ public class EditPanel extends javax.swing.JPanel {
 			textPane.setEditable(true);
 			textPane.setEditorKit(editorKit);
 			textPane.setDocument(document);
-
+			
+			
+			textPane.addCaretListener(new CaretListener(){
+				@Override
+				public void caretUpdate(CaretEvent e) {
+					if( textPane.getSelectedText()==null){
+						Controleur.getInstance().activateCopyCut(false);
+					}
+					else{
+						Controleur.getInstance().activateCopyCut(true);
+					}
+					
+				}				
+			});
+			
 			menuText = new MenuTextArea();
 			this.setComponentPopupMenu(menuText);
 
+			//Add a listener on clipborad to enable or disable pasteMenuItem
+			final Clipboard clipbd =  getToolkit().getSystemClipboard();
+					
+			clipbd.addFlavorListener(new FlavorListener(){				
+				@Override
+				public void flavorsChanged(FlavorEvent e) {
+					if(clipbd.getAvailableDataFlavors().length>0){
+						Controleur.getInstance().activatePast(true);
+					}
+					else{
+						Controleur.getInstance().activatePast(false);
+					}
+				}
+			});
 		}
 		return textPane;
 	}

@@ -434,7 +434,7 @@ public final class Controleur implements Observer {
 	 * @return la liste des cours du dossier
 	 */
 	private List<Lesson> getListeFichiersBis(Folder folder) {
-		List<Lesson> listeCours = new LinkedList();
+		List<Lesson> listeCours = new LinkedList<Lesson>();
 		for (Element element : folder.getElements()) {
 			if (element.isFile()) {
 				listeCours.add((Lesson) element);
@@ -470,15 +470,29 @@ public final class Controleur implements Observer {
 			workPanel.setLesson(lesson);
 			MainWindow.getInstance()
 					.addNewWorkPanel(workPanel, lesson.getNom());
+			
 		}
 	}
 	
+	/**
+	 * enable or disable cut and copy menu item
+	 * @param activated
+	 */
+	public void activateCopyCut(boolean activated){
+		MainWindow.getInstance().activateCopyCut(activated);
+	}
+	
+	/**
+	 * enable or disable paste menu item
+	 * @param activated 
+	 */
+	public void activatePast(boolean activated){
+		MainWindow.getInstance().activatePast(activated);
+	}
 	
 	/**
 	 * close a work panel in MainWindow and the controler
-	 * 
-	 * @param String
-	 *            name of the module.
+	 * @param String name of the module.
 	 */
 	public void closeWorkPanel(WorkPanel workPanel) {
 		workPanelMap.keySet().remove(workPanel);
