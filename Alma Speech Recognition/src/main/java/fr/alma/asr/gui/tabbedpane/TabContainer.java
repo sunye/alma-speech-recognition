@@ -10,14 +10,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import fr.alma.asr.gui.MainWindow;
 import fr.alma.asr.gui.WorkPanel;
 
 
 public class TabContainer extends JTabbedPane {
 
-	private int index = 0;
-	
 	public TabContainer() {
 		super();
 		setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);	
@@ -25,8 +22,7 @@ public class TabContainer extends JTabbedPane {
 	
 	public void add(JPanel panel,String title,ImageIcon icon){
 		super.add(title,panel);
-		//TODO tester si cela fontionne encore quand on ferme un onglet et que l'on en ouvre un autre.
-		super.setTabComponentAt(index++, new TabbedPane(this, panel, title, icon));
+		super.setTabComponentAt(super.getTabCount()-1, new TabbedPane(this, panel, title, icon));
 	}
 	
 	public void setCurrentModified(boolean modified){
