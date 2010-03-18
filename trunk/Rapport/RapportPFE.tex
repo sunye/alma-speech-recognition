@@ -6,7 +6,7 @@
 \usepackage{makeidx}
 
 \usepackage[french]{minitoc}
-\usepackage{hyperref}
+\usepackage{url}
 
 \title{Rapport du projet de fin d'études\\
 	\huge{\textsc{Alma Speech Recognition}}}
@@ -24,16 +24,22 @@ Le projet de fin d'études consiste en la mise en \oe{}uvre de compétences acqu
 Chaque groupe de quatre à six étudiants travaille sur un sujet de projet différent.
 Le déroulement du projet doit respecter les étapes de création d'un véritable projet open-source et doit en conséquent tirer au maximum profit des différents outils de gestion de projet.
 
-Le projet que nous avons choisi de réaliser a été proposé par l'entreprise IBM France\footnote{IBM France -- \url{http://www.ibm.com/fr/fr/}}.
+Le projet que nous avons choisi de réaliser a été proposé par l'entreprise IBM~France\footnote{IBM~France -- \url{http://www.ibm.com/fr/fr/}}.
 Il s'agit du fruit d'un partenariat entre IBM et l'Université de Nantes\footnote{La convention de partenariat a été signée le 24 novembre 2009.} afin de faciliter la scolarisation des étudiants malentendants.
 En effet, à l'aide d'un logiciel disposant d'un moteur de reconnaissance vocale (en l'occurence le moteur ``Speechroot'' d'IBM), l'étudiant aurait accès au sous-titrage du discours de l'enseignant de manière immédiate.
 Ce projet diffère légèrement des autres par le fait que nous devons travailler en collaboration avec des groupes d'étudiants de d'autres écoles.
-L'équipe d'IBM, composée de Béatrice~Martin et de sa collègue Christel~Amato, technicienne ayant une très importante expérience dans le domaine de la reconnaissance vocale, se charge de la coordination entre les trois groupes d'étudiants (celui de Centrale, de Polytech' et nous-mêmes) et Stéphane~Brunat du Relai Handicap.
+L'équipe d'IBM, composée de Béatrice~Martin et de sa collègue Christel~Amato, technicienne ayant une très importante expérience dans le domaine de la reconnaissance vocale, se charge de la coordination entre les trois groupes d'étudiants (celui de Centrale\footnote{Centrale Nantes -- \url{http://www.ec-nantes.fr/}}, de Polytech'\footnote{Polytech'Nantes -- \url{http://www.polytech.univ-nantes.fr/}} et nous-mêmes) et Stéphane~Brunat du Relai Handicap.
 \end{abstract}
 
 \tableofcontents
 
+
 \chapter*{Introduction}
+L'objectif de notre projet de fin d'études consiste à réaliser une application dans un temps imparti, en utilisant toutes nos compétences en matière de qualité logicielle et de gestion de projet.
+Nous devons répondre aux exigences d'un client, M.~Brunat, pour que notre solution puisse être mise en place par l'Université.
+
+Le choix des technologies à employer est libre, mais il nous faut im\-pé\-ra\-ti\-ve\-ment avoir quelque part dans notre architecture un code Java pouvant dialoguer avec le moteur Speechroot.
+Ce moteur a été implémenté en C, mais l'environnement JNI\footnote{Java Native Interface} permettant l'accès à ce code en java nous est fourni.
 
 
 
