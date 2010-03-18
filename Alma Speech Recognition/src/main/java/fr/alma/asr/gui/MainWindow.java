@@ -359,6 +359,7 @@ public final class MainWindow extends javax.swing.JFrame {
 	public void addNewWorkPanel(WorkPanel workPanel,String lesson) {
 		tabbedPaneHomeWork.add(workPanel, lesson, new ImageIcon(getClass()
 				.getResource("/icones/RSSfolder24.png")));
+		tabbedPaneHomeWork.setSelectedComponent(workPanel);
 	}
 
 	/**
@@ -431,6 +432,22 @@ public final class MainWindow extends javax.swing.JFrame {
 		return ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent());
 	}
 	
+	/**
+	 * enable or disable cut and copy menu item
+	 * @param activated
+	 */
+	public void activateCopyCut(boolean activated){
+		this.copyMenuItem.setEnabled(activated);
+		this.cutMenuItem.setEnabled(activated);
+	}
+	
+	/**
+	 * enable or disable paste menu item
+	 * @param activated
+	 */
+	public void activatePast(boolean activated){
+		this.pasteMenuItem.setEnabled(activated);
+	}
 	
 
 }
