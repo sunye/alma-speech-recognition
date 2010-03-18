@@ -27,7 +27,6 @@ public class TabContainer extends JTabbedPane {
 	
 	public void setCurrentModified(boolean modified){
 		Component pane = this.getSelectedComponent();
-		
 		if(pane instanceof WorkPanel){
 			((TabbedPane)this.getTabComponentAt(this.getSelectedIndex())).setModified(modified);
 			((TabbedPane)this.getTabComponentAt(this.getSelectedIndex())).repaint();

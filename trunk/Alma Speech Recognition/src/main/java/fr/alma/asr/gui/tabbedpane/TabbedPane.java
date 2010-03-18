@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import fr.alma.asr.gui.Controleur;
+import fr.alma.asr.gui.WorkPanel;
 import fr.alma.asr.gui.HomePanel;
 
 /**
@@ -110,6 +112,7 @@ public class TabbedPane extends JPanel {
 		bouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				onglets.remove(component);
+				Controleur.getInstance().closeWorkPanel((WorkPanel)component);
 			}
 		});
 		
