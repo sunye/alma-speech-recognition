@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import fr.alma.asr.gui.HomePanel;
+
 /**
  *
  * @author Gaëtan Hervouet
@@ -86,7 +88,7 @@ public class TabbedPane extends JPanel {
 			}			
 		});
 		
-		panel.add(labelNom,java.awt.BorderLayout.LINE_END);
+		panel.add(labelNom,java.awt.BorderLayout.LINE_START);
 
 		add(panel,java.awt.BorderLayout.CENTER);
 
@@ -110,7 +112,11 @@ public class TabbedPane extends JPanel {
 				onglets.remove(component);
 			}
 		});
-		add(bouton, java.awt.BorderLayout.EAST);
+		
+		if(!(component instanceof HomePanel)){
+			add(bouton, java.awt.BorderLayout.EAST);
+		}
+		
 	}
 	
 	public void setModified(boolean modified){
@@ -119,7 +125,7 @@ public class TabbedPane extends JPanel {
 			//labelNom.setText("  "+labelNom.getText());
 		}
 		else{
-			panel.add(boutonModified,java.awt.BorderLayout.LINE_START);
+			panel.add(boutonModified,java.awt.BorderLayout.LINE_END);
 			//labelNom.setText(labelNom.getText().substring(2, labelNom.getText().length()));
 		}
 			
