@@ -29,6 +29,7 @@ import fr.alma.asr.utils.RecognitionEngineStub;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /**
  * Contrôleur de l'IHM.
@@ -145,6 +146,19 @@ public final class Controleur implements Observer {
 	/* --------------------------------------------------------- */
 	/* -----------------Gestion de l'arbre---------------------- */
 	/* --------------------------------------------------------- */
+
+	/**
+	 * Affiche un message d'erreur de chargement et propose de supprimer la bdd.
+	 */
+	public void erreurChargementArbre() {
+		Controleur.printLog(Level.SEVERE, "Chargement de l'arbre de cours échoué");
+		JOptionPane.showMessageDialog(null, "La base de donnée est corrompue,\nelle va être réinitialisée", 
+				"Erreur Base de donnée", JOptionPane.ERROR_MESSAGE);
+		deconnexion();
+		File fichier = new File("./DataBase/db.h2.db");
+		fichier.delete();
+		connexion();
+	}
 
 	/**
 	 * Construit l'arbre des cours.
@@ -315,11 +329,9 @@ public final class Controleur implements Observer {
 	 *            le noeud sélectionné
 	 */
 	public void ouvrir(DefaultMutableTreeNode node) {
-		// TODO ouvrir le fichier
 		Lesson lesson = (Lesson) node.getUserObject();
 		addNewWorkPanel(lesson);
 		printLog(Level.INFO, "ouverture du fichier " + node);
-		
 	}
 
 	/** La raine du JTree plan. */

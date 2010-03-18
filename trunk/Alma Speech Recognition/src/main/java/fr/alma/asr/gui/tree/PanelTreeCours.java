@@ -7,6 +7,7 @@
 package fr.alma.asr.gui.tree;
 
 import fr.alma.asr.gui.Controleur;
+import java.util.logging.Level;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -37,6 +38,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
         arbreCours.setDragEnabled(true);
         arbreCours.setDropMode(javax.swing.DropMode.ON);
         arbreCours.setEditable(true);
+        arbreCours.setInvokesStopCellEditing(true);
         arbreCours.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 arbreCoursMouseClicked(evt);
@@ -44,10 +46,14 @@ public class PanelTreeCours extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(arbreCours);
         arbreCours.setTransferHandler(new MyTransferHandler());
-        arbreCours.setCellRenderer(new MyTreeRenderer());
+        MyTreeRenderer renderer = new MyTreeRenderer();
+        arbreCours.setCellRenderer(renderer);
+
+        arbreCours.setCellEditor(new MyDefaultTreeCellEditor(arbreCours, renderer));
 
         DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();
         treeModel.setAsksAllowsChildren(true);
+        //treeModel.addTreeModelListener(new MyTreeModelListener());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -227,7 +233,12 @@ public class PanelTreeCours extends javax.swing.JPanel {
 	private void initialisation() {
 		this.controleur = Controleur.getInstance();
 		this.racineCours = new DefaultMutableTreeNode("Cours");
-		controleur.construireArbreCours(this.racineCours);
+		try {
+			controleur.construireArbreCours(this.racineCours);
+		} catch (Exception e) {
+			Controleur.printLog(Level.INFO, "Chargement de l'arbre de cours échoué");
+			controleur.erreurChargementArbre();
+		}
 	}
 
 }
