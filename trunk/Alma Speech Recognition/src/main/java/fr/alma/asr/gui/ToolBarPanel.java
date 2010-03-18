@@ -29,12 +29,16 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	private JPanel jPanelEdit;
 	private JButton jLabelOpen;
 	private JButton jLabelSave;
-
+	
+	
 	private final MainWindow mainWindow;
 	private final ImageIcon micOn = new ImageIcon(getClass().getResource(
 			"/icones/micOnWhite.png"));
 	private final ImageIcon micOff = new ImageIcon(getClass().getResource(
 			"/icones/micOff.png"));
+	
+	private final JToggleButton rec = new JToggleButton(micOff);
+
 
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -50,81 +54,86 @@ public class ToolBarPanel extends javax.swing.JPanel {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			{
-				jPanelRecord = new JPanel();
-				FlowLayout jPanelButtonLayout = new FlowLayout();
-				jPanelButtonLayout.setAlignment(FlowLayout.CENTER);
-				jPanelRecord.setLayout(jPanelButtonLayout);
-				this.add(jPanelRecord, BorderLayout.CENTER);
-				{
-					final JToggleButton rec = new JToggleButton(micOff);
 
-					jPanelRecord.add(rec);
-					rec.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent evt) {
-							onRec = !onRec;
-							if (onRec) {
-								Controleur.getInstance().openMic();
-								Controleur.getInstance().setLastAction(
-										"Reconnaissance vocale démarrée.");
-								rec.setIcon(micOn);
-								Controleur.getInstance().setCurrentModified(true);
-							} else {
-								Controleur.getInstance().closeMic();
-								Controleur.getInstance().setLastAction(
-										"Reconnaissance vocale stoppée.");
-								rec.setIcon(micOff);
-								Controleur.getInstance().setAllUnModified();
-							}
+			jPanelRecord = new JPanel();
+			FlowLayout jPanelButtonLayout = new FlowLayout();
+			jPanelButtonLayout.setAlignment(FlowLayout.CENTER);
+			jPanelRecord.setLayout(jPanelButtonLayout);
+			this.add(jPanelRecord, BorderLayout.CENTER);
 
+
+			jPanelRecord.add(rec);
+			
+			
+			
+			rec.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent evt) {
+					onRec = !onRec;
+					if (onRec) {
+						Controleur.getInstance().openMic();
+						Controleur.getInstance().setLastAction(
+								"Reconnaissance vocale démarrée.");
+						rec.setIcon(micOn);
+						Controleur.getInstance().setCurrentModified(true);
+					} else {
+						Controleur.getInstance().closeMic();
+						Controleur.getInstance().setLastAction(
+								"Reconnaissance vocale stoppée.");
+						rec.setIcon(micOff);
+						Controleur.getInstance().setAllUnModified();
+					}
+
+				}
+			});
+
+
+			jPanelEdit = new JPanel();
+			this.add(jPanelEdit, BorderLayout.WEST);
+
+			jLabelSave = new JButton();
+			ImageIcon recordImage = new ImageIcon(getClass()
+					.getResource("/icones/pdf.png"));
+			jLabelSave.setIcon(recordImage);
+			jLabelSave.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.showDialog(null, "Enregister en PDF");
+					String outPutFile = fileChooser.getSelectedFile()
+					.getAbsolutePath();
+
+					if (outPutFile != null) {
+						if (!outPutFile.toUpperCase().endsWith(".PDF")) {
+							outPutFile += ".pdf";
 						}
-					});
+
+						Controleur.printOutPdf(outPutFile, mainWindow
+								.getEditTextPane());
+					}
+
 				}
-			}
-			{
-				jPanelEdit = new JPanel();
-				this.add(jPanelEdit, BorderLayout.WEST);
-				{
-					jLabelSave = new JButton();
-					ImageIcon recordImage = new ImageIcon(getClass()
-							.getResource("/icones/pdf.png"));
-					jLabelSave.setIcon(recordImage);
-					jLabelSave.addActionListener(new ActionListener() {
+			});
+			jPanelEdit.add(jLabelSave);
 
-						@Override
-						public void actionPerformed(ActionEvent e) {
 
-							JFileChooser fileChooser = new JFileChooser();
-							fileChooser.showDialog(null, "Enregister en PDF");
-							String outPutFile = fileChooser.getSelectedFile()
-									.getAbsolutePath();
+			jLabelOpen = new JButton();
+			jPanelEdit.add(jLabelOpen);
+			ImageIcon printImage = new ImageIcon(getClass()
+					.getResource("/icones/print.png"));
+			jLabelOpen.setIcon(printImage);
+			jPanelEdit.add(jLabelSave);
 
-							if (outPutFile != null) {
-								if (!outPutFile.toUpperCase().endsWith(".PDF")) {
-									outPutFile += ".pdf";
-								}
-
-								Controleur.printOutPdf(outPutFile, mainWindow
-										.getEditTextPane());
-							}
-
-						}
-					});
-					jPanelEdit.add(jLabelSave);
-				}
-				{
-					jLabelOpen = new JButton();
-					jPanelEdit.add(jLabelOpen);
-					ImageIcon recordImage = new ImageIcon(getClass()
-							.getResource("/icones/print.png"));
-					jLabelOpen.setIcon(recordImage);
-					jPanelEdit.add(jLabelSave);
-				}
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public JToggleButton getRecButton(){
+		return rec;
 	}
 
 }

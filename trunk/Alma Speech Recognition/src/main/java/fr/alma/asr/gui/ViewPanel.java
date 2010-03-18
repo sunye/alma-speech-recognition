@@ -1,5 +1,6 @@
 package fr.alma.asr.gui;
 
+import java.awt.Dimension;
 import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
@@ -85,6 +86,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 					textPane.setDocument(document);
 				}
 			}
+			this.setMinimumSize(new Dimension(500,200));
 		} catch (Exception e) {
 			Controleur.printLog(Level.INFO, e.getMessage());
 		}

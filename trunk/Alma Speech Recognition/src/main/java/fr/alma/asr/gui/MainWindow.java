@@ -3,6 +3,7 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,6 +18,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import fr.alma.asr.gui.listener.MenuItemListener;
 import fr.alma.asr.gui.tabbedpane.TabContainer;
@@ -289,6 +292,19 @@ public final class MainWindow extends javax.swing.JFrame {
 				.getResource("/icones/doc24.png")));
 
 		tabbedPaneHomeWork = new TabContainer();
+		tabbedPaneHomeWork.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if(tabbedPaneHomeWork.getSelectedComponent() instanceof WorkPanel){
+					activateMicOnOff(true);
+				}
+				else{
+					activateMicOnOff(false);
+				}
+			}
+			
+		});
 		splitPanel.add(tabbedPaneHomeWork, JSplitPane.RIGHT);
 
 		homePanel = new HomePanel();
@@ -444,6 +460,9 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.saveMenuItem.setEnabled(activated);
 	}
 	
+	public void activateMicOnOff(boolean enabled){
+		toolBarPannel.getRecButton().setEnabled(enabled);
+	}
 	/**
 	 * 
 	 * @param text
