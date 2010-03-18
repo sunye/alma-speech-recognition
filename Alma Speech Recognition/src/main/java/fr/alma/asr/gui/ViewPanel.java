@@ -7,6 +7,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.Document;
+import javax.swing.text.rtf.RTFEditorKit;
 
 /**
  * @author Damien lévin
@@ -17,7 +21,10 @@ public final class ViewPanel extends javax.swing.JPanel {
 
 	private static ViewPanel viewPanelInstance;
 
-	private JTextPane textArea;
+	private JTextPane textPane;
+	private Document document;
+	private DefaultEditorKit editorKit;
+
 	private JScrollPane jScrollPane1;
 
 	/**
@@ -32,7 +39,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	 * @return
 	 */
 	public JTextPane getViewTextPane() {
-		return this.textArea;
+		return this.textPane;
 	}
 
 	/**
@@ -67,9 +74,12 @@ public final class ViewPanel extends javax.swing.JPanel {
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);
 				{
-					textArea = new JTextPane();
-					jScrollPane1.setViewportView(textArea);
-					textArea.setEditable(false);
+					textPane = new JTextPane();
+					
+					jScrollPane1.setViewportView(textPane);
+					textPane.setEditable(false);
+					document = editorKit.createDefaultDocument();
+					textPane.setDocument(document);
 				}
 			}
 		} catch (Exception e) {
@@ -82,7 +92,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	 * @return JTextPane textPane
 	 */
 	public JTextPane getTextArea() {
-		return textArea;
+		return textPane;
 	}
 	
 	/**
@@ -90,7 +100,14 @@ public final class ViewPanel extends javax.swing.JPanel {
 	 * @return String formated Text of the pane
 	 */
 	public String getFormatedText(){
-		return textArea.getText();
+		return textPane.getText();
 	}
-
+	
+	public void setText(String lesson){
+		try {
+			document.insertString(0, lesson, null);
+		} catch (BadLocationException e) {
+			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
+		}
+	}
 }
