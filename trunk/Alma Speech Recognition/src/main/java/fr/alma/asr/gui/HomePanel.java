@@ -8,9 +8,10 @@ package fr.alma.asr.gui;
 
 import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.JLabel;
 
 /**
@@ -163,8 +164,22 @@ public class HomePanel extends javax.swing.JPanel {
 				JLabel titreModule = new JLabel("<html><body><strong>"+folder.toString()+"</strong></body></html>");
 				this.listeLabel.add(titreModule);
 				this.panelCours.add(titreModule);
-				for (Lesson lesson : listeCours) {
-					JLabel titreCours = new JLabel("<html><body><a href=''>"+lesson.toString()+"</a></body></html>");
+				for (final Lesson lesson : listeCours) {
+					JLabel titreCours = new JLabel("<html><body>&nbsp;&nbsp;&nbsp;&nbsp;<a href=''>"+lesson.toString()+"</a></body></html>");
+					titreCours.addMouseListener(new MouseListener() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							controleur.ouvrirFichier(lesson);
+						}
+						@Override
+						public void mousePressed(MouseEvent e) {}
+						@Override
+						public void mouseReleased(MouseEvent e) {}
+						@Override
+						public void mouseEntered(MouseEvent e) {}
+						@Override
+						public void mouseExited(MouseEvent e) {}
+					});
 					this.listeLabel.add(titreCours);
 					this.panelCours.add(titreCours);
 				}
@@ -175,8 +190,23 @@ public class HomePanel extends javax.swing.JPanel {
 		} else {
 			this.panelCours.removeAll();
 			List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
-			for (Lesson fichier : listeFichier) {
-				JLabel titreCours = new JLabel(fichier.toString());
+			for (final Lesson fichier : listeFichier) {
+				String module = controleur.getModule(fichier);
+				JLabel titreCours = new JLabel("<html><body><strong>" + module + "</strong> - <a href=''>" + fichier.toString() + "</a></body></html>");
+				titreCours.addMouseListener(new MouseListener() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							controleur.ouvrirFichier(fichier);
+						}
+						@Override
+						public void mousePressed(MouseEvent e) {}
+						@Override
+						public void mouseReleased(MouseEvent e) {}
+						@Override
+						public void mouseEntered(MouseEvent e) {}
+						@Override
+						public void mouseExited(MouseEvent e) {}
+					});
 				this.listeLabel.add(titreCours);
 				this.panelCours.add(titreCours);
 			}
