@@ -22,8 +22,7 @@ public class WorkPanel extends JPanel {
 	private ViewPanel viewPanel;
 	private MainWindow mainWindow;
 	
-	public static int panelWidth = 800;
-	public static int panelHeight = 600;
+
 
 	/**
 	 * @param args
@@ -43,7 +42,6 @@ public class WorkPanel extends JPanel {
 		super();
 		this.mainWindow = mainWindow;
 		initGUI();
-		this.setMinimumSize(new Dimension(panelWidth,panelHeight));
 
 	}
 
