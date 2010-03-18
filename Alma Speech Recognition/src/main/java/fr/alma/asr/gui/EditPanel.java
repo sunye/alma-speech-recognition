@@ -279,6 +279,8 @@ public class EditPanel extends javax.swing.JPanel {
 		h3Button.setText("Titre 3");
 		toolBar.add(h3Button);
 	
+		
+		
 	}
 
 	/**
@@ -336,7 +338,7 @@ public class EditPanel extends javax.swing.JPanel {
 								if (undoManager.canUndo()) {
 									undoManager.undo();
 								}else{
-									Controleur.getInstance().setModified(false);
+									Controleur.getInstance().setCurrentModified(false);
 
 								}
 							} catch (CannotUndoException e) {
@@ -376,7 +378,7 @@ public class EditPanel extends javax.swing.JPanel {
 				
 				@Override
 				public void keyTyped(KeyEvent e) {
-					Controleur.getInstance().setModified(true);
+					Controleur.getInstance().setCurrentModified(true);
 				}
 				
 				@Override

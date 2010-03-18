@@ -24,7 +24,6 @@ import javax.swing.JToggleButton;
  */
 public class ToolBarPanel extends javax.swing.JPanel {
 	private JPanel jPanelRecord;
-	private JLabel labelRecord;
 	private boolean onRec = false;
 
 	private JPanel jPanelEdit;
@@ -70,7 +69,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 								Controleur.getInstance().setLastAction(
 										"Reconnaissance vocale démarrée.");
 								rec.setIcon(micOn);
-								Controleur.getInstance().setModified(true);
+								Controleur.getInstance().setCurrentModified(true);
 							} else {
 								Controleur.getInstance().closeMic();
 								Controleur.getInstance().setLastAction(

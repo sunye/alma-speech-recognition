@@ -20,9 +20,6 @@ import javax.swing.JPanel;
 */
 public class ToolBarEditPanel extends javax.swing.JPanel {
 	
-	private JLabel labelRecord ;
-
-
 	private JPanel jPanelEdit;
 	private JLabel jLabelOpen;
 	private JLabel jLabelSave;

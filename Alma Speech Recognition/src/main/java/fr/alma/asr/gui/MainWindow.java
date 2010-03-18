@@ -69,9 +69,8 @@ public final class MainWindow extends javax.swing.JFrame {
 	private JMenuItem cutMenuItem;
 	private JMenu jMenuEdition;
 	private JMenuItem closeFileMenuItem;
-	private JMenuItem saveAsMenuItem;
 	private JMenuItem saveMenuItem;
-	private JMenuItem openFileMenuItem;
+	private JMenuItem importMenuItem;
 	private JMenuItem newFileMenuItem;
 	private JMenuItem guiParametersMenuItem;
 	private JMenuItem dicoParametersMenuItem;
@@ -126,14 +125,6 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.cutMenuItem = cutMenuItem;
 	}
 
-	public JMenuItem getSaveAsMenuItem() {
-		return saveAsMenuItem;
-	}
-
-	public void setSaveAsMenuItem(JMenuItem saveAsMenuItem) {
-		this.saveAsMenuItem = saveAsMenuItem;
-	}
-
 	public JMenuItem getSaveMenuItem() {
 		return saveMenuItem;
 	}
@@ -143,11 +134,11 @@ public final class MainWindow extends javax.swing.JFrame {
 	}
 
 	public JMenuItem getOpenFileMenuItem() {
-		return openFileMenuItem;
+		return importMenuItem;
 	}
 
 	public void setOpenFileMenuItem(JMenuItem openFileMenuItem) {
-		this.openFileMenuItem = openFileMenuItem;
+		this.importMenuItem = openFileMenuItem;
 	}
 
 	public JMenuItem getNewFileMenuItem() {
@@ -197,20 +188,16 @@ public final class MainWindow extends javax.swing.JFrame {
 		jMenuFile.add(newFileMenuItem);
 		newFileMenuItem.setText("Nouveau cours");
 
-		openFileMenuItem = new JMenuItem();
-		jMenuFile.add(openFileMenuItem);
-		openFileMenuItem.setText("Ouvrir");
+		importMenuItem = new JMenuItem();
+		jMenuFile.add(importMenuItem);
+		importMenuItem.setText("Importer...");
+		//TODO importer rtf
 
 		saveMenuItem = new JMenuItem();
 		jMenuFile.add(saveMenuItem);
 		saveMenuItem.setText("Enregistrer");
+		saveMenuItem.setEnabled(false);
 		saveMenuItem.addActionListener(new MenuItemListener(this));
-
-
-		saveAsMenuItem = new JMenuItem();
-		jMenuFile.add(saveAsMenuItem);
-		saveAsMenuItem.setText("Enregistrer sous...");
-		saveAsMenuItem.addActionListener(new MenuItemListener(this));
 
 		jMenuFile.add(new JSeparator());
 
@@ -447,6 +434,14 @@ public final class MainWindow extends javax.swing.JFrame {
 	 */
 	public void activatePast(boolean activated){
 		this.pasteMenuItem.setEnabled(activated);
+	}
+	
+	/**
+	 *  enable or disable save menu item
+	 * @param activated
+	 */
+	public void activateSave(boolean activated){
+		this.saveMenuItem.setEnabled(activated);
 	}
 	
 

@@ -34,7 +34,7 @@ public class MenuItemListener implements ActionListener {
 		}
 		else if(source.getText().equals("Enregistrer")){
 			Controleur.getInstance().enregistrerCours(mainWindow.getCurrentWorkPane(), mainWindow.getCurrentWorkPane().getViewPanel().getFormatedText(), mainWindow.getCurrentWorkPane().getEditPanel().getFormatedText());
-			mainWindow.getTabbedPaneHomeWork().setCurrentModified(false);
+			Controleur.getInstance().setCurrentModified(false);
 
 		}
 		else if(source.getText().equals("Enregistrer sous...")){
