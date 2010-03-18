@@ -520,10 +520,11 @@ public final class Controleur implements Observer {
 	 *
 	 * @param msg
 	 *            : Text to show in the window
+	 *            Print the last msg in the top of the textpane
 	 */
 	public void showText(String msg) {
-		JTextPane txtArea = ViewPanel.getViewPanel().getTextArea();
-		txtArea.setText(txtArea.getText() + "\n" + msg);
+		JTextPane txtArea = ViewPanel.getViewPanel().getTextArea();		
+		txtArea.setText(msg + "\n" + txtArea.getText() );
 	}
 
 	/**
@@ -570,15 +571,16 @@ public final class Controleur implements Observer {
 	 * @param modified
 	 *            true : display icon/ false hide icon
 	 */
-	public void setModified(boolean modified) {
-		MainWindow.getInstance().getTabbedPaneHomeWork().setCurrentModified(
-				modified);
+	public void setCurrentModified(boolean modified) {
+		MainWindow.getInstance().activateSave(modified);
+		MainWindow.getInstance().getTabbedPaneHomeWork().setCurrentModified(modified);
 	}
 
 	/**
 	 * After a "save all" action, all the tabbed pane are set to unmodified.
 	 */
 	public void setAllUnModified() {
+		MainWindow.getInstance().activateSave(false);		
 		MainWindow.getInstance().getTabbedPaneHomeWork().setAllUnModified();
 	}
 
@@ -614,8 +616,7 @@ public final class Controleur implements Observer {
 	public void update(Observable o, Object arg) {
 		if (o.getClass().getSuperclass().getSimpleName().equals("RecognitionEngine")) {
 			String msg = (String) arg;
-			//TODO insérer ce message dans le panel lié à la reconnaissance vocale
-			System.out.println(msg);
+			showText(msg);
 		}
 		
 	}
