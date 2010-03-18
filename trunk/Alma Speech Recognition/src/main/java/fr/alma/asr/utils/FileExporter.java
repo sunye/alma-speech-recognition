@@ -13,17 +13,26 @@ import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 
 /**
- * Tool class used to export file in pdf
- * @author Damien Lévin
+ * Tool class used to export file in pdf.
  * 
+ * @author Damien Lévin
  */
-public class FileExporter {
+public final class FileExporter {
 
 	/**
+	 * Private constructor.
+	 */
+	private FileExporter() {}
+	
+	/**
 	 * Method which provides a way create PDF documents.
-	 * @param shapes Defines if we use shape instead of fonts
-	 * @param jTextPane The component to printout
-	 * @param outputFile The filePath of the output pdf
+	 * 
+	 * @param shapes
+	 *            Defines if we use shape instead of fonts
+	 * @param jTextPane
+	 *            The component to printout
+	 * @param outputFile
+	 *            The filePath of the output pdf
 	 */
 	public static void createPdf(boolean shapes, JTextPane jTextPane,
 			String outputFile) {
@@ -40,10 +49,11 @@ public class FileExporter {
 				PdfContentByte cb = writer.getDirectContent();
 				PdfTemplate tp = cb.createTemplate(500, 500);
 				Graphics2D g2;
-				if (shapes)
+				if (shapes) {
 					g2 = tp.createGraphicsShapes(500, 500);
-				else
+				} else {
 					g2 = tp.createGraphics(500, 500);
+				}
 				jTextPane.print(g2);
 				g2.dispose();
 				cb.addTemplate(tp, 30, 300);
