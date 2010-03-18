@@ -1,7 +1,10 @@
 package fr.alma.asr.gui;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,9 +29,6 @@ import fr.alma.asr.utils.FileExporter;
 import fr.alma.asr.utils.FileHandler;
 import fr.alma.asr.utils.RecognitionEngine;
 import fr.alma.asr.utils.RecognitionEngineStub;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -65,6 +65,7 @@ public final class Controleur implements Observer {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
 		}
 		this.engine = new RecognitionEngineStub();
+//		this.engine = SpeechrootEngine.getInstance();
 		this.engine.addObserver(this);
 		this.engine.start();
 		
@@ -582,17 +583,17 @@ public final class Controleur implements Observer {
 	}
 
 	/**
-	 * Show the parameters dialog for dico
+	 * Show the parameters dialog for dico.
 	 */
 	public void showDicoParam() {
-		// TODO appeler fonction moteur
+		this.engine.dictionary();
 	}
 
 	/**
-	 * Show the parameter dialog for egine options
+	 * Show the parameter dialog for egine options.
 	 */
 	public void showOptParam() {
-		// TODO appeler fonction moteur
+		this.engine.voiceModel();
 	}
 
 	/**
