@@ -37,8 +37,6 @@ public class PanelTreeCours extends javax.swing.JPanel {
 
         arbreCours.setDragEnabled(true);
         arbreCours.setDropMode(javax.swing.DropMode.ON);
-        arbreCours.setEditable(true);
-        arbreCours.setInvokesStopCellEditing(true);
         arbreCours.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 arbreCoursMouseClicked(evt);
@@ -49,7 +47,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
         MyTreeRenderer renderer = new MyTreeRenderer();
         arbreCours.setCellRenderer(renderer);
 
-        arbreCours.setCellEditor(new MyDefaultTreeCellEditor(arbreCours, renderer));
+        //arbreCours.setCellEditor(new MyDefaultTreeCellEditor(arbreCours, renderer));
 
         DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();
         treeModel.setAsksAllowsChildren(true);
