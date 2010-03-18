@@ -565,8 +565,10 @@ public class EditPanel extends javax.swing.JPanel {
 	
 	public void setText(String lesson){
 		try {
-			undoManager.discardAllEdits();
-			document.insertString(0, lesson, null);
+			if (lesson!=null){
+				undoManager.discardAllEdits();
+				document.insertString(0, lesson, null);
+			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
 		}
