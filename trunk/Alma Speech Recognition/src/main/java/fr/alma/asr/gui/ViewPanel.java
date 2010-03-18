@@ -78,6 +78,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 					
 					jScrollPane1.setViewportView(textPane);
 					textPane.setEditable(false);
+					editorKit = new DefaultEditorKit();
 					document = editorKit.createDefaultDocument();
 					textPane.setDocument(document);
 				}
@@ -105,7 +106,19 @@ public final class ViewPanel extends javax.swing.JPanel {
 	
 	public void setText(String lesson){
 		try {
-			document.insertString(0, lesson, null);
+			if (lesson!=null){
+				document.insertString(0, lesson, null);
+			}
+		} catch (BadLocationException e) {
+			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
+		}
+	}
+	
+	public void addText(String lesson){
+		try {
+			if (lesson!=null){
+				document.insertString(document.getLength(), lesson, null);
+			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
 		}

@@ -115,8 +115,9 @@ public class WorkPanel extends JPanel {
 	 */
 	public void setLesson(Lesson lesson){
 
-			getViewPanel().getTextArea().setText(lesson.getDataProf());
-			getEditPanel().getTextPane().setText(lesson.getDataEleve());
+
+		 getViewPanel().setText(lesson.getDataProf());
+		 getEditPanel().setText(lesson.getDataEleve());
 
 
 		}
