@@ -1,6 +1,5 @@
 package fr.alma.asr.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -10,12 +9,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.FlavorEvent;
 import java.awt.datatransfer.FlavorListener;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -27,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -42,8 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
@@ -82,7 +77,8 @@ public class EditPanel extends javax.swing.JPanel {
 
 	
 	private JToolBar toolBar;
-	
+	private JToolBar toolBar2;
+
 	public EditPanel(MainWindow mainWindow) {
 		super();
 		this.mainWindow = mainWindow;
@@ -91,23 +87,36 @@ public class EditPanel extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			BorderLayout thisLayout = new BorderLayout();
+			BoxLayout thisLayout = new BoxLayout(this,BoxLayout.Y_AXIS);
+		
 			this.setLayout(thisLayout);
 			this
 					.setBorder(BorderFactory
 							.createTitledBorder("Edition du cours"));
 			{
 				jScrollPane1 = new JScrollPane();
-				this.add(jScrollPane1, BorderLayout.CENTER);
 				jScrollPane1.setViewportView(getTextPane());
+
 
 			}
 			{
-				toolBarEditPannel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				toolBarEditPannel = new JPanel();
+				FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+				
 				toolBar = new JToolBar();
-				toolBarEditPannel.add(toolBar);
+				toolBar2 = new JToolBar();
+
+				toolBarEditPannel.setLayout(flowLayout);
 				initToolBar();
-				this.add(toolBarEditPannel, BorderLayout.NORTH);
+				toolBarEditPannel.add(toolBar);
+				toolBarEditPannel.add(toolBar2);
+				
+				
+				toolBarEditPannel.setVisible(true);
+				this.add(toolBarEditPannel);
+				this.add(jScrollPane1);
+
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -212,26 +221,26 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get("Rétablir");
 		mainWindow.getRedoMenuItem().setAction(a);
 
-		toolBar.addSeparator();
+		toolBar2.addSeparator();
 		a = new StyledEditorKit.AlignmentAction("left", 0);
-		leftButton = toolBar.add(a);
+		leftButton = toolBar2.add(a);
 		leftButton.setText("");
 		leftButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-left.png")));
 
 		a = new StyledEditorKit.AlignmentAction("center", 1);
-		centerButton = toolBar.add(a);
+		centerButton = toolBar2.add(a);
 		centerButton.setText("");
 		centerButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-center.png")));
 
 		a = new StyledEditorKit.AlignmentAction("right", 2);
-		rightButton = toolBar.add(a);
+		rightButton = toolBar2.add(a);
 		rightButton.setText("");
 		rightButton.setIcon(new ImageIcon(getClass().getResource(
 				"/txtformat/format-justify-right.png")));
 
-		toolBar.addSeparator();
+		toolBar2.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -246,7 +255,7 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h1Button.setText("Titre");
-		toolBar.add(h1Button);
+		toolBar2.add(h1Button);
 
 		h2Button.addActionListener(new ActionListener() {
 			@Override
@@ -260,7 +269,7 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h2Button.setText("Titre 2");
-		toolBar.add(h2Button);
+		toolBar2.add(h2Button);
 
 		h3Button.addActionListener(new ActionListener() {
 			@Override
@@ -277,7 +286,7 @@ public class EditPanel extends javax.swing.JPanel {
 			}
 		});
 		h3Button.setText("Titre 3");
-		toolBar.add(h3Button);
+		toolBar2.add(h3Button);
 	
 		
 		
