@@ -113,6 +113,10 @@ public class TabbedPane extends JPanel {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				onglets.remove(component);
 				Controleur.getInstance().closeWorkPanel((WorkPanel)component);
+				/*if(onglets.getTabCount()<=1){
+					Controleur.getInstance().setMicEnable(false);
+				}*/
+					
 			}
 		});
 		

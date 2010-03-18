@@ -18,6 +18,7 @@ public class TabContainer extends JTabbedPane {
 	public TabContainer() {
 		super();
 		setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);	
+		
 	}
 	
 	public void add(JPanel panel,String title,ImageIcon icon){

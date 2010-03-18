@@ -484,6 +484,8 @@ public final class Controleur implements Observer {
 					.addNewWorkPanel(workPanel, lesson.getNom());
 			
 		}
+		
+		
 	}
 	
 	/**
@@ -594,6 +596,14 @@ public final class Controleur implements Observer {
 	public void setAllUnModified() {
 		MainWindow.getInstance().activateSave(false);		
 		MainWindow.getInstance().getTabbedPaneHomeWork().setAllUnModified();
+	}
+	
+	/**
+	 * Enable or disable rec button
+	 * @param enabled
+	 */
+	public void setMicEnable(Boolean enabled){
+		MainWindow.getInstance().activateMicOnOff(enabled);
 	}
 
 	/*
