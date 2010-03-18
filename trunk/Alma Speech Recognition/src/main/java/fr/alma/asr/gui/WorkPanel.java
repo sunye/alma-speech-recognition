@@ -114,13 +114,10 @@ public class WorkPanel extends JPanel {
 	 * @param lesson lesson
 	 */
 	public void setLesson(Lesson lesson){
-		try {
-			getViewPanel().getTextArea().getDocument().insertString(0, lesson.getDataProf(), null);
-			getEditPanel().getTextPane().getDocument().insertString(0,lesson.getDataEleve(), null);
 
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			getViewPanel().getTextArea().setText(lesson.getDataProf());
+			getEditPanel().getTextPane().setText(lesson.getDataEleve());
+
+
 		}
 }

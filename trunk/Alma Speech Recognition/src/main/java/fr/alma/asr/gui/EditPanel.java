@@ -42,6 +42,8 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
@@ -52,7 +54,6 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
-
 /**
  * Text Panel which contains a text area and its edit toolbar.
  * 
@@ -334,6 +335,9 @@ public class EditPanel extends javax.swing.JPanel {
 							try {
 								if (undoManager.canUndo()) {
 									undoManager.undo();
+								}else{
+									mainWindow.getTabbedPaneHomeWork().setCurrentModified(false);
+
 								}
 							} catch (CannotUndoException e) {
 								e.printStackTrace();
@@ -552,11 +556,21 @@ public class EditPanel extends javax.swing.JPanel {
 	 */
 	public String getFormatedText(){
 		try {
-			System.out.println(document.getText(0,document.getLength()));
 			return document.getText(0,document.getLength());
 		} catch (BadLocationException e) {
 			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
 			return null;
 		}
 	}
+	
+	public void setText(String lesson){
+		try {
+			undoManager.discardAllEdits();
+			document.insertString(0, lesson, null);
+		} catch (BadLocationException e) {
+			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
+		}
+	}
+	
+	
 }
