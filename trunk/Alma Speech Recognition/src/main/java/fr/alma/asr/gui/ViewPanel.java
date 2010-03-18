@@ -77,9 +77,11 @@ public final class ViewPanel extends javax.swing.JPanel {
 					textPane = new JTextPane();
 					
 					jScrollPane1.setViewportView(textPane);
+					
 					textPane.setEditable(false);
 					editorKit = new DefaultEditorKit();
 					document = editorKit.createDefaultDocument();
+					textPane.setEditorKit(editorKit);
 					textPane.setDocument(document);
 				}
 			}
@@ -105,6 +107,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	}
 	
 	public void setText(String lesson){
+	
 		try {
 			if (lesson!=null){
 				document.insertString(0, lesson, null);
@@ -117,7 +120,9 @@ public final class ViewPanel extends javax.swing.JPanel {
 	public void addText(String lesson){
 		try {
 			if (lesson!=null){
-				document.insertString(document.getLength(), lesson, null);
+				
+				document.insertString(0, lesson, null);		
+				textPane.setText(document.getText(0,document.getLength()));
 			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());

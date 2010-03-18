@@ -337,9 +337,9 @@ public class EditPanel extends javax.swing.JPanel {
 							try {
 								if (undoManager.canUndo()) {
 									undoManager.undo();
-								}else{
-									Controleur.getInstance().setCurrentModified(false);
-
+									if (!undoManager.canUndo()) {
+										Controleur.getInstance().setCurrentModified(false);
+									}
 								}
 							} catch (CannotUndoException e) {
 								e.printStackTrace();
@@ -374,11 +374,12 @@ public class EditPanel extends javax.swing.JPanel {
 
 			});
 
+
 			textPane.addKeyListener(new KeyListener() {
-				
+			
 				@Override
 				public void keyTyped(KeyEvent e) {
-					Controleur.getInstance().setCurrentModified(true);
+					// TODO Auto-generated method stub
 				}
 				
 				@Override
@@ -389,8 +390,15 @@ public class EditPanel extends javax.swing.JPanel {
 				
 				@Override
 				public void keyPressed(KeyEvent e) {
-					// TODO Auto-generated method stub
-					
+			        if( !((e.getKeyCode() == KeyEvent.VK_Z) && (e.isControlDown()) || 
+			        		(e.isControlDown()) || (e.isAltDown() || (e.isShiftDown())))) {
+						Controleur.getInstance().setCurrentModified(true);
+			        }
+			        
+			        if ((e.getKeyCode() == KeyEvent.VK_Y) && (e.isControlDown())){
+						Controleur.getInstance().setCurrentModified(true);
+			        }
+
 				}
 			});
 			textPane.setEditable(true);
@@ -568,8 +576,9 @@ public class EditPanel extends javax.swing.JPanel {
 	public void setText(String lesson){
 		try {
 			if (lesson!=null){
-				undoManager.discardAllEdits();
 				document.insertString(0, lesson, null);
+				undoManager.discardAllEdits();
+
 			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());

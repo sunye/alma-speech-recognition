@@ -444,5 +444,14 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.saveMenuItem.setEnabled(activated);
 	}
 	
+	/**
+	 * 
+	 * @param text
+	 */
+	public void setTextViewTextPane(String text) {
+		 ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent())
+				.getViewPanel().addText(text);
+	}
+	
 
 }
