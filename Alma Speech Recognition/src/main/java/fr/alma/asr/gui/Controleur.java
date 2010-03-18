@@ -331,7 +331,6 @@ public final class Controleur implements Observer {
 	public void ouvrir(DefaultMutableTreeNode node) {
 		Lesson lesson = (Lesson) node.getUserObject();
 		addNewWorkPanel(lesson);
-		printLog(Level.INFO, "ouverture du fichier " + node);
 	}
 
 	/** La raine du JTree plan. */
@@ -455,6 +454,18 @@ public final class Controleur implements Observer {
 			}
 		}
 		return listeCours;
+	}
+
+	public void ouvrirFichier(Lesson cours) {
+		addNewWorkPanel(cours);
+	}
+	
+	public String getModule(Lesson cours) {
+		Folder dossier = cours.getDossierConteneur();
+		while (!dossier.isModule()) {
+			dossier = dossier.getDossierConteneur();
+		}
+		return dossier.getNom();
 	}
 
 	/*-----------------------------------------------------------*/
