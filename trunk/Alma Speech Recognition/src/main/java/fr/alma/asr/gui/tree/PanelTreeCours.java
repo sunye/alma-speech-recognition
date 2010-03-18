@@ -107,6 +107,10 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					eraseMenu.addActionListener(new TreeEraseMenuListener(node));
 					jpm.add(eraseMenu);
 
+					javax.swing.JMenuItem addRenameMenu = new javax.swing.JMenuItem("Renommer");
+					addRenameMenu.addActionListener(new TreeRenameMenuListener(node));
+					jpm.add(addRenameMenu);
+
 					javax.swing.JMenuItem propertiesMenu = new javax.swing.JMenuItem("Propriétés");
 					propertiesMenu.addActionListener(new TreePropertiesMenuListener(node));
 					jpm.add(propertiesMenu);
@@ -214,6 +218,22 @@ public class PanelTreeCours extends javax.swing.JPanel {
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			controleur.ouvrir(node);
+		}
+	}
+
+	class TreeRenameMenuListener implements java.awt.event.ActionListener{
+		private DefaultMutableTreeNode  node;
+		public TreeRenameMenuListener(DefaultMutableTreeNode node){
+			this.node = node;
+		}
+		@Override
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+			String nom = new DialogNewElement(null, "Renommer", "Entrez le nouveau nom :").showDialog();
+			if (nom != null) {
+				controleur.renommerElement(node, nom);
+				DefaultTreeModel model = (DefaultTreeModel) arbreCours.getModel();
+				model.nodeChanged(node);
+			}
 		}
 	}
 

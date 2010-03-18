@@ -333,6 +333,21 @@ public final class Controleur implements Observer {
 		addNewWorkPanel(lesson);
 	}
 
+	/**
+	 * Permet de renommer un noeud de l'arbre
+	 * @param node le noeud
+	 * @param nouveauNom le nouveau nom du noeud
+	 */
+	public void renommerElement(DefaultMutableTreeNode node, String nouveauNom) {
+		Element element = (Element) node.getUserObject();
+		element.setNom(nouveauNom);
+		new ElementDaoImpl().update(element);
+	}
+
+	/* --------------------------------------------------------- */
+	/* -----------------Gestion du plan------------------------- */
+	/* --------------------------------------------------------- */
+
 	/** La raine du JTree plan. */
 	private DefaultMutableTreeNode racinePlan;
 
