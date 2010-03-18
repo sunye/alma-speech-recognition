@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import fr.alma.asr.dao.LessonDao;
 import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
-import javax.persistence.Query;
 
 /**
  * Implementation dao de la classe Fichier.

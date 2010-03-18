@@ -12,6 +12,7 @@ import fr.alma.asr.gui.Controleur;
 public class RecognitionEngineStub extends RecognitionEngine implements
 		Runnable {
 
+	/**	Le processus simulant l'action du moteur. */
 	private Thread thread;
 
 	@Override
@@ -54,7 +55,8 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 			try {
 				Thread.sleep(3000);
 				this.setChanged();
-				this.notifyObservers("Voici une phrase reconnue par le moteur de reconnaissance vocale. ");
+				this.notifyObservers("Voici une phrase reconnue par "
+						+ "le moteur de reconnaissance vocale. ");
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 				break;

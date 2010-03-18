@@ -1,6 +1,7 @@
 package fr.alma.asr.dao.impl;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -51,6 +52,7 @@ public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao 
 		return resultat;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Folder> findModules() {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
