@@ -7,12 +7,11 @@ import javax.swing.JMenuItem;
 
 import fr.alma.asr.gui.Controleur;
 import fr.alma.asr.gui.MainWindow;
-import fr.alma.asr.gui.tabbedpane.TabbedPane;
 
 public class MenuItemListener implements ActionListener {
 
 	
-	private MainWindow mainWindow;
+	private final MainWindow mainWindow;
 	
 	public MenuItemListener(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
@@ -29,7 +28,7 @@ public class MenuItemListener implements ActionListener {
 		else if(source.getText().equals("Options du dictionnaire...")){
 			Controleur.getInstance().showDicoParam();
 		}
-		else if(source.getText().equals("Options du  moteur...")){
+		else if(source.getText().equals("Options du moteur...")){
 			Controleur.getInstance().showOptParam();
 		}
 		else if(source.getText().equals("Enregistrer")){

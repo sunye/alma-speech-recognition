@@ -2,6 +2,8 @@ package fr.alma.asr.utils;
 
 import java.util.logging.Level;
 
+import javax.swing.JOptionPane;
+
 import fr.alma.asr.gui.Controleur;
 
 /**
@@ -62,6 +64,18 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void dictionary() {
+		Controleur.printLog(Level.INFO, "Gestion des dictionnaires");
+		JOptionPane.showMessageDialog(null, "Gestion des dictionnaires.");
+	}
+
+	@Override
+	public void voiceModel() {
+		Controleur.printLog(Level.INFO, "Gestion des modèles vocaux");
+		JOptionPane.showMessageDialog(null, "Gestion des modèles vocaux.");
 	}
 
 }

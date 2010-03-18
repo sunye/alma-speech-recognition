@@ -30,4 +30,14 @@ public interface RecognitionEngineInterface {
 	 */
 	boolean closeMic();
 	
+	/**
+	 * Gestion des dictionnaires.
+	 */
+	void dictionary();
+	
+	/**
+	 * Gestion des modèles vocaux.
+	 */
+	void voiceModel();	
+	
 }
