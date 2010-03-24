@@ -33,13 +33,13 @@ public class ElementDaoTest extends TestCase {
 		
 		Folder dossier1 = new Folder("Dossier 1 ");
 		Folder dossier2 = new Folder("Dossier 2 ");
-		dossier1.addElements(dossier2);
+		dossier1.addElement(dossier2);
 		Folder dossier3 = new Folder("Dossier 3 ");
-		dossier1.addElements(dossier3);
+		dossier1.addElement(dossier3);
 		Lesson cours1 = new Lesson("Cours 1");
-		dossier2.addElements(cours1);
+		dossier2.addElement(cours1);
 		Lesson cours2 = new Lesson("Cours 2");
-		dossier2.addElements(cours2);
+		dossier2.addElement(cours2);
 		
 		this.idRacine = this.dao.create(dossier1);
 	}
@@ -62,7 +62,7 @@ public class ElementDaoTest extends TestCase {
 		int nb = this.dao.findAll().size();
 		
 		Lesson cours = new Lesson("Cours");
-		dossierRacine.addElements(cours);
+		dossierRacine.addElement(cours);
 		this.dao.create(cours);
 		this.dao.update(dossierRacine);
 		assertNotNull(this.dao.find(cours.getId()));
@@ -74,7 +74,7 @@ public class ElementDaoTest extends TestCase {
 		dossierRacine = (Folder) this.dao.find(this.idRacine);
 		
 		Folder dossier = new Folder("Dossier");
-		dossierRacine.addElements(dossier);
+		dossierRacine.addElement(dossier);
 		this.dao.create(dossier);
 		this.dao.update(dossierRacine);
 		assertNotNull(this.dao.find(dossier.getId()));

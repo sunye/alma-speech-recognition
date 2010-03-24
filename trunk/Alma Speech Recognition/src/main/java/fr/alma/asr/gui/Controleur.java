@@ -218,7 +218,7 @@ public final class Controleur implements Observer {
 		Lesson file = new Lesson(nom);
 		Folder folder = (Folder) node.getUserObject();
 		file.setDossierConteneur(folder);
-		folder.addElements(file);
+		folder.addElement(file);
 		new LessonDaoImpl().create(file);
 		new FolderDaoImpl().update(folder);
 		this.homePanel.update();
@@ -236,18 +236,38 @@ public final class Controleur implements Observer {
 	 * @return l'objet créé
 	 */
 	public Object ajoutFolder(String nom, DefaultMutableTreeNode node,
-			boolean isModule) {
+			boolean isModule, boolean ajoutDosiersCourants) {
 		Folder folder = new Folder(nom);
 		Folder conteneur = (Folder) node.getUserObject();
 		folder.setDossierConteneur(conteneur);
 		if (isModule) {
 			folder.setModule();
 		}
-		conteneur.addElements(folder);
+		conteneur.addElement(folder);
 		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
 		dao.update(conteneur);
+		DefaultMutableTreeNode folderNode = new DefaultMutableTreeNode(folder);
+		node.add(folderNode);
 		if (isModule) {
+			if (ajoutDosiersCourants) {
+				Folder cm = new Folder("CM");
+				Folder td = new Folder("TD");
+				Folder tp = new Folder("TP");
+				cm.setDossierConteneur(folder);
+				td.setDossierConteneur(folder);
+				tp.setDossierConteneur(folder);
+				folder.addElement(cm);
+				folder.addElement(td);
+				folder.addElement(tp);
+				dao.create(cm);
+				dao.create(td);
+				dao.create(tp);
+				dao.update(folder);
+				folderNode.add(new DefaultMutableTreeNode(cm));
+				folderNode.add(new DefaultMutableTreeNode(td));
+				folderNode.add(new DefaultMutableTreeNode(tp));
+			}
 			setLastAction("Module ajouté");
 		} else {
 			setLastAction("Dossier ajouté");

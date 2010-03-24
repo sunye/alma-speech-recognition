@@ -22,8 +22,8 @@ public class FolderTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		this.dossier = new Folder("Dossier de test");
-		this.dossier.addElements(new Folder("Sous dossier"));
-		this.dossier.addElements(new Lesson("Cours"));
+		this.dossier.addElement(new Folder("Sous dossier"));
+		this.dossier.addElement(new Lesson("Cours"));
 	}
 
 	@After

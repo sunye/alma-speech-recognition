@@ -108,7 +108,7 @@ public class DialogNewModule extends javax.swing.JDialog {
 	 * @param evt l'evenement capturé
 	 */
 	private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-		this.name = new String(this.textNom.getText());
+		this.infos = new InfoModule(this.textNom.getText(), checkBoxDossiers.isSelected());
 		this.setVisible(false);
 	}//GEN-LAST:event_validerActionPerformed
 
@@ -147,15 +147,15 @@ public class DialogNewModule extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 	/** Le nom retourné. */
-	private String name;
+	private InfoModule infos;
 
 	/**
 	 * Méthode d'affichage de la fenetre avec retour.
 	 * @return le nom rentré
 	 */
-	public String showDialog() {
+	public InfoModule showDialog() {
 		this.setVisible(true);
-		return name;
+		return infos;
 	}
 
 }

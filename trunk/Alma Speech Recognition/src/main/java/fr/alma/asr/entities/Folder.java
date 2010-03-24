@@ -66,7 +66,7 @@ public class Folder extends Element {
 	 * Methode permettant d'ajouter des elements.
 	 * @param element l'élément ajouté
 	 */
-	public void addElements(Element element){
+	public void addElement(Element element){
 		element.setDossierConteneur(this);
 		this.elements.add(element);
 		this.setChanged();
