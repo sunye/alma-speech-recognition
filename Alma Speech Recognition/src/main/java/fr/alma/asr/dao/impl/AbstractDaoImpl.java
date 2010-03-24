@@ -1,16 +1,17 @@
 package fr.alma.asr.dao.impl;
 
-import fr.alma.asr.dao.AbstractDao;
-import fr.alma.asr.entities.AbstractEntity;
-
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
+import fr.alma.asr.dao.AbstractDao;
+import fr.alma.asr.entities.AbstractEntity;
 
 /**
  * Implementation dao de la classe abstraite.
@@ -22,7 +23,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	/** Singleton factory des EntityManager. */
 	private static EntityManagerFactory emf;
 	/** L'ensemble des propriétés relatives au mécanisme de persistance. */
-	private static HashMap<String, String> specificProperties = new HashMap<String, String>();
+	private static Map<String, String> specificProperties = new HashMap<String, String>();
 	/** Indique si les propriétés ont été changées, ce qui provoque la mise à jour du singleton. */
 	private static boolean newProperties = false;
 	

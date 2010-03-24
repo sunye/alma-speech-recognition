@@ -49,7 +49,7 @@ public class Folder extends Element {
 	 * Getter de l'attribut elements.
 	 * @return elements 
 	 */
-	public Collection<Element> getElements() {
+	public final Collection<Element> getElements() {
 		return this.elements;
 	}
 	
@@ -57,7 +57,7 @@ public class Folder extends Element {
 	 * Setter de l'attribut elements.
 	 * @param elements la collection d'elements
 	 */
-	public void setElements(Collection<Element> elements) {
+	public final void setElements(Collection<Element> elements) {
 		this.elements = elements;
 		this.setChanged();
 	}
@@ -66,7 +66,7 @@ public class Folder extends Element {
 	 * Methode permettant d'ajouter des elements.
 	 * @param element l'élément ajouté
 	 */
-	public void addElement(Element element){
+	public final void addElements(Element element){
 		element.setDossierConteneur(this);
 		this.elements.add(element);
 		this.setChanged();
@@ -77,7 +77,7 @@ public class Folder extends Element {
 	 * @param element l'élément ajouté
 	 * @param index l'index
 	 */
-	public void addElementIndex(Element element, int index) {
+	public final void addElementIndex(Element element, int index) {
 		LinkedList<Element> liste = new LinkedList<Element>(this.elements);
 		element.setDossierConteneur(this);
 		liste.add(index, element);
@@ -89,7 +89,7 @@ public class Folder extends Element {
 	 * Methode permettant de supprimer des elements.
 	 * @param element l'élément supprimé
 	 */
-	public void removeElement(Element element){
+	public final void removeElement(Element element){
 		this.elements.remove(element);
 		this.setChanged();
 	}
@@ -97,7 +97,7 @@ public class Folder extends Element {
 	/**
 	 * Définit le dossier en tant que module.
 	 */
-	public void setModule() {
+	public final void setModule() {
 		this.isModule = true;
 	}
 
@@ -105,12 +105,12 @@ public class Folder extends Element {
 	 * Teste si le dossier est un module.
 	 * @return true si c'est un module
 	 */
-	public boolean isModule() {
+	public final boolean isModule() {
 		return this.isModule;
 	}
 
 	@Override
-	public boolean isFile() {
+	public final boolean isFile() {
 		return false;
 	}
 	
