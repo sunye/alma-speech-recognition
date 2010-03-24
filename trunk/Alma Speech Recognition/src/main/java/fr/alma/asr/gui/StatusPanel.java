@@ -32,12 +32,13 @@ public class StatusPanel extends javax.swing.JPanel {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
+			this.setBorder(null);
 			{
 				jLabelStatus = new JLabel();
 				this.add(jLabelStatus, BorderLayout.EAST);
 				jLabelStatus.setText("Application chargée avec succès.");
 			}
-			this.setBorder(BorderFactory.createMatteBorder(1,0, 0, 0,Color.DARK_GRAY));
+			//this.setBorder(BorderFactory.createMatteBorder(1,0, 0, 0,Color.DARK_GRAY));
 		} catch (Exception e) {
 			Controleur.printLog(Level.INFO, e.getMessage());
 		}

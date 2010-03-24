@@ -43,9 +43,8 @@ public class HomePanel extends javax.swing.JPanel {
         comboDate = new javax.swing.JComboBox();
         jScrollPane = new javax.swing.JScrollPane();
         panelCours = new javax.swing.JPanel();
-
         labelClasser.setText("Classer les cours par :");
-
+        jScrollPane.setBorder(null);
         comboCours.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cours", "Date" }));
         comboCours.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -159,10 +158,10 @@ public class HomePanel extends javax.swing.JPanel {
 			List<Lesson> listeCours;
 			for (Folder folder : listeModules) {
 				listeCours = controleur.getListeFichiers(folder, classerParCreation);
-				JLabel titreModule = new JLabel("<html><body><strong>"+folder.toString()+"</strong></body></html>");
+				JLabel titreModule = new JLabel("<html><body><strong><span style='font-size: 15pt ;'>"+folder.toString()+"</span></strong></body></html>");
 				this.panelCours.add(titreModule);
 				for (final Lesson lesson : listeCours) {
-					JLabel titreCours = new JLabel("<html><body>&nbsp;&nbsp;&nbsp;&nbsp;<a href=''>"+lesson.toString()+"</a></body></html>");
+					JLabel titreCours = new JLabel("<html><body>&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: 12pt ;'><a href=''>"+lesson.toString()+"</a></span></body></html>");
 					titreCours.addMouseListener(new MouseListener() {
 						@Override
 						public void mouseClicked(MouseEvent e) {

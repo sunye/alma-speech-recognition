@@ -1,5 +1,8 @@
 package fr.alma.asr.utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
@@ -53,16 +56,22 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
-				Thread.sleep(3000);
-				this.setChanged();
-				this.notifyObservers("Voici une phrase reconnue par "
-						+ "le moteur de reconnaissance vocale. ");
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				break;
+		
+		try{
+			Scanner fileScan = new Scanner(new File("toPrint.txt"));
+
+			while (true) {
+				try {
+					Thread.sleep(3000);
+					this.setChanged();
+					this.notifyObservers(fileScan.nextLine()+"\n\n");
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					break;	
+				}
 			}
+		} catch (FileNotFoundException e) {
+			Controleur.getInstance().printLog(null, e.getMessage());
 		}
 	}
 

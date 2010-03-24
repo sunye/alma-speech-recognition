@@ -74,7 +74,6 @@ public final class ViewPanel extends javax.swing.JPanel {
 				this.add(jScrollPane1);
 				{
 					textPane = new JTextPane();
-					
 					jScrollPane1.setViewportView(textPane);
 					textPane.setEditable(false);
 					editorKit = new DefaultEditorKit();
@@ -118,10 +117,9 @@ public final class ViewPanel extends javax.swing.JPanel {
 	
 	public void addText(String lesson){
 		try {
-			if (lesson!=null){
-				
+			if (lesson!=null){				
 				document.insertString(document.getLength(), lesson, null);		
-				textPane.setText(document.getText(document.getLength(),document.getLength()));
+				textPane.setText(document.getText(0,document.getLength()));
 			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
