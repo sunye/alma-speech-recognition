@@ -47,11 +47,11 @@ public class FolderDaoTest extends TestCase {
 	public final void testFindDossierRacine() {
 		Folder folder1 = new Folder("Dossier 1");
 		Folder folder2 = new Folder("Dossier 2");
-		folder2.addElements(folder1);
+		folder2.addElement(folder1);
 		Folder folder3 = new Folder("Dossier 3");
 		Folder folder4 = new Folder("Dossier 4");
-		folder4.addElements(folder2);
-		folder4.addElements(folder3);
+		folder4.addElement(folder2);
+		folder4.addElement(folder3);
 		
 		long id = this.dao.create(folder4);
 		
@@ -78,11 +78,11 @@ public class FolderDaoTest extends TestCase {
 	public final void testDelete() {
 		Folder folder1 = new Folder("Dossier 1");
 		Folder folder2 = new Folder("Dossier 2");
-		folder2.addElements(folder1);
+		folder2.addElement(folder1);
 		Folder folder3 = new Folder("Dossier 3");
 		Folder folder4 = new Folder("Dossier 4");
-		folder4.addElements(folder2);
-		folder4.addElements(folder3);		
+		folder4.addElement(folder2);
+		folder4.addElement(folder3);
 		this.dao.create(folder4);
 		
 		int nb = this.dao.findAll().size();
@@ -103,11 +103,11 @@ public class FolderDaoTest extends TestCase {
 	public final void testDeleteAll() {
 		Folder folder1 = new Folder("Dossier 1");
 		Folder folder2 = new Folder("Dossier 2");
-		folder2.addElements(folder1);
+		folder2.addElement(folder1);
 		Folder folder3 = new Folder("Dossier 3");
 		Folder folder4 = new Folder("Dossier 4");
-		folder4.addElements(folder2);
-		folder4.addElements(folder3);		
+		folder4.addElement(folder2);
+		folder4.addElement(folder3);
 		this.dao.create(folder4);
 		
 		assertEquals(4, this.dao.findAll().size());
@@ -135,10 +135,10 @@ public class FolderDaoTest extends TestCase {
 	public final void testFindAll() {
 		Folder folder1 = new Folder("Dossier 1");
 		Folder folder2 = new Folder("Dossier 2");
-		folder2.addElements(folder1);
+		folder2.addElement(folder1);
 		Folder folder3 = new Folder("Dossier 3");
 		Folder folder4 = new Folder("Dossier 4");
-		folder4.addElements(folder2);	
+		folder4.addElement(folder2);
 		this.dao.create(folder4);
 		
 		List<Folder> folders = this.dao.findAll();

@@ -162,11 +162,16 @@ public class PanelTreeCours extends javax.swing.JPanel {
 		}
 		@Override
 		public void actionPerformed(java.awt.event.ActionEvent e) {
-			String nom;
+			String nom = null;
+			boolean ajoutDossiersCourants = true;
 			if (this.isFile) {
 				nom = new DialogNewElement(null, "Nouveau fichier", "Nom du fichier à créer :").showDialog();
 			} else if (this.isModule) {
-				nom = new DialogNewModule(null).showDialog();
+				InfoModule infos = new DialogNewModule(null).showDialog();
+				if (infos != null) {
+					nom = infos.getNom();
+					ajoutDossiersCourants = infos.creerDossiersCourants();
+				}
 			} else {
 				nom = new DialogNewElement(null, "Nouveau dossier", "Nom du dossier à créer :").showDialog();
 			}
@@ -176,8 +181,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					Object element = controleur.ajoutFichier(nom, node);
 					node.add(new DefaultMutableTreeNode(element, false));
 				} else {
-					Object element = controleur.ajoutFolder(nom, node, this.isModule);
-					node.add(new DefaultMutableTreeNode(element));
+					Object element = controleur.ajoutFolder(nom, node, this.isModule, ajoutDossiersCourants);
 				}
 				model.nodeChanged(node);
 				arbreCours.updateUI();

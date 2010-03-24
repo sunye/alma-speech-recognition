@@ -38,9 +38,9 @@ public class LessonDaoTest extends TestCase {
 		
 		Folder dossier = new Folder("Dossier");
 		Lesson cours1 = new Lesson("Cours 1");
-		dossier.addElements(cours1);
+		dossier.addElement(cours1);
 		Lesson cours2 = new Lesson("Cours 2");
-		dossier.addElements(cours2);
+		dossier.addElement(cours2);
 		
 		this.folderDao.create(dossier);		
 	}

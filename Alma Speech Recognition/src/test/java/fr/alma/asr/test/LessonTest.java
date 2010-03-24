@@ -28,9 +28,9 @@ public class LessonTest extends TestCase {
 		this.dao = new ElementDaoImpl();
 		this.dao.deleteAll();
 		this.dossier = new Folder("Dossier de test");
-		this.dossier.addElements(new Folder("Sous dossier"));
+		this.dossier.addElement(new Folder("Sous dossier"));
 		this.cours = new Lesson("Cours");
-		this.dossier.addElements(this.cours);
+		this.dossier.addElement(this.cours);
 		this.dao.create(dossier);
 	}
 
