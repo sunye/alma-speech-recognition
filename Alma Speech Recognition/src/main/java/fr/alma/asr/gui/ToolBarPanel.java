@@ -27,8 +27,8 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	private boolean onRec = false;
 
 	private JPanel jPanelEdit;
-	private JButton jLabelOpen;
-	private JButton jLabelSave;
+	private JButton buttonPrint;
+	private JButton buttonPdf;
 	
 	
 	private final MainWindow mainWindow;
@@ -71,17 +71,11 @@ public class ToolBarPanel extends javax.swing.JPanel {
 				public void actionPerformed(ActionEvent evt) {
 					onRec = !onRec;
 					if (onRec) {
-						Controleur.getInstance().openMic();
-						Controleur.getInstance().setLastAction(
-								"Reconnaissance vocale démarrée.");
 						rec.setIcon(micOn);
-						Controleur.getInstance().setCurrentModified(true);
-					} else {
-						Controleur.getInstance().closeMic();
-						Controleur.getInstance().setLastAction(
-								"Reconnaissance vocale stoppée.");
+						Controleur.getInstance().setOnRec(true);						
+					} else {						
 						rec.setIcon(micOff);
-						Controleur.getInstance().setAllUnModified();
+						Controleur.getInstance().setOnRec(false);
 					}
 
 				}
@@ -91,11 +85,11 @@ public class ToolBarPanel extends javax.swing.JPanel {
 			jPanelEdit = new JPanel();
 			this.add(jPanelEdit, BorderLayout.WEST);
 
-			jLabelSave = new JButton();
+			buttonPdf = new JButton();
 			ImageIcon recordImage = new ImageIcon(getClass()
 					.getResource("/icones/pdf.png"));
-			jLabelSave.setIcon(recordImage);
-			jLabelSave.addActionListener(new ActionListener() {
+			buttonPdf.setIcon(recordImage);
+			buttonPdf.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -116,21 +110,28 @@ public class ToolBarPanel extends javax.swing.JPanel {
 
 				}
 			});
-			jPanelEdit.add(jLabelSave);
+			jPanelEdit.add(buttonPdf);
 
 
-			jLabelOpen = new JButton();
-			jPanelEdit.add(jLabelOpen);
+			buttonPrint = new JButton();
+			jPanelEdit.add(buttonPrint);
 			ImageIcon printImage = new ImageIcon(getClass()
 					.getResource("/icones/print.png"));
-			jLabelOpen.setIcon(printImage);
-			jPanelEdit.add(jLabelSave);
+			buttonPrint.setIcon(printImage);
+			jPanelEdit.add(buttonPdf);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public JButton getPrintButton(){
+		return buttonPrint;
+	}
+	
+	public JButton getPdfButton(){
+		return buttonPdf;
+	}
 	
 	public JToggleButton getRecButton(){
 		return rec;

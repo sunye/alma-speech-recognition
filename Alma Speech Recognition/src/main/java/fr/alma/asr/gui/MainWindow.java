@@ -297,10 +297,10 @@ public final class MainWindow extends javax.swing.JFrame {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if(tabbedPaneHomeWork.getSelectedComponent() instanceof WorkPanel){
-					activateMicOnOff(true);
+					activateEditWork(true);
 				}
 				else{
-					activateMicOnOff(false);
+					activateEditWork(false);
 				}
 			}
 			
@@ -460,9 +460,12 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.saveMenuItem.setEnabled(activated);
 	}
 	
-	public void activateMicOnOff(boolean enabled){
+	public void activateEditWork(boolean enabled){
 		toolBarPannel.getRecButton().setEnabled(enabled);
+		toolBarPannel.getPdfButton().setEnabled(enabled);
+		toolBarPannel.getPrintButton().setEnabled(enabled);
 	}
+	
 	/**
 	 * 
 	 * @param text
@@ -471,6 +474,14 @@ public final class MainWindow extends javax.swing.JFrame {
 		 ((WorkPanel) getTabbedPaneHomeWork().getSelectedComponent())
 				.getViewPanel().addText(text);
 	}
+	
+	
+	public void setOnRec(boolean onRec){
+		this.dicoParametersMenuItem.setEnabled(!onRec);
+		this.optParametersMenuItem.setEnabled(!onRec);
+	}
+	
+	
 	
 
 }

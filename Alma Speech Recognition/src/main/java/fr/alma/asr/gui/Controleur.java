@@ -564,7 +564,7 @@ public final class Controleur implements Observer {
 	 *            Print the last msg in the top of the textpane
 	 */
 	public void showText(String msg) {
-	
+		MainWindow.getInstance().activateSave(true);
 		MainWindow.getInstance().setTextViewTextPane(msg);
 	}
 
@@ -630,7 +630,7 @@ public final class Controleur implements Observer {
 	 * @param enabled
 	 */
 	public void setMicEnable(Boolean enabled){
-		MainWindow.getInstance().activateMicOnOff(enabled);
+		MainWindow.getInstance().activateEditWork(enabled);
 	}
 
 	/*
@@ -672,6 +672,19 @@ public final class Controleur implements Observer {
 	
 	public void stopEngine(){
 		this.engine.stop();
+	}
+	
+	public void setOnRec(boolean onRec){
+		MainWindow.getInstance().setOnRec(onRec);
+		if(onRec){			
+			openMic();
+			setLastAction("Reconnaissance vocale démarrée.");
+		}
+		else{
+			closeMic();
+			setLastAction("Reconnaissance vocale stoppée.");			
+		}
+			
 	}
 
 }
