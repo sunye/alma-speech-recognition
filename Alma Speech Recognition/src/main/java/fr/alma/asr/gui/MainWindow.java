@@ -3,10 +3,8 @@ package fr.alma.asr.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
@@ -47,8 +45,8 @@ import fr.alma.asr.gui.tree.PanelTreePlan;
  */
 public final class MainWindow extends javax.swing.JFrame {
 
-	public static int widthSize = 800;
-	public static int heightSize = 600;
+	private static int widthSize = 800;
+	private static int heightSize = 600;
 	
 	private static final long serialVersionUID = 658652694660147986L;
 	private static MainWindow instance;

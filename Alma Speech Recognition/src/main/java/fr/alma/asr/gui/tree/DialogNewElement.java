@@ -8,7 +8,6 @@ package fr.alma.asr.gui.tree;
 
 import fr.alma.asr.gui.Controleur;
 import java.util.logging.Level;
-import javax.persistence.UniqueConstraint;
 
 /**
  * Classe de type JDialog pour l'ajout d'un élément.
@@ -129,7 +128,7 @@ public class DialogNewElement extends javax.swing.JDialog {
 	 * @param evt l'evenement capturé
 	 */
 	private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-		this.name = new String(this.textName.getText());
+		this.name = this.textName.getText();
 		this.setVisible(false);
 	}//GEN-LAST:event_validerActionPerformed
 
