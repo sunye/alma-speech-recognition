@@ -1,16 +1,25 @@
 package fr.alma.asr.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.FlavorEvent;
 import java.awt.datatransfer.FlavorListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -38,6 +47,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -72,7 +82,7 @@ public class EditPanel extends javax.swing.JPanel {
 	private UndoManager undoManager;
 
 	private JScrollPane jScrollPane1;
-	private JPanel toolBarEditPannel;
+	private JPanel toolBarEditPanel;
 	private MenuTextArea menuText;
 
 	private final MainWindow mainWindow;
@@ -84,6 +94,7 @@ public class EditPanel extends javax.swing.JPanel {
 	private Color selectedColor;
 
 	private JToolBar toolBar;
+	private JToolBar toolBar1;
 	private JToolBar toolBar2;
 
 	public EditPanel(MainWindow mainWindow) {
@@ -94,32 +105,65 @@ public class EditPanel extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			BoxLayout thisLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+			//BoxLayout thisLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+			//GridLayout thisLayout = new GridLayout(2,1);
+			BorderLayout thisLayout = new BorderLayout();
+			//GridBagLayout thisLayout = new GridBagLayout();
+			
+			final JSplitPane jSplitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+			jSplitPane1.setDividerSize(0);
+			jSplitPane1.addComponentListener(new ComponentListener(){
+				@Override
+				public void componentResized(ComponentEvent arg0) {
+					if(toolBarEditPanel.getWidth()<=406){
+						jSplitPane1.setDividerLocation(103);
+					}
+					else if(toolBarEditPanel.getWidth()<=619){
+						jSplitPane1.setDividerLocation(76);
+					}
+					else {
+						jSplitPane1.setDividerLocation(40);
+					}					
+				}
 
+				@Override
+				public void componentHidden(ComponentEvent e) {}
+
+				@Override
+				public void componentMoved(ComponentEvent e) {}
+
+				@Override
+				public void componentShown(ComponentEvent e) {}
+				
+			});
+			
 			this.setLayout(thisLayout);
-			this
-					.setBorder(BorderFactory
-							.createTitledBorder("Edition du cours"));
+			this.setBorder(BorderFactory.createTitledBorder("Edition du cours"));
 			{
 				jScrollPane1 = new JScrollPane();
 				jScrollPane1.setViewportView(getTextPane());
-
+				jScrollPane1.setMinimumSize(new Dimension(250,210));
+				jScrollPane1.setPreferredSize(new Dimension(250,210));
 			}
 			{
-				toolBarEditPannel = new JPanel();
+				toolBarEditPanel = new JPanel();
 				FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
 				toolBar = new JToolBar();
+				toolBar1 = new JToolBar();
 				toolBar2 = new JToolBar();
 
-				toolBarEditPannel.setLayout(flowLayout);
+				toolBarEditPanel.setLayout(flowLayout);
+				toolBarEditPanel.setMinimumSize(new Dimension(250,40));
 				initToolBar();
-				toolBarEditPannel.add(toolBar);
-				toolBarEditPannel.add(toolBar2);
+				toolBarEditPanel.add(toolBar);
+				toolBarEditPanel.add(toolBar1);
+				toolBarEditPanel.add(toolBar2);
 
-				toolBarEditPannel.setVisible(true);
-				this.add(toolBarEditPannel);
-				this.add(jScrollPane1);
+				toolBarEditPanel.setVisible(true);
+				jSplitPane1.add(toolBarEditPanel);
+				jSplitPane1.add(jScrollPane1);
+				this.add(jSplitPane1,BorderLayout.CENTER);
 
 			}
 		} catch (Exception e) {
@@ -197,10 +241,9 @@ public class EditPanel extends javax.swing.JPanel {
 
 		toolBar.add(textColorButton);
 
-		toolBar.add(getJComboBoxFontSize());
-		toolBar.add(getJComboBoxFont());
+		toolBar1.add(getJComboBoxFontSize());
+		toolBar1.add(getJComboBoxFont());
 
-		toolBar.addSeparator();
 
 		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
 		menuText.getjMenuItemCouper().addActionListener(a);
@@ -222,7 +265,7 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get("Rétablir");
 		mainWindow.getRedoMenuItem().setAction(a);
 
-		toolBar2.addSeparator();
+		
 		a = new StyledEditorKit.AlignmentAction("left", 0);
 		leftButton = toolBar2.add(a);
 		leftButton.setText("");
@@ -322,8 +365,6 @@ public class EditPanel extends javax.swing.JPanel {
 			throws IOException {
 		try {
 
-
-			
 			document.remove(location, textLength);
 			HTMLEditorKit kit = (HTMLEditorKit) textPane.getEditorKit();
 			StringReader reader = new StringReader(html);
@@ -471,6 +512,8 @@ public class EditPanel extends javax.swing.JPanel {
 
 				}
 			});
+			
+		
 
 			menuText = new MenuTextArea();
 			this.setComponentPopupMenu(menuText);
