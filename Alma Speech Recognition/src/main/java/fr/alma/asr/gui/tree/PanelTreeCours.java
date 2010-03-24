@@ -181,7 +181,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
 					Object element = controleur.ajoutFichier(nom, node);
 					node.add(new DefaultMutableTreeNode(element, false));
 				} else {
-					Object element = controleur.ajoutFolder(nom, node, this.isModule, ajoutDossiersCourants);
+					controleur.ajoutFolder(nom, node, this.isModule, ajoutDossiersCourants);
 				}
 				model.nodeChanged(node);
 				arbreCours.updateUI();

@@ -1,9 +1,11 @@
 package fr.alma.asr.gui.tree;
 
+import fr.alma.asr.gui.Controleur;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -37,7 +39,7 @@ public class MyTransferable implements Transferable {
 		try {
 			return new DataFlavor(mimeType);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Controleur.printLog(Level.SEVERE, e.getMessage());
 			return null;
 		}
 	}

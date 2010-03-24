@@ -14,24 +14,24 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class MyTreeRenderer extends DefaultTreeCellRenderer {
 
 	/** Image du module ouvert.*/
-	ImageIcon subject_opened;
+	private ImageIcon subjectOpened;
 	/** Image du module fermé.*/
-	ImageIcon subject_closed;
+	private ImageIcon subjectClosed;
 	/** Image du module ouvert.*/
-	ImageIcon folder_opened;
+	private ImageIcon folderOpened;
 	/** Image du module fermé.*/
-	ImageIcon folder_closed;
+	private ImageIcon folderClosed;
 	/** Image d'un cours.*/
-	ImageIcon lessonIcon;
+	private ImageIcon lessonIcon;
 	/**
 	 * Constructeur par defaut.
 	 */
 	public MyTreeRenderer() {
 		super();
-		subject_opened = new ImageIcon(getClass().getResource("/jtree/subject_opened.png"));
-		subject_closed = new ImageIcon(getClass().getResource("/jtree/subject_closed.png"));
-		folder_opened = new ImageIcon(getClass().getResource("/jtree/folder_opened.png"));
-		folder_closed = new ImageIcon(getClass().getResource("/jtree/folder_closed.png"));
+		subjectOpened = new ImageIcon(getClass().getResource("/jtree/subject_opened.png"));
+		subjectClosed = new ImageIcon(getClass().getResource("/jtree/subject_closed.png"));
+		folderOpened = new ImageIcon(getClass().getResource("/jtree/folder_opened.png"));
+		folderClosed = new ImageIcon(getClass().getResource("/jtree/folder_closed.png"));
 		lessonIcon = new ImageIcon(getClass().getResource("/jtree/application-msword.png"));
 	}
 
@@ -43,15 +43,15 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 			Folder folder = (Folder) node.getUserObject();
 			if (folder.isModule()) {
 				if (expanded) {
-					setIcon(subject_opened);
+					setIcon(subjectOpened);
 				} else {
-					setIcon(subject_closed);
+					setIcon(subjectClosed);
 				}
 			} else {
 				if (expanded) {
-					setIcon(folder_opened);
+					setIcon(folderOpened);
 				} else {
-					setIcon(folder_closed);
+					setIcon(folderClosed);
 				}
 			}
 		}else{

@@ -8,7 +8,6 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
@@ -54,9 +53,9 @@ public class MyTransferHandler extends TransferHandler {
 			 }
 		  }
 	   } catch (UnsupportedFlavorException ex) {
-		  Logger.getLogger(MyTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+		  Controleur.printLog(Level.SEVERE, ex.getMessage());
 	   } catch (IOException ex) {
-		  Logger.getLogger(MyTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+		  Controleur.printLog(Level.SEVERE, ex.getMessage());
 	   }
 	   return false;
     }
@@ -98,7 +97,7 @@ public class MyTransferHandler extends TransferHandler {
 				tree.makeVisible(newPath);
 				tree.scrollRectToVisible(tree.getPathBounds(newPath));
 			 } catch (Exception e) {
-				e.printStackTrace();
+				Controleur.printLog(Level.SEVERE, e.getMessage());
 			 }
 			 return true;
 		  }
