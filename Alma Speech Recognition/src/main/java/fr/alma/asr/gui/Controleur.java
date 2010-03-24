@@ -87,7 +87,6 @@ public final class Controleur implements Observer {
 	 */
 	public static void chargementTermine() {
 		splash.setVisible(false);
-		setInfo("Chargement terminé");
 	}
 
 	/**
@@ -124,32 +123,16 @@ public final class Controleur implements Observer {
 	}
 
 	/* --------------------------------------------------------- */
-	/* ---------------Gestion du panel d'info------------------- */
-	/* --------------------------------------------------------- */
-
-	/** Le panel d'info. */
-	private static StatusPanel panelInfo;
-
-	/**
-	 * Enregistrement du panel d'info.
-	 * @param info le PanelInfo
-	 */
-	public static void setStatusPanel(StatusPanel info) {
-		panelInfo = info;
-	}
-
-	public static void setInfo(String information) {
-		if (panelInfo != null) {
-			panelInfo.setStatus(information);
-		}
-	}
-
-	/* --------------------------------------------------------- */
 	/* -----------------Gestion du home panel------------------- */
 	/* --------------------------------------------------------- */
 
+	/** Le home panel. */
 	private HomePanel homePanel;
 
+	/**
+	 * Définit le home panel.
+	 * @param panel le home panel
+	 */
 	void setHomePanel(HomePanel panel) {
 		this.homePanel = panel;
 	}
@@ -218,6 +201,8 @@ public final class Controleur implements Observer {
 		folder.removeElement(element);
 		dao.update(folder);
 		dao.delete(element.getId());
+		this.homePanel.update();
+		setLastAction("Elément supprimé");
 	}
 
 	/**
@@ -236,6 +221,8 @@ public final class Controleur implements Observer {
 		folder.addElements(file);
 		new LessonDaoImpl().create(file);
 		new FolderDaoImpl().update(folder);
+		this.homePanel.update();
+		setLastAction("Fichier ajouté");
 		return file;
 	}
 
@@ -260,6 +247,11 @@ public final class Controleur implements Observer {
 		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
 		dao.update(conteneur);
+		if (isModule) {
+			setLastAction("Module ajouté");
+		} else {
+			setLastAction("Dossier ajouté");
+		}
 		return folder;
 	}
 
@@ -293,6 +285,8 @@ public final class Controleur implements Observer {
 		dao.update(element);
 		dao.update(folderSource);
 		dao.update(folderCible);
+		this.homePanel.update();
+		setLastAction("Element déplacé");
 	}
 
 	/**
@@ -354,7 +348,7 @@ public final class Controleur implements Observer {
 		element.setNom(nouveauNom);
 		new ElementDaoImpl().update(element);
 		this.homePanel.update();
-		setInfo("Elément renommé.");
+		setLastAction("Elément renommé.");
 	}
 
 	/* --------------------------------------------------------- */

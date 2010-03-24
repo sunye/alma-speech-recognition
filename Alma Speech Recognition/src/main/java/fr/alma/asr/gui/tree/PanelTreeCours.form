@@ -44,7 +44,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="arbreCoursMouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="arbreCours.setTransferHandler(new MyTransferHandler());&#xa;MyTreeRenderer renderer = new MyTreeRenderer();&#xa;arbreCours.setCellRenderer(renderer);&#xa;&#xa;//arbreCours.setCellEditor(new MyDefaultTreeCellEditor(arbreCours, renderer));&#xa;&#xa;DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();&#xa;treeModel.setAsksAllowsChildren(true);&#xa;//treeModel.addTreeModelListener(new MyTreeModelListener());"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="arbreCours.setTransferHandler(new MyTransferHandler());&#xa;MyTreeRenderer renderer = new MyTreeRenderer();&#xa;arbreCours.setCellRenderer(renderer);&#xa;&#xa;//arbreCours.setCellEditor(new MyDefaultTreeCellEditor(arbreCours, renderer));&#xa;&#xa;DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();&#xa;treeModel.setAsksAllowsChildren(true);"/>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTree(this.racineCours)"/>
           </AuxValues>
         </Component>
