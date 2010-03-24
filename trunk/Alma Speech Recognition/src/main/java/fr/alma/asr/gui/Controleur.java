@@ -453,14 +453,14 @@ public final class Controleur implements Observer {
 			Collections.sort(listeCours, new Comparator<Lesson>() {
 				@Override
 				public int compare(Lesson o1, Lesson o2) {
-					return o1.getDateCreation().compareTo(o2.getDateCreation());
+					return o2.getDateCreation().compareTo(o1.getDateCreation());
 				}
 			});
 		} else {
 			Collections.sort(listeCours, new Comparator<Lesson>() {
 				@Override
 				public int compare(Lesson o1, Lesson o2) {
-					return o1.getDateModification().compareTo(o2.getDateModification());
+					return o2.getDateModification().compareTo(o1.getDateModification());
 				}
 			});
 		}
