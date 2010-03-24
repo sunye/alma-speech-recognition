@@ -6,6 +6,10 @@
 
 package fr.alma.asr.gui.tree;
 
+import fr.alma.asr.gui.Controleur;
+import java.util.logging.Level;
+import javax.persistence.UniqueConstraint;
+
 /**
  * Classe de type JDialog pour l'ajout d'un élément.
  * @author Braud Jeremy
@@ -30,7 +34,7 @@ public class DialogNewElement extends javax.swing.JDialog {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
 			javax.swing.SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception e) {
-			System.out.println("LookAndFeel non supporté.");
+			Controleur.printLog(Level.SEVERE, e.getMessage());
 		}
     }
 

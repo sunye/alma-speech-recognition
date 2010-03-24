@@ -218,7 +218,7 @@ public final class Controleur implements Observer {
 		Lesson file = new Lesson(nom);
 		Folder folder = (Folder) node.getUserObject();
 		file.setDossierConteneur(folder);
-		folder.addElements(file);
+		folder.addElement(file);
 		new LessonDaoImpl().create(file);
 		new FolderDaoImpl().update(folder);
 		this.homePanel.update();
@@ -243,7 +243,7 @@ public final class Controleur implements Observer {
 		if (isModule) {
 			folder.setModule();
 		}
-		conteneur.addElements(folder);
+		conteneur.addElement(folder);
 		FolderDao dao = new FolderDaoImpl();
 		dao.create(folder);
 		dao.update(conteneur);
@@ -257,9 +257,9 @@ public final class Controleur implements Observer {
 				cm.setDossierConteneur(folder);
 				td.setDossierConteneur(folder);
 				tp.setDossierConteneur(folder);
-				folder.addElements(cm);
-				folder.addElements(td);
-				folder.addElements(tp);
+				folder.addElement(cm);
+				folder.addElement(td);
+				folder.addElement(tp);
 				dao.create(cm);
 				dao.create(td);
 				dao.create(tp);
