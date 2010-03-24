@@ -51,7 +51,6 @@ public class PanelTreeCours extends javax.swing.JPanel {
 
         DefaultTreeModel treeModel = (DefaultTreeModel) arbreCours.getModel();
         treeModel.setAsksAllowsChildren(true);
-        treeModel.addTreeModelListener(new MyTreeModelListener());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
