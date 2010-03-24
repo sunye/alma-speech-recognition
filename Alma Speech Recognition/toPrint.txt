@@ -1,0 +1,48 @@
+La reconnaissance vocale ou reconnaissance automatique de la parole (Automatic Speech Recognition ASR) est une technique informatique qui permet d'analyser un mot ou une phrase captée au moyen d'un microphone pour la transcrire sous la forme d'un texte exploitable par une machine. La reconnaissance vocale, ainsi que la synthèse vocale, l'identification du locuteur ou la vérification du locuteur, font partie des techniques de traitement de la parole. Ces techniques permettent notamment de réaliser des interfaces vocales c'est-à-dire des interfaces homme-machine (IHM) où une partie de l'interaction se fait à la voix. Parmi les nombreuses applications, on peut citer les applications de dictée vocale sur PC où la difficulté tient à la taille du vocabulaire et à la longueur des phrases, mais aussi les applications téléphoniques de type serveur vocal, où la difficulté tient plutôt à la nécessité de reconnaître n'importe quelle voix dans des conditions acoustiques variables et souvent bruyantes (téléphones mobiles dans des lieux publics).
+Sommaire [masquer]
+1 Domaine de recherche
+2 Historique
+3 Principe de base
+4 Les modèles
+5 Classification
+6 Performance
+7 Notes et références
+8 Voir aussi
+8.1 Bibliographie
+8.2 Articles connexes
+8.3 Liens externes
+Domaine de recherche [modifier]
+
+La reconnaissance vocale peut se rattacher à de nombreux pans de la science : traitement automatique des langues, linguistique, théorie des langages formels, théorie de l'information, traitement du signal, réseaux neuronaux, intelligence artificielle, etc.
+Historique [modifier]
+
+Les travaux sur la reconnaissance vocale datent du début du xxe siècle. Le premier système pouvant être considéré comme faisant de la reconnaissance vocale date de 1952. Elle est évoquée dans Le Premier cercle de l'écrivain dissident soviétique Alexandre Soljenitsyne, comme un outil de répression au service de Staline.
+Ce système électronique développé par Davis, Biddulph, and Balashek aux laboratoires Bell Labs était essentiellement composé de relais et ses performances se limitaient à reconnaître des chiffres isolés (voir référence). La recherche s'est ensuite considérablement accrue durant les années 1970 avec les travaux de Jelinek chez IBM (1972-1993). Aujourd'hui, la reconnaissance vocale est un domaine à forte croissance grâce à la déferlante des systèmes embarqués.
+Principe de base [modifier]
+
+Une phrase enregistrée et numérisée est donnée au programme de reconnaissance vocale. Dans le formalisme ASR, le découpage fonctionnel est le suivant :
+Le traitement acoustique (front-end) permet principalement d'extraire du signal de parole une image acoustique la plus significative possible sur des tranches de temps d'environ 30ms. Cette image se présente sous la forme d'un vecteur de caractéristiques (features extraction) de 10 à 15 composantes principales, auxquelles sont ajoutées les différences de premier et second ordre pour obtenir une taille de 30-45 en final.
+Le traitement acoustique (front-end) vise à numériser le signal de parole sous forme de vecteurs acoustiques qui constituent les données d'observation pour le système de reconnaissance. On utilise pour cela les techniques de traitement du signal : on découpe le signal en tranches de 30 ms en procédant pour chaque tranche à un décalage de 10 ms (technique de fenêtrage de hamming) afin d'obtenir 10 ms de données significatives pour chaque vecteur. Le signal est alors numérisé et paramétré par une technique d'analyse fréquentielle utilisant les transformées de Fourier (par exemple MFCC, Mel-Frequency Cepstral Coefficients).
+L'apprentissage automatique qui réalise une association entre les segments élémentaires de paroles et les éléments lexicaux. Cette association fait appel à une modélisation statistique entre autres par modèles de Markov cachés (HMM, Hidden Markov Models) et/ou par réseaux de neurones artificiels (ANN, Artificial Neural Networks).
+La reconnaissance (back-end) qui en concaténant les segments élémentaires de paroles précédemment appris reconstitue le discours le plus probable. Il s'agit donc d'une correspondance de motif (pattern matching) temporelle, réalisée souvent par l'algorithme de déformation temporelle dynamique (en anglais DTW, dynamic time warping).
+Les modèles [modifier]
+
+Un tel système s'appuie sur trois modèles principaux :
+Modèle acoustique : ce modèle est capable, à partir du signal acoustique, plus précisément du résultat du traitement acoustique, de donner la probabilité que le signal corresponde à chacun des phonèmes possibles de la langue cible.
+Modèle de prononciation : ce modèle donne pour chaque mot du vocabulaire la ou les prononciations possibles au niveau phonétique avec des probabilités associées.
+Modèle de langage : ce modèle donne pour chaque suite de mots sa probabilité dans le langage cible.
+La combinaison de ces trois modèles permet de calculer pour toute suite de mots la probabilité que le signal sonore lui corresponde. Effectuer la reconnaissance, souvent appelée décodage, consiste à trouver celle qui a la probabilité la plus élevée.
+Classification [modifier]
+
+Un système de reconnaissance vocale se classifie par un petit nombre de paramètres appelés modes de reconnaissance qui sont corrélés aux difficultés suivantes :
+Variabilité inter et intra-locuteur : Les systèmes monolocuteurs (en anglais speaker dependant) effectuent un apprentissage in-situ des mots. Les systèmes multilocuteurs (en anglais speaker independant) sont capables de reconnaître un corpus fixe (50 mots environs) quel que soit le locuteur. Les systèmes monolocuteurs sont les plus répandus et tendent notamment à se généraliser grâce à la synthèse Text to speech qui évite la phase d'apprentissage.
+Naturel du discours : Les systèmes peuvent travailler sur de la parole continue (en anglais continuous speech), des mots isolés (isolated word) ou encore des mots clefs (key spotting).
+Taille du vocabulaire
+Environnement
+Performance [modifier]
+
+Les performances brutes d'un moteur de reconnaissance vocale sont souvent mesurées en taux d'erreur de mots (Word error rate). On peut, réciproquement, évaluer le taux de succès. Voici quelques résultats en termes de taux d'erreur, pour le français :
+Textes lus (BREF, système ancien) : 8-9 %
+Émissions de radio (campagne ESTER) : 10,3 %
+Conversations téléphoniques entre gens ne se connaissant pas : 33 %
+Conversations téléphoniques entre gens se connaissant : 70 % et plus
