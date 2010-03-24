@@ -3,15 +3,17 @@ package fr.alma.asr.gui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
 import fr.alma.asr.gui.Controleur;
 import fr.alma.asr.gui.MainWindow;
+import fr.alma.asr.gui.tabbedpane.TabbedPane;
 
 public class MenuItemListener implements ActionListener {
 
 	
-	private final MainWindow mainWindow;
+	private MainWindow mainWindow;
 	
 	public MenuItemListener(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
@@ -28,7 +30,7 @@ public class MenuItemListener implements ActionListener {
 		else if(source.getText().equals("Options du dictionnaire...")){
 			Controleur.getInstance().showDicoParam();
 		}
-		else if(source.getText().equals("Options du moteur...")){
+		else if(source.getText().equals("Options du  moteur...")){
 			Controleur.getInstance().showOptParam();
 		}
 		else if(source.getText().equals("Enregistrer")){
@@ -36,8 +38,20 @@ public class MenuItemListener implements ActionListener {
 			Controleur.getInstance().setCurrentModified(false);
 
 		}
-		else if(source.getText().equals("Enregistrer sous...")){
-			Controleur.getInstance().showOptParam();
+		else if(source.getText().equals("Exporter en RTF")){
+
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.showDialog(null, "Enregister en RTF");
+			String outPutFile = fileChooser.getSelectedFile()
+			.getAbsolutePath();
+
+			if (outPutFile != null) {
+				if (!outPutFile.toUpperCase().endsWith(".RTF")) {
+					outPutFile += ".rtf";
+				}
+				Controleur.printOutRtf(outPutFile, mainWindow.getEditTextPane());
+			}
+			
 		}
 		else if(source.getText().equals("Quitter")){
 			Controleur.getInstance().stopEngine();
