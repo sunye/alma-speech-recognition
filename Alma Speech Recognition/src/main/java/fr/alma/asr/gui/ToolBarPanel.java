@@ -30,15 +30,18 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	private JButton buttonPrint;
 	private JButton buttonPdf;
 	
-	
 	private final MainWindow mainWindow;
 	private final ImageIcon micOn = new ImageIcon(getClass().getResource(
 			"/icones/micOnWhite.png"));
 	private final ImageIcon micOff = new ImageIcon(getClass().getResource(
 			"/icones/micOff.png"));
+	private final ImageIcon scrollOn = new ImageIcon(getClass().getResource(
+	"/icones/autoScrollOn.png"));
+	private final ImageIcon scrollOff = new ImageIcon(getClass().getResource(
+	"/icones/autoScrollOff.png"));
 	
 	private final JToggleButton rec = new JToggleButton(micOff);
-
+	private final JToggleButton scroll = new JToggleButton(scrollOn);
 
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -61,7 +64,7 @@ public class ToolBarPanel extends javax.swing.JPanel {
 			jPanelRecord.setLayout(jPanelButtonLayout);
 			this.add(jPanelRecord, BorderLayout.CENTER);
 
-
+			jPanelRecord.add(scroll);
 			jPanelRecord.add(rec);
 			
 			
@@ -81,6 +84,19 @@ public class ToolBarPanel extends javax.swing.JPanel {
 				}
 			});
 
+			scroll.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent evt) {
+					if (!MainWindow.getInstance().getAutoScroll()) {
+						scroll.setIcon(scrollOn);
+						MainWindow.getInstance().setAutoScroll(true);						
+					} else {						
+						scroll.setIcon(scrollOff);
+						MainWindow.getInstance().setAutoScroll(false);
+					}
+
+				}
+			});
 
 			jPanelEdit = new JPanel();
 			this.add(jPanelEdit, BorderLayout.WEST);
