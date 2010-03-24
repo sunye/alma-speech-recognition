@@ -6,12 +6,10 @@ import java.util.logging.Level;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
-import javax.swing.text.rtf.RTFEditorKit;
 
 /**
  * @author Damien lévin
@@ -33,7 +31,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	 */
 	private ViewPanel(MainWindow mainWindow) {
 		super();
-		initGUI();
+		initGUI();		
 	}
 
 	/**
@@ -50,7 +48,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 	public static ViewPanel getViewPanel(MainWindow mainWindow) {
 		if (viewPanelInstance == null) {
 			viewPanelInstance = new ViewPanel(mainWindow);
-		}
+		}			
 		return viewPanelInstance;
 	}
 	
@@ -78,7 +76,6 @@ public final class ViewPanel extends javax.swing.JPanel {
 					textPane = new JTextPane();
 					
 					jScrollPane1.setViewportView(textPane);
-					
 					textPane.setEditable(false);
 					editorKit = new DefaultEditorKit();
 					document = editorKit.createDefaultDocument();
@@ -130,4 +127,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
 		}
 	}
+	
+	
+	
 }

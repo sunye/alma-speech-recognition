@@ -22,19 +22,6 @@ public class WorkPanel extends JPanel {
 	private ViewPanel viewPanel;
 	private MainWindow mainWindow;
 	
-
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		JFrame a = new JFrame();
-		WorkPanel panel = new WorkPanel(null);
-		panel.setVisible(true);
-		a.add(panel);
-		a.setVisible(true);
-	}
-
 	/**
 	 * @param mainWindow
 	 */
@@ -69,6 +56,7 @@ public class WorkPanel extends JPanel {
 					//Displays the single instance of view pannel in the work pannel
 					public void componentShown(ComponentEvent e) {
 						WorkPanel.this.addViewPanel(ViewPanel.getViewPanel(mainWindow));
+						jSplitPane1.setDividerLocation(0.5);
 					}
 
 					@Override
