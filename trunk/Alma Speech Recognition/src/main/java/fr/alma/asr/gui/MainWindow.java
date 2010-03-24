@@ -69,6 +69,7 @@ public final class MainWindow extends javax.swing.JFrame {
 	private JMenuItem deleteMenuItem;
 	private JMenuItem pasteMenuItem;
 	private JMenuItem copyMenuItem;
+	private JMenuItem exportMenuItem;
 	private JMenuItem cutMenuItem;
 	private JMenu jMenuEdition;
 	private JMenuItem closeFileMenuItem;
@@ -194,7 +195,11 @@ public final class MainWindow extends javax.swing.JFrame {
 		importMenuItem = new JMenuItem();
 		jMenuFile.add(importMenuItem);
 		importMenuItem.setText("Importer...");
-		//TODO importer rtf
+		
+		exportMenuItem = new JMenuItem();
+		jMenuFile.add(exportMenuItem);
+		exportMenuItem.setText("Exporter en RTF");
+		exportMenuItem.addActionListener(new MenuItemListener(this));
 
 		saveMenuItem = new JMenuItem();
 		jMenuFile.add(saveMenuItem);

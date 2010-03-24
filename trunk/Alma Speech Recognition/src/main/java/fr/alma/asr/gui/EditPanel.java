@@ -56,6 +56,7 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
+
 /**
  * Text Panel which contains a text area and its edit toolbar.
  * 
@@ -82,7 +83,6 @@ public class EditPanel extends javax.swing.JPanel {
 	private JButton textColorButton;
 	private Color selectedColor;
 
-	
 	private JToolBar toolBar;
 	private JToolBar toolBar2;
 
@@ -94,8 +94,8 @@ public class EditPanel extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			BoxLayout thisLayout = new BoxLayout(this,BoxLayout.Y_AXIS);
-		
+			BoxLayout thisLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+
 			this.setLayout(thisLayout);
 			this
 					.setBorder(BorderFactory
@@ -104,12 +104,11 @@ public class EditPanel extends javax.swing.JPanel {
 				jScrollPane1 = new JScrollPane();
 				jScrollPane1.setViewportView(getTextPane());
 
-
 			}
 			{
 				toolBarEditPannel = new JPanel();
 				FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-				
+
 				toolBar = new JToolBar();
 				toolBar2 = new JToolBar();
 
@@ -117,12 +116,10 @@ public class EditPanel extends javax.swing.JPanel {
 				initToolBar();
 				toolBarEditPannel.add(toolBar);
 				toolBarEditPannel.add(toolBar2);
-				
-				
+
 				toolBarEditPannel.setVisible(true);
 				this.add(toolBarEditPannel);
 				this.add(jScrollPane1);
-
 
 			}
 		} catch (Exception e) {
@@ -136,7 +133,6 @@ public class EditPanel extends javax.swing.JPanel {
 	 */
 	public void initToolBar() {
 
-		
 		JButton boldButton = new JButton();
 		JButton italicButton = new JButton();
 		JButton underlineButton = new JButton();
@@ -213,8 +209,6 @@ public class EditPanel extends javax.swing.JPanel {
 		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
 		menuText.getjMenuItemCopier().addActionListener(a);
 		mainWindow.getCopyMenuItem().addActionListener(a);
-		
-		
 
 		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
 		menuText.getjMenuItemColler().addActionListener(a);
@@ -252,16 +246,20 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					
-					String selText = textPane.getSelectedText();
 
-					int selStart = textPane.getSelectionStart();
-					int textLength = selText.length();
-					if (textLength>0){
-						insertHTMLBalise("<H2>"+selText+"</H2>", selStart,textLength);
+					String selText = textPane.getSelectedText();
+					if (selText != null) {
+						int selStart = textPane.getSelectionStart();
+						int textLength = selText.length();
+						if (textLength > 0) {
+							insertHTMLBalise("<SPAN STYLE='color: blue; font-size: 20pt'>"
+									+ selText + "</SPAN>", selStart, textLength);
+						}
 					}
-					
 				} catch (Exception ignoredForNow) {
+
+					Controleur.printLog(Level.SEVERE, ignoredForNow
+							.getMessage());
 				}
 			}
 		});
@@ -272,9 +270,21 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					editorKit.write(System.out, document, 0, document.getLength());
+
+					String selText = textPane.getSelectedText();
+					if (selText != null) {
+
+						int selStart = textPane.getSelectionStart();
+						int textLength = selText.length();
+						if (textLength > 0) {
+							insertHTMLBalise("<SPAN STYLE='color: green ; font-size: 25pt'>"
+									+ selText + "</SPAN>", selStart, textLength);
+						}
+					}
 				} catch (Exception ignoredForNow) {
-					ignoredForNow.printStackTrace();
+
+					Controleur.printLog(Level.SEVERE, ignoredForNow
+							.getMessage());
 				}
 			}
 		});
@@ -285,36 +295,46 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
+
 					String selText = textPane.getSelectedText();
+					if (selText != null) {
 
-					int selStart = textPane.getSelectionStart();
-					int textLength = selText.length();
-
+						int selStart = textPane.getSelectionStart();
+						int textLength = selText.length();
+						if (textLength > 0) {
+							insertHTMLBalise("<SPAN STYLE='color: red; font-size: 30pt'>"
+									+ selText + "</SPAN>", selStart, textLength);
+						}
+					}
 				} catch (Exception ignoredForNow) {
-					ignoredForNow.printStackTrace();
+
+					Controleur.printLog(Level.SEVERE, ignoredForNow
+							.getMessage());
 				}
 			}
 		});
 		h3Button.setText("Titre 3");
 		toolBar2.add(h3Button);
-	
-		
-		
-	}
-	
-	
-	private void insertHTMLBalise(String html, int location,int textLength) throws IOException {
-        try {
-        	
-        	   document.remove(location, textLength);
-            HTMLEditorKit kit = (HTMLEditorKit) textPane.getEditorKit();
-            StringReader reader = new StringReader(html);
-            kit.read(reader, document, location);
 
-        } catch (BadLocationException e) {
-           // logger.error("Failed to insert HTML", e);
-        }
-    }
+	}
+
+	private void insertHTMLBalise(String html, int location, int textLength)
+			throws IOException {
+		try {
+
+
+			
+			document.remove(location, textLength);
+			HTMLEditorKit kit = (HTMLEditorKit) textPane.getEditorKit();
+			StringReader reader = new StringReader(html);
+			kit.read(reader, document, location);
+
+			editorKit.write(System.out, document, 0, document.getLength());
+
+		} catch (BadLocationException e) {
+			// logger.error("Failed to insert HTML", e);
+		}
+	}
 
 	/**
 	 * 
@@ -327,7 +347,7 @@ public class EditPanel extends javax.swing.JPanel {
 
 			textPane = new JTextPane();
 			editorKit = new HTMLEditorKit();
-			document = (HTMLDocument)editorKit.createDefaultDocument();
+			document = (HTMLDocument) editorKit.createDefaultDocument();
 			undoManager = new UndoManager();
 
 			// Listen for undo and redo events
@@ -371,7 +391,8 @@ public class EditPanel extends javax.swing.JPanel {
 								if (undoManager.canUndo()) {
 									undoManager.undo();
 									if (!undoManager.canUndo()) {
-										Controleur.getInstance().setCurrentModified(false);
+										Controleur.getInstance()
+												.setCurrentModified(false);
 									}
 								}
 							} catch (CannotUndoException e) {
@@ -407,64 +428,62 @@ public class EditPanel extends javax.swing.JPanel {
 
 			});
 
-
 			textPane.addKeyListener(new KeyListener() {
-			
+
 				@Override
 				public void keyTyped(KeyEvent e) {
 					// TODO Auto-generated method stub
 				}
-				
+
 				@Override
 				public void keyReleased(KeyEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void keyPressed(KeyEvent e) {
-			        if( !((e.getKeyCode() == KeyEvent.VK_Z) && (e.isControlDown()) || 
-			        		(e.isControlDown()) || (e.isAltDown() || (e.isShiftDown())))) {
+					if (!((e.getKeyCode() == KeyEvent.VK_Z)
+							&& (e.isControlDown()) || (e.isControlDown()) || (e
+							.isAltDown() || (e.isShiftDown())))) {
 						Controleur.getInstance().setCurrentModified(true);
-			        }
-			        
-			        if ((e.getKeyCode() == KeyEvent.VK_Y) && (e.isControlDown())){
+					}
+
+					if ((e.getKeyCode() == KeyEvent.VK_Y)
+							&& (e.isControlDown())) {
 						Controleur.getInstance().setCurrentModified(true);
-			        }
+					}
 
 				}
 			});
 			textPane.setEditable(true);
 			textPane.setEditorKit(editorKit);
 			textPane.setDocument(document);
-			
-			
-			textPane.addCaretListener(new CaretListener(){
+
+			textPane.addCaretListener(new CaretListener() {
 				@Override
 				public void caretUpdate(CaretEvent e) {
-					if( textPane.getSelectedText()==null){
+					if (textPane.getSelectedText() == null) {
 						Controleur.getInstance().activateCopyCut(false);
-					}
-					else{
+					} else {
 						Controleur.getInstance().activateCopyCut(true);
 					}
-					
-				}				
+
+				}
 			});
-			
+
 			menuText = new MenuTextArea();
 			this.setComponentPopupMenu(menuText);
 
-			//Add a listener on clipborad to enable or disable pasteMenuItem
-			final Clipboard clipbd =  getToolkit().getSystemClipboard();
-					
-			clipbd.addFlavorListener(new FlavorListener(){				
+			// Add a listener on clipborad to enable or disable pasteMenuItem
+			final Clipboard clipbd = getToolkit().getSystemClipboard();
+
+			clipbd.addFlavorListener(new FlavorListener() {
 				@Override
 				public void flavorsChanged(FlavorEvent e) {
-					if(clipbd.getAvailableDataFlavors().length>0){
+					if (clipbd.getAvailableDataFlavors().length > 0) {
 						Controleur.getInstance().activatePast(true);
-					}
-					else{
+					} else {
 						Controleur.getInstance().activatePast(false);
 					}
 				}
@@ -590,25 +609,23 @@ public class EditPanel extends javax.swing.JPanel {
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
 		mainWindow.getDeleteMenuItem().setAction(a);
 	}
-	
-	
-	
+
 	/**
 	 * 
 	 * @return String formated Text of the pane
 	 */
-	public String getFormatedText(){
+	public String getFormatedText() {
 		try {
-			return document.getText(0,document.getLength());
+			return document.getText(0, document.getLength());
 		} catch (BadLocationException e) {
 			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
 			return null;
 		}
 	}
-	
-	public void setText(String lesson){
+
+	public void setText(String lesson) {
 		try {
-			if (lesson!=null){
+			if (lesson != null) {
 				document.insertString(0, lesson, null);
 				undoManager.discardAllEdits();
 
@@ -617,6 +634,5 @@ public class EditPanel extends javax.swing.JPanel {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
 		}
 	}
-	
-	
+
 }

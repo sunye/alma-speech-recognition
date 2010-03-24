@@ -1,16 +1,22 @@
 package fr.alma.asr.utils;
 
 import java.awt.Graphics2D;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.rtf.RTFEditorKit;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
+
+import fr.alma.asr.gui.Controleur;
 
 /**
  * Tool class used to export file in pdf.
@@ -62,5 +68,26 @@ public final class FileExporter {
 			Logger.getLogger("fr.alma.asr").log(Level.SEVERE, e.getMessage());
 		}
 		document.close();
+	}
+	
+	/**
+	 * Method which provides a way create PDF documents.
+	 * @param jTextPane  The component to printout
+	 * @param outputFile The filePath of the output pdf
+	 */
+	public static void createRtf(JTextPane jTextPane,
+			String outputFile) {
+		
+		RTFEditorKit editorKit = new RTFEditorKit();
+		
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFile));
+			editorKit.write(fileOutputStream, jTextPane.getDocument(), 0, jTextPane.getDocument().getLength());
+		} catch (IOException e) {
+			Controleur.printLog(Level.SEVERE, e.getMessage());
+		} catch (BadLocationException e) {
+			Controleur.printLog(Level.SEVERE, e.getMessage());
+		}	
+		
 	}
 }

@@ -418,6 +418,16 @@ public final class Controleur implements Observer {
 		FileExporter.createPdf(false, jTextPane, outputFilePath);
 	}
 
+	/**
+	 * Method which provides a way create RTF  documents.
+	 * @param outputFilePath The filePath of the output rtf
+	 * @param jTextPane The component to printout
+	 */
+	public static void printOutRtf(String outputFilePath, JTextPane jTextPane) {
+		FileExporter.createRtf(jTextPane, outputFilePath);
+	}
+
+	
 	/* --------------------------------------------------------- */
 	/* --------------Gestion du panel d'accueil----------------- */
 	/* --------------------------------------------------------- */
