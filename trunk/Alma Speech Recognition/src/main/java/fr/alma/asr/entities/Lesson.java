@@ -1,7 +1,7 @@
 package fr.alma.asr.entities;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 /**
  * Classe Fichier.
@@ -14,11 +14,11 @@ public class Lesson extends Element {
 	private static final long serialVersionUID = 1L;
 
 	/** Le texte de l'élève. */
-	@Basic
+	@Lob
 	private String dataEleve;
 
 	/** Le texte du prof. */
-	@Basic
+	@Lob
 	private String dataProf;
 
 	/**
