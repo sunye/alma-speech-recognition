@@ -667,6 +667,7 @@ public final class Controleur implements Observer {
 	 */
 	public void setMicEnable(Boolean enabled){
 		MainWindow.getInstance().activateEditWork(enabled);
+		
 	}
 
 	/*

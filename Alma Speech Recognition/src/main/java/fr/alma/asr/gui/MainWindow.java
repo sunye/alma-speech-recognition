@@ -474,6 +474,7 @@ public final class MainWindow extends javax.swing.JFrame {
 		toolBarPannel.getRecButton().setEnabled(enabled);
 		toolBarPannel.getPdfButton().setEnabled(enabled);
 		toolBarPannel.getPrintButton().setEnabled(enabled);
+		toolBarPannel.getScrollButton().setEnabled(enabled);
 	}
 	
 	/**
