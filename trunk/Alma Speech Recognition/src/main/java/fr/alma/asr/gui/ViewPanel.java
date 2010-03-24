@@ -121,7 +121,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 			if (lesson!=null){
 				
 				document.insertString(document.getLength(), lesson, null);		
-				textPane.setText(document.getText(0,document.getLength()));
+				textPane.setText(document.getText(document.getLength(),document.getLength()));
 			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
