@@ -152,5 +152,9 @@ public class ToolBarPanel extends javax.swing.JPanel {
 	public JToggleButton getRecButton(){
 		return rec;
 	}
+	
+	public JToggleButton getScrollButton(){
+		return scroll;
+	}
 
 }
