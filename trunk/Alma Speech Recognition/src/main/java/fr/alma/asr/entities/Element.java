@@ -1,6 +1,7 @@
 package fr.alma.asr.entities;
 
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,7 +59,7 @@ public abstract class Element extends AbstractEntity {
 	 * Getter de l'attribut nom.
 	 * @return nom
 	 */
-	public String getNom() {
+	public final String getNom() {
 		return this.nom;
 	}
 
@@ -66,7 +67,7 @@ public abstract class Element extends AbstractEntity {
 	 * Setter de l'attribut nom.
 	 * @param nom le nom.
 	 */
-	public void setNom(String nom) {
+	public final void setNom(String nom) {
 		this.nom = nom;
 		this.setChanged();
 	}
@@ -76,7 +77,7 @@ public abstract class Element extends AbstractEntity {
 	 * @return l'id
 	 */
 	@Override
-	public long getId() {
+	public final long getId() {
 		return this.id;
 	}
 
@@ -84,7 +85,7 @@ public abstract class Element extends AbstractEntity {
 	 * Accès à la date de création du fichier.
 	 * @return la date
 	 */
-	public Date getDateCreation() {
+	public final Date getDateCreation() {
 		return dateCreation;
 	}
 
@@ -92,7 +93,7 @@ public abstract class Element extends AbstractEntity {
 	 * Accès à la date de modification du fichier.
 	 * @return la date
 	 */
-	public Date getDateModification() {
+	public final Date getDateModification() {
 		return dateModification;
 	}
 
@@ -100,7 +101,7 @@ public abstract class Element extends AbstractEntity {
 	 * Accès au dossier conteneur.
 	 * @return Le dossier conteneur
 	 */
-	public Folder getDossierConteneur() {
+	public final Folder getDossierConteneur() {
 		return dossierConteneur;
 	}
 
@@ -108,7 +109,7 @@ public abstract class Element extends AbstractEntity {
 	 * Change le dossier conteneur.
 	 * @param dossierConteneur Le dossier conteneur
 	 */
-	public void setDossierConteneur(Folder dossierConteneur) {
+	public final void setDossierConteneur(Folder dossierConteneur) {
 		this.dossierConteneur = dossierConteneur;
 		this.setChanged();
 	}
@@ -122,23 +123,23 @@ public abstract class Element extends AbstractEntity {
 	/**
 	 * Change la date de modification.
 	 */
-	protected void setChanged() {
+	protected final void setChanged() {
 		this.dateModification = new Date();
 	}
 
 	@Override
-	public String toString() {
+	public final String toString() {
 		return this.getNom();
 	}
 
 	@Override
-	public boolean equals(Object other) {
+	public final boolean equals(Object other) {
 		Element element = (Element) other;
 		return (this.id == element.getId() && this.nom.equals(element.getNom()));
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Long.valueOf(this.id).hashCode() + this.nom.hashCode();		
 	}
 	
