@@ -6,6 +6,8 @@
 package fr.alma.asr.gui.tree;
 
 import fr.alma.asr.gui.Controleur;
+
+import java.util.EventObject;
 import java.util.logging.Level;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -21,7 +23,7 @@ public class MyTreeModelListener implements TreeModelListener {
 	public void treeNodesChanged(TreeModelEvent e) {
 		Controleur.printLog(Level.SEVERE, "MyTreeModelListener info!");
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.getTreePath().getLastPathComponent();
-//		new Controleur().changerNomNoeud(node, nom);
+		//		new Controleur().changerNomNoeud(node, nom);
 	}
 
 	@Override
@@ -32,5 +34,6 @@ public class MyTreeModelListener implements TreeModelListener {
 
 	@Override
 	public void treeStructureChanged(TreeModelEvent e) {}
+
 
 }

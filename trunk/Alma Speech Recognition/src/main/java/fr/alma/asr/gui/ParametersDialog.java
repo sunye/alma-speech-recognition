@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 
+import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -42,7 +43,6 @@ public final class ParametersDialog extends javax.swing.JDialog {
 	private JLabel labelWorkPlanPanel;
 	private JCheckBox cbShowPlan;
 	private JCheckBox cbShowCourses;
-	private JPanel spchRootPanel;
 	private JComboBox cbWokrPlanPosition;
 	private JLabel jLabel1;
 
@@ -72,17 +72,13 @@ public final class ParametersDialog extends javax.swing.JDialog {
 				setLocation((mainWindow.width - this.getSize().width) / 2,
 						(mainWindow.height - this.getSize().height) / 2);
 
-				JTabbedPane tabbedPane = new JTabbedPane();
 				getContentPane().setLayout(new GridLayout(1, 1));
-				getContentPane().add(tabbedPane);
-
-				getContentPane().add(tabbedPane);
 				{
 					JPanel guiParamPane = new JPanel();
 					GridBagLayout thisLayout = new GridBagLayout();
 					guiParamPane.setLayout(thisLayout);
-					tabbedPane.addTab("Interface Graphique", null,
-							guiParamPane, null);
+					guiParamPane.setBorder(BorderFactory.createTitledBorder("Option de l'interface graphique"));
+					this.add(guiParamPane);
 					{
 						labelWorkPlanPanel = new JLabel();
 						guiParamPane.add(labelWorkPlanPanel,
@@ -157,11 +153,7 @@ public final class ParametersDialog extends javax.swing.JDialog {
 							0.1 };
 					thisLayout.columnWidths = new int[] { 32, 176, 201, 7 };
 				}
-				{
-					spchRootPanel = new JPanel();
-					tabbedPane.addTab("Reconnaissance vocale", null,
-							spchRootPanel, null);
-				}
+				
 			}
 			pack();
 		} catch (Exception e) {

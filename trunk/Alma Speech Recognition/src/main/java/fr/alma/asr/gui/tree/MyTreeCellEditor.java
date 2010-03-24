@@ -29,7 +29,7 @@ public class MyTreeCellEditor implements TreeCellEditor {
 
 	@Override
 	public boolean isCellEditable(EventObject anEvent) {
-		return true;
+		return false;
 	}
 
 	@Override
