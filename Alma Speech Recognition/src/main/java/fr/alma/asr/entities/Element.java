@@ -26,10 +26,10 @@ public abstract class Element extends AbstractEntity {
 	@GeneratedValue
 	private long id;
 	/** Date de création. */
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	/** Dernière date de modification. */
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date dateModification;
 	/** Nom. */
 	@Basic

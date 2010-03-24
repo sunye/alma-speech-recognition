@@ -10,7 +10,8 @@ import fr.alma.asr.entities.Folder;
 import fr.alma.asr.entities.Lesson;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.LinkedList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JLabel;
 
@@ -136,9 +137,8 @@ public class HomePanel extends javax.swing.JPanel {
 	 */
 	private void initialisation() {
 		this.controleur = Controleur.getInstance();
-		this.classerParCreation = Boolean.FALSE;
+		this.classerParCreation = Boolean.TRUE;
 		this.classerParModule = Boolean.TRUE;
-		this.listeLabel = new LinkedList<JLabel>();
 	}
 
 	/**
@@ -148,9 +148,6 @@ public class HomePanel extends javax.swing.JPanel {
 		updateListeFichiers();
 		this.controleur.setHomePanel(this);
 	}
-
-	/** Liste des JLabel. */
-	LinkedList<JLabel> listeLabel;
 	
 	/**
 	 * Mise à jour de la liste des fichier sur le panel.
@@ -163,7 +160,6 @@ public class HomePanel extends javax.swing.JPanel {
 			for (Folder folder : listeModules) {
 				listeCours = controleur.getListeFichiers(folder, classerParCreation);
 				JLabel titreModule = new JLabel("<html><body><strong>"+folder.toString()+"</strong></body></html>");
-				this.listeLabel.add(titreModule);
 				this.panelCours.add(titreModule);
 				for (final Lesson lesson : listeCours) {
 					JLabel titreCours = new JLabel("<html><body>&nbsp;&nbsp;&nbsp;&nbsp;<a href=''>"+lesson.toString()+"</a></body></html>");
@@ -181,19 +177,30 @@ public class HomePanel extends javax.swing.JPanel {
 						@Override
 						public void mouseExited(MouseEvent e) {}
 					});
-					this.listeLabel.add(titreCours);
 					this.panelCours.add(titreCours);
 				}
 				JLabel labelEspace = new JLabel(" ");
-				this.listeLabel.add(labelEspace);
 				this.panelCours.add(labelEspace);
 			}
 		} else {
 			this.panelCours.removeAll();
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			List<Lesson> listeFichier = controleur.getListeFichiers(classerParCreation);
+			String dateCourante = null;
 			for (final Lesson fichier : listeFichier) {
+				if (classerParCreation) {
+					if (dateCourante == null || !dateCourante.equals(dateFormat.format(fichier.getDateCreation()))) {
+						dateCourante = dateFormat.format(fichier.getDateCreation());
+						panelCours.add(new JLabel("<html><body><strong>"+dateCourante+"</strong></body></html>"));
+					}
+				} else {
+					if (dateCourante == null || !dateCourante.equals(dateFormat.format(fichier.getDateModification()))) {
+						dateCourante = dateFormat.format(fichier.getDateModification());
+						panelCours.add(new JLabel("<html><body><strong>"+dateCourante+"</strong></body></html>"));
+					}
+				}
 				String module = controleur.getModule(fichier);
-				JLabel titreCours = new JLabel("<html><body><strong>" + module + "</strong> - <a href=''>" + fichier.toString() + "</a></body></html>");
+				JLabel titreCours = new JLabel("<html><body>&nbsp;&nbsp;&nbsp;&nbsp;" + module + " - <a href=''>" + fichier.toString() + "</a></body></html>");
 				titreCours.addMouseListener(new MouseListener() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
@@ -208,7 +215,6 @@ public class HomePanel extends javax.swing.JPanel {
 						@Override
 						public void mouseExited(MouseEvent e) {}
 					});
-				this.listeLabel.add(titreCours);
 				this.panelCours.add(titreCours);
 			}
 		}
