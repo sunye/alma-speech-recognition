@@ -6,14 +6,16 @@
 
 package fr.alma.asr.gui;
 
-import fr.alma.asr.entities.Folder;
-import fr.alma.asr.entities.Lesson;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import javax.swing.JLabel;
+
+import fr.alma.asr.entities.Folder;
+import fr.alma.asr.entities.Lesson;
 
 /**
  * Panel d'acceuil.

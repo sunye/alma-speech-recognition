@@ -8,9 +8,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.FlavorEvent;
 import java.awt.datatransfer.FlavorListener;
@@ -18,24 +15,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -56,12 +48,8 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledEditorKit;
-import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.undo.CannotUndoException;
@@ -76,6 +64,10 @@ import javax.swing.undo.UndoManager;
 @SuppressWarnings("serial")
 public class EditPanel extends javax.swing.JPanel {
 
+
+	private final String sCancel = "Annuler";
+	private final String sUndo = "Rétablir";
+	
 	private JTextPane textPane;
 	private HTMLEditorKit editorKit;
 	private HTMLDocument document;
@@ -106,22 +98,21 @@ public class EditPanel extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
-			
-			final JSplitPane jSplitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+
+			final JSplitPane jSplitPane1 = new JSplitPane(
+					JSplitPane.VERTICAL_SPLIT);
 			jSplitPane1.setBorder(null);
 			jSplitPane1.setDividerSize(0);
-			jSplitPane1.addComponentListener(new ComponentListener(){
+			jSplitPane1.addComponentListener(new ComponentListener() {
 				@Override
 				public void componentResized(ComponentEvent arg0) {
-					if(toolBarEditPanel.getWidth()<=406){
+					if (toolBarEditPanel.getWidth() <= 406) {
 						jSplitPane1.setDividerLocation(103);
-					}
-					else if(toolBarEditPanel.getWidth()<=619){
+					} else if (toolBarEditPanel.getWidth() <= 619) {
 						jSplitPane1.setDividerLocation(76);
-					}
-					else {
+					} else {
 						jSplitPane1.setDividerLocation(40);
-					}					
+					}
 				}
 
 				@Override
@@ -132,40 +123,40 @@ public class EditPanel extends javax.swing.JPanel {
 
 				@Override
 				public void componentShown(ComponentEvent e) {}
-				
+
 			});
-			
+
 			this.setLayout(thisLayout);
-			this.setBorder(BorderFactory.createTitledBorder("Edition du cours"));
-			{
-				jScrollPane1 = new JScrollPane();
-				jScrollPane1.setViewportView(getTextPane());
-				jScrollPane1.setMinimumSize(new Dimension(250,210));
-				jScrollPane1.setPreferredSize(new Dimension(250,210));
-			}
-			{
-				toolBarEditPanel = new JPanel();
-				FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+			this
+			.setBorder(BorderFactory
+					.createTitledBorder("Edition du cours"));
 
-				toolBar = new JToolBar();
-				toolBar1 = new JToolBar();
-				toolBar2 = new JToolBar();
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setViewportView(getTextPane());
+			jScrollPane1.setMinimumSize(new Dimension(250, 210));
+			jScrollPane1.setPreferredSize(new Dimension(250, 210));
 
-				toolBarEditPanel.setLayout(flowLayout);
-				toolBarEditPanel.setMinimumSize(new Dimension(250,40));
-				initToolBar();
-				toolBarEditPanel.add(toolBar);
-				toolBarEditPanel.add(toolBar1);
-				toolBarEditPanel.add(toolBar2);
+			toolBarEditPanel = new JPanel();
+			FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
-				toolBarEditPanel.setVisible(true);
-				jSplitPane1.add(toolBarEditPanel);
-				jSplitPane1.add(jScrollPane1);
-				this.add(jSplitPane1,BorderLayout.CENTER);
+			toolBar = new JToolBar();
+			toolBar1 = new JToolBar();
+			toolBar2 = new JToolBar();
 
-			}
+			toolBarEditPanel.setLayout(flowLayout);
+			toolBarEditPanel.setMinimumSize(new Dimension(250, 40));
+			initToolBar();
+			toolBarEditPanel.add(toolBar);
+			toolBarEditPanel.add(toolBar1);
+			toolBarEditPanel.add(toolBar2);
+
+			toolBarEditPanel.setVisible(true);
+			jSplitPane1.add(toolBarEditPanel);
+			jSplitPane1.add(jScrollPane1);
+			this.add(jSplitPane1, BorderLayout.CENTER);
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
 		}
 
 	}
@@ -190,30 +181,26 @@ public class EditPanel extends javax.swing.JPanel {
 		JButton h2Button = new JButton();
 		JButton h3Button = new JButton();
 
-		Action a = textPane.getActionMap().get("font-bold");
 
-		boldButton = toolBar.add(a);
+		boldButton = toolBar.add(textPane.getActionMap().get("font-bold"));
 		boldButton.setText("");
 		boldButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-text-bold.png")));
+		"/txtformat/format-text-bold.png")));
 
-		a = textPane.getActionMap().get("font-italic");
-
-		italicButton = toolBar.add(a);
+		italicButton = toolBar.add(textPane.getActionMap().get("font-italic"));
 		italicButton.setText("");
 		italicButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-text-italic.png")));
+		"/txtformat/format-text-italic.png")));
 
-		a = textPane.getActionMap().get("font-underline");
 
-		underlineButton = toolBar.add(a);
+		underlineButton = toolBar.add(textPane.getActionMap().get("font-underline"));
 		underlineButton.setText("");
 		underlineButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-text-underline.png")));
+		"/txtformat/format-text-underline.png")));
 
 		chooseColorButton.setText("");
 		chooseColorButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-fill-color.png")));
+		"/txtformat/format-fill-color.png")));
 		chooseColorButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -221,8 +208,8 @@ public class EditPanel extends javax.swing.JPanel {
 				selectedColor = JColorChooser.showDialog(EditPanel.this,
 						"Couleur de la police", Color.black);
 				EditPanel.this.textColorButton
-						.setAction(new StyledEditorKit.ForegroundAction(null,
-								selectedColor));
+				.setAction(new StyledEditorKit.ForegroundAction(null,
+						selectedColor));
 				textColorButton.setIcon(new ImageIcon(getClass().getResource(
 						"/txtformat/format-text-color.png")));
 				textColorButton.setText("");
@@ -234,7 +221,7 @@ public class EditPanel extends javax.swing.JPanel {
 		textColorButton.setAction(new StyledEditorKit.ForegroundAction("Noir",
 				Color.black));
 		textColorButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-text-color.png")));
+		"/txtformat/format-text-color.png")));
 		textColorButton.setText("");
 
 		toolBar.add(textColorButton);
@@ -242,45 +229,43 @@ public class EditPanel extends javax.swing.JPanel {
 		toolBar1.add(getJComboBoxFontSize());
 		toolBar1.add(getJComboBoxFont());
 
+		
+		menuText.getjMenuItemCouper().addActionListener(textPane.getActionMap().get(StyledEditorKit.cutAction));
+		mainWindow.getCutMenuItem().addActionListener(textPane.getActionMap().get(StyledEditorKit.cutAction));
 
-		a = textPane.getActionMap().get(StyledEditorKit.cutAction);
-		menuText.getjMenuItemCouper().addActionListener(a);
-		mainWindow.getCutMenuItem().addActionListener(a);
+		
+		menuText.getjMenuItemCopier().addActionListener(textPane.getActionMap().get(StyledEditorKit.copyAction));
+		mainWindow.getCopyMenuItem().addActionListener(textPane.getActionMap().get(StyledEditorKit.copyAction));
 
-		a = textPane.getActionMap().get(StyledEditorKit.copyAction);
-		menuText.getjMenuItemCopier().addActionListener(a);
-		mainWindow.getCopyMenuItem().addActionListener(a);
+		
+		menuText.getjMenuItemColler().addActionListener(textPane.getActionMap().get(StyledEditorKit.pasteAction));
+		mainWindow.getPasteMenuItem().addActionListener(textPane.getActionMap().get(StyledEditorKit.pasteAction));
 
-		a = textPane.getActionMap().get(StyledEditorKit.pasteAction);
-		menuText.getjMenuItemColler().addActionListener(a);
-		mainWindow.getPasteMenuItem().addActionListener(a);
-
-		a = textPane.getActionMap().get("Annuler");
+		Action a = textPane.getActionMap().get(sCancel);
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));
 		mainWindow.getUndoMenuItem().setAction(a);
 
-		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
-		a = textPane.getActionMap().get("Rétablir");
-		mainWindow.getRedoMenuItem().setAction(a);
+		Action b = textPane.getActionMap().get(sUndo);
+		b.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));		
+		mainWindow.getRedoMenuItem().setAction(b);
 
 		
-		a = new StyledEditorKit.AlignmentAction("left", 0);
-		leftButton = toolBar2.add(a);
+		leftButton = toolBar2.add(new StyledEditorKit.AlignmentAction("left", 0));
 		leftButton.setText("");
 		leftButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-justify-left.png")));
+		"/txtformat/format-justify-left.png")));
 
-		a = new StyledEditorKit.AlignmentAction("center", 1);
-		centerButton = toolBar2.add(a);
+		
+		centerButton = toolBar2.add(new StyledEditorKit.AlignmentAction("center", 1));
 		centerButton.setText("");
 		centerButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-justify-center.png")));
+		"/txtformat/format-justify-center.png")));
 
-		a = new StyledEditorKit.AlignmentAction("right", 2);
-		rightButton = toolBar2.add(a);
+		
+		rightButton = toolBar2.add(new StyledEditorKit.AlignmentAction("right", 2));
 		rightButton.setText("");
 		rightButton.setIcon(new ImageIcon(getClass().getResource(
-				"/txtformat/format-justify-right.png")));
+		"/txtformat/format-justify-right.png")));
 
 		toolBar2.addSeparator();
 		h1Button.addActionListener(new ActionListener() {
@@ -293,8 +278,10 @@ public class EditPanel extends javax.swing.JPanel {
 						int selStart = textPane.getSelectionStart();
 						int textLength = selText.length();
 						if (textLength > 0) {
-							insertHTMLBalise("<SPAN STYLE='color: blue; font-size: 20pt'>"
-									+ selText + "</SPAN>", selStart, textLength);
+							insertHTMLBalise(
+									"<SPAN STYLE='color: blue; font-size: 20pt'>"
+									+ selText + "</SPAN>", selStart,
+									textLength);
 						}
 					}
 				} catch (Exception ignoredForNow) {
@@ -318,8 +305,10 @@ public class EditPanel extends javax.swing.JPanel {
 						int selStart = textPane.getSelectionStart();
 						int textLength = selText.length();
 						if (textLength > 0) {
-							insertHTMLBalise("<SPAN STYLE='color: green ; font-size: 25pt'>"
-									+ selText + "</SPAN>", selStart, textLength);
+							insertHTMLBalise(
+									"<SPAN STYLE='color: green ; font-size: 25pt'>"
+									+ selText + "</SPAN>", selStart,
+									textLength);
 						}
 					}
 				} catch (Exception ignoredForNow) {
@@ -343,8 +332,10 @@ public class EditPanel extends javax.swing.JPanel {
 						int selStart = textPane.getSelectionStart();
 						int textLength = selText.length();
 						if (textLength > 0) {
-							insertHTMLBalise("<SPAN STYLE='color: red; font-size: 30pt'>"
-									+ selText + "</SPAN>", selStart, textLength);
+							insertHTMLBalise(
+									"<SPAN STYLE='color: red; font-size: 30pt'>"
+									+ selText + "</SPAN>", selStart,
+									textLength);
 						}
 					}
 				} catch (Exception ignoredForNow) {
@@ -360,7 +351,7 @@ public class EditPanel extends javax.swing.JPanel {
 	}
 
 	private void insertHTMLBalise(String html, int location, int textLength)
-			throws IOException {
+	throws IOException {
 		try {
 
 			document.remove(location, textLength);
@@ -401,59 +392,59 @@ public class EditPanel extends javax.swing.JPanel {
 			textPane.getActionMap().put("Supprimer",
 					new AbstractAction("Supprimer") {
 
-						public void actionPerformed(ActionEvent evt) {
+				public void actionPerformed(ActionEvent evt) {
 
-							String selText = textPane.getSelectedText();
+					String selText = textPane.getSelectedText();
 
-							if (selText != null) {
+					if (selText != null) {
 
-								int selStart = textPane.getSelectionStart();
-								int textLength = selText.length();
+						int selStart = textPane.getSelectionStart();
+						int textLength = selText.length();
 
-								try {
-									document.remove(selStart, textLength);
-								} catch (BadLocationException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-
+						try {
+							document.remove(selStart, textLength);
+						} catch (BadLocationException e) {
+							Controleur.printLog(Level.INFO, e
+									.getLocalizedMessage());
 						}
+					}
 
-					});
+				}
 
-			textPane.getActionMap().put("Annuler",
-					new AbstractAction("Annuler") {
+			});
 
-						public void actionPerformed(ActionEvent evt) {
-							try {
-								if (undoManager.canUndo()) {
-									undoManager.undo();
-									if (!undoManager.canUndo()) {
-										Controleur.getInstance()
-												.setCurrentModified(false);
-									}
-								}
-							} catch (CannotUndoException e) {
-								e.printStackTrace();
-								;
+			textPane.getActionMap().put(sCancel,
+					new AbstractAction(sCancel) {
+
+				public void actionPerformed(ActionEvent evt) {
+					try {
+						if (undoManager.canUndo()) {
+							undoManager.undo();
+							if (!undoManager.canUndo()) {
+								Controleur.getInstance()
+								.setCurrentModified(false);
 							}
 						}
-					});
+					} catch (CannotUndoException e) {
+						Controleur.printLog(Level.INFO, e
+								.getLocalizedMessage());
+					}
+				}
+			});
 
-			textPane.getActionMap().put("Rétablir",
-					new AbstractAction("Rétablir") {
-						public void actionPerformed(ActionEvent evt) {
-							try {
-								if (undoManager.canRedo()) {
-									undoManager.redo();
-								}
-							} catch (CannotUndoException e) {
-								e.printStackTrace();
-								;
-							}
+			textPane.getActionMap().put(sUndo,
+					new AbstractAction(sUndo) {
+				public void actionPerformed(ActionEvent evt) {
+					try {
+						if (undoManager.canRedo()) {
+							undoManager.redo();
 						}
-					});
+					} catch (CannotUndoException e) {
+						Controleur.printLog(Level.INFO, e
+								.getLocalizedMessage());
+					}
+				}
+			});
 
 			textPane.addMouseListener(new MouseAdapter() {
 
@@ -484,7 +475,7 @@ public class EditPanel extends javax.swing.JPanel {
 				public void keyPressed(KeyEvent e) {
 					if (!((e.getKeyCode() == KeyEvent.VK_Z)
 							&& (e.isControlDown()) || (e.isControlDown()) || (e
-							.isAltDown() || (e.isShiftDown())))) {
+									.isAltDown() || (e.isShiftDown())))) {
 						Controleur.getInstance().setCurrentModified(true);
 					}
 
@@ -510,8 +501,6 @@ public class EditPanel extends javax.swing.JPanel {
 
 				}
 			});
-			
-		
 
 			menuText = new MenuTextArea();
 			this.setComponentPopupMenu(menuText);
@@ -540,13 +529,13 @@ public class EditPanel extends javax.swing.JPanel {
 
 		if (jComboBoxFontSize == null) {
 
-			Vector<Integer> fontSize = new Vector<Integer>();
+			ArrayList<Integer> fontSize = new ArrayList<Integer>();
 			for (int i = 10; i < 35; i++) {
 				fontSize.add(i);
 			}
 
 			ComboBoxModel jComboBoxFontSizeModel = new DefaultComboBoxModel(
-					fontSize);
+					fontSize.toArray());
 			jComboBoxFontSize = new JComboBox();
 			jComboBoxFontSize.setModel(jComboBoxFontSizeModel);
 
@@ -558,7 +547,7 @@ public class EditPanel extends javax.swing.JPanel {
 							"size",
 							new StyledEditorKit.FontSizeAction("size",
 									(Integer) jComboBoxFontSize
-											.getSelectedItem()));
+									.getSelectedItem()));
 					textPane.getActionMap().get("size").actionPerformed(e);
 				}
 			});
@@ -638,11 +627,11 @@ public class EditPanel extends javax.swing.JPanel {
 		super.paint(g);
 		Action a;
 
-		a = textPane.getActionMap().get("Annuler");
+		a = textPane.getActionMap().get(sCancel);
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Z"));
 		mainWindow.getUndoMenuItem().setAction(a);
 
-		a = textPane.getActionMap().get("Rétablir");
+		a = textPane.getActionMap().get(sUndo);
 		a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl Y"));
 		mainWindow.getRedoMenuItem().setAction(a);
 
