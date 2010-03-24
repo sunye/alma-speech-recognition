@@ -13,6 +13,18 @@
 		<developerConnection>scm:svn:https://alma-speech-recognition.googlecode.com/svn/trunk/</developerConnection>
 		<url>http://code.google.com/p/alma-speech-recognition/</url>
 	</scm>
+	<licenses>
+		<license>
+			<name>GNU GPL</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>Master Alma</name>
+		<url>http://alma.univ-nantes.fr/</url>
+	</organization>
+
 
 	<properties>
 		<compileSource>1.6</compileSource>
@@ -109,12 +121,6 @@
 							<jre>
 								<minVersion>1.6.0</minVersion>
 							</jre>
-							<!--
-								<splash>
-								<file>${basedir}/src/main/installer/images/splash.bmp</file>
-								<waitForWindow>true</waitForWindow> <timeout>60</timeout>
-								<timeoutErr>false</timeoutErr> </splash>
-							-->
 							<versionInfo>
 								<fileVersion>1.0.0.0</fileVersion>
 								<txtFileVersion>${project.version}</txtFileVersion>
@@ -239,33 +245,33 @@
 
 	<developers>
 		<developer>
-			<id>jeremy.braud</id>
-			<name>BRAUD Jeremy</name>
+			<id>braud.jeremy</id>
+			<name>BRAUD Jérémy</name>
 			<email>braud.jeremy@gmail.com</email>
 			<roles>
 				<role>Architect</role>
 			</roles>
-			<organization>Alma</organization>
+			<organization>Master Alma</organization>
 			<timezone>+1</timezone>
 		</developer>
 		<developer>
 			<id>gaetan.hervouet</id>
-			<name>HERVOUET Gaetan</name>
+			<name>HERVOUET Gaëtan</name>
 			<email>gaetan.hervouet@gmail.com</email>
 			<roles>
 				<role>Architect</role>
 			</roles>
-			<organization>Alma</organization>
+			<organization>Master Alma</organization>
 			<timezone>+1</timezone>
 		</developer>
 		<developer>
 			<id>cedric.krommenhoek</id>
-			<name>KROMMENHOEK Cedric</name>
+			<name>KROMMENHOEK Cédric</name>
 			<email>cedric.krommenhoek@gmail.com</email>
 			<roles>
 				<role>Architect</role>
 			</roles>
-			<organization>Alma</organization>
+			<organization>Master Alma</organization>
 			<timezone>+1</timezone>
 		</developer>
 		<developer>
@@ -275,9 +281,23 @@
 			<roles>
 				<role>Architect</role>
 			</roles>
-			<organization>Alma</organization>
+			<organization>Master Alma</organization>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
+	
+	<contributors>
+		<contributor>
+			<name>SUNYE Gerson</name>
+			<email>gerson.sunye@univ-nantes.fr</email>
+			<url>http://atlas.lina.univ-nantes.fr/gdd/members/sunye</url>
+			<organization>Université de Nantes</organization>
+			<organizationUrl>http://www.univ-nantes.fr/</organizationUrl>
+			<roles>
+				<role>Teacher</role>
+			</roles>
+			<timezone>+1</timezone>
+		</contributor>
+	</contributors>
 
 </project>
