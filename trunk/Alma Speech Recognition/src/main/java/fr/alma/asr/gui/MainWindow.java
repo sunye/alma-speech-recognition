@@ -62,6 +62,10 @@ public final class MainWindow extends javax.swing.JFrame {
 		}
 	}
 
+	private boolean autoScroll=true;
+	
+
+
 	private JMenuItem helpMenuItem;
 	private JMenu jMenuHelp;
 	private JMenuItem undoMenuItem;
@@ -487,7 +491,14 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.optParametersMenuItem.setEnabled(!onRec);
 	}
 	
-	
+
+	public boolean getAutoScroll() {
+		return autoScroll;
+	}
+
+	public void setAutoScroll(boolean autoScroll) {
+		this.autoScroll = autoScroll;
+	}
 	
 
 }

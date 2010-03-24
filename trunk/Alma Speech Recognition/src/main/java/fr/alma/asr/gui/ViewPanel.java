@@ -120,6 +120,7 @@ public final class ViewPanel extends javax.swing.JPanel {
 			if (lesson!=null){				
 				document.insertString(document.getLength(), lesson, null);		
 				textPane.setText(document.getText(0,document.getLength()));
+				if(MainWindow.getInstance().getAutoScroll()) textPane.setCaretPosition( textPane.getText().length() );
 			}
 		} catch (BadLocationException e) {
 			Controleur.printLog(Level.INFO, e.getLocalizedMessage());
