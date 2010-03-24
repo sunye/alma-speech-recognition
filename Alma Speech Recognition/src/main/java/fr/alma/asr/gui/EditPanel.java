@@ -105,12 +105,10 @@ public class EditPanel extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			//BoxLayout thisLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-			//GridLayout thisLayout = new GridLayout(2,1);
 			BorderLayout thisLayout = new BorderLayout();
-			//GridBagLayout thisLayout = new GridBagLayout();
 			
 			final JSplitPane jSplitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+			jSplitPane1.setBorder(null);
 			jSplitPane1.setDividerSize(0);
 			jSplitPane1.addComponentListener(new ComponentListener(){
 				@Override

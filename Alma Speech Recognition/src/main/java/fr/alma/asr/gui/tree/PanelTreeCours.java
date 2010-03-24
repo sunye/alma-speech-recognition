@@ -43,6 +43,7 @@ public class PanelTreeCours extends javax.swing.JPanel {
             }
         });
         scrollPane.setViewportView(arbreCours);
+        scrollPane.setBorder(null);
         arbreCours.setTransferHandler(new MyTransferHandler());
         MyTreeRenderer renderer = new MyTreeRenderer();
         arbreCours.setCellRenderer(renderer);

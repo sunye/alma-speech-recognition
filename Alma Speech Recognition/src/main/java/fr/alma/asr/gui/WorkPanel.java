@@ -41,6 +41,7 @@ public class WorkPanel extends JPanel {
 			this.setLayout(thisLayout);
 			{
 				jSplitPane1 = new JSplitPane();
+				jSplitPane1.setBorder(null);
 				this.add(jSplitPane1, BorderLayout.CENTER);
 				{
 					editPanel = new EditPanel(mainWindow);

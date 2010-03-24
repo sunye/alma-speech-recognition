@@ -33,7 +33,7 @@ public class PanelTreePlan extends javax.swing.JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         arbrePlan = new javax.swing.JTree(this.racinePlan);
-
+        scrollPane.setBorder(null);
         scrollPane.setViewportView(arbrePlan);
         DefaultTreeModel treeModel = (DefaultTreeModel) arbrePlan.getModel();
         treeModel.setAsksAllowsChildren(true);

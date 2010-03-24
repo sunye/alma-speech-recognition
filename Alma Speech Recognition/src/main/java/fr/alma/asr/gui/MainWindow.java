@@ -284,8 +284,9 @@ public final class MainWindow extends javax.swing.JFrame {
 	 */
 	private void initPanels(){
 		splitPanel = new JSplitPane();
+		//splitPanel.setBorder(null);
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
-
+		
 		tabbedPanePlanCourses = new JTabbedPane();
 		splitPanel.add(tabbedPanePlanCourses, JSplitPane.LEFT);
 		tabbedPanePlanCourses.setOpaque(true);
