@@ -15,6 +15,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,15 +42,18 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledEditorKit;
-import javax.swing.text.rtf.RTFEditorKit;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 /**
@@ -59,8 +66,8 @@ import javax.swing.undo.UndoManager;
 public class EditPanel extends javax.swing.JPanel {
 
 	private JTextPane textPane;
-	private RTFEditorKit editorKit;
-	private Document document;
+	private HTMLEditorKit editorKit;
+	private HTMLDocument document;
 	private UndoManager undoManager;
 
 	private JScrollPane jScrollPane1;
@@ -245,11 +252,15 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
+					
 					String selText = textPane.getSelectedText();
+
 					int selStart = textPane.getSelectionStart();
 					int textLength = selText.length();
-
-					System.out.println(selText);
+					if (textLength>0){
+						insertHTMLBalise("<H2>"+selText+"</H2>", selStart,textLength);
+					}
+					
 				} catch (Exception ignoredForNow) {
 				}
 			}
@@ -261,8 +272,7 @@ public class EditPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					editorKit.write(System.out, document, 0, document
-							.getLength());
+					editorKit.write(System.out, document, 0, document.getLength());
 				} catch (Exception ignoredForNow) {
 					ignoredForNow.printStackTrace();
 				}
@@ -291,6 +301,20 @@ public class EditPanel extends javax.swing.JPanel {
 		
 		
 	}
+	
+	
+	private void insertHTMLBalise(String html, int location,int textLength) throws IOException {
+        try {
+        	
+        	   document.remove(location, textLength);
+            HTMLEditorKit kit = (HTMLEditorKit) textPane.getEditorKit();
+            StringReader reader = new StringReader(html);
+            kit.read(reader, document, location);
+
+        } catch (BadLocationException e) {
+           // logger.error("Failed to insert HTML", e);
+        }
+    }
 
 	/**
 	 * 
@@ -302,8 +326,8 @@ public class EditPanel extends javax.swing.JPanel {
 		if (textPane == null) {
 
 			textPane = new JTextPane();
-			editorKit = new RTFEditorKit();
-			document = editorKit.createDefaultDocument();
+			editorKit = new HTMLEditorKit();
+			document = (HTMLDocument)editorKit.createDefaultDocument();
 			undoManager = new UndoManager();
 
 			// Listen for undo and redo events
