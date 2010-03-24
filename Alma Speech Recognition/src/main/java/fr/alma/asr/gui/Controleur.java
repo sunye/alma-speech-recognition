@@ -145,6 +145,16 @@ public final class Controleur implements Observer {
 	}
 
 	/* --------------------------------------------------------- */
+	/* -----------------Gestion du home panel------------------- */
+	/* --------------------------------------------------------- */
+
+	private HomePanel homePanel;
+
+	void setHomePanel(HomePanel panel) {
+		this.homePanel = panel;
+	}
+
+	/* --------------------------------------------------------- */
 	/* -----------------Gestion de l'arbre---------------------- */
 	/* --------------------------------------------------------- */
 
@@ -343,6 +353,8 @@ public final class Controleur implements Observer {
 		Element element = (Element) node.getUserObject();
 		element.setNom(nouveauNom);
 		new ElementDaoImpl().update(element);
+		this.homePanel.update();
+		setInfo("Elément renommé.");
 	}
 
 	/* --------------------------------------------------------- */

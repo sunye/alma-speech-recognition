@@ -146,6 +146,7 @@ public class HomePanel extends javax.swing.JPanel {
 	 */
 	private void postInit() {
 		updateListeFichiers();
+		this.controleur.setHomePanel(this);
 	}
 
 	/** Liste des JLabel. */
@@ -212,6 +213,13 @@ public class HomePanel extends javax.swing.JPanel {
 			}
 		}
 		this.panelCours.updateUI();
+	}
+
+	/**
+	 * Méthode appelée par le controleur.
+	 */
+	public void update() {
+		updateListeFichiers();
 	}
 
 }
