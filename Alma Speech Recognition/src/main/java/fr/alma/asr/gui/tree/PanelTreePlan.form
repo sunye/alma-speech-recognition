@@ -35,7 +35,7 @@
       <SubComponents>
         <Component class="javax.swing.JTree" name="arbrePlan">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DefaultTreeModel treeModel = (DefaultTreeModel) arbrePlan.getModel();&#xa;treeModel.setAsksAllowsChildren(true);&#xa;&#xa;MyTreeRenderer renderer = new MyTreeRenderer();&#xa;arbrePlan.setCellRenderer(renderer);"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DefaultTreeModel treeModel = (DefaultTreeModel) arbrePlan.getModel();&#xa;treeModel.setAsksAllowsChildren(true);&#xa;&#xa;MyTreeRendererPlan renderer = new MyTreeRendererPlan();&#xa;arbrePlan.setCellRenderer(renderer);"/>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTree(this.racinePlan)"/>
           </AuxValues>
         </Component>

@@ -11,7 +11,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * Rendu d'un JTree.
  * @author Braud Jeremy
  */
-public class MyTreeRenderer extends DefaultTreeCellRenderer {
+public class MyTreeRendererCours extends DefaultTreeCellRenderer {
 
 	/** Image du module ouvert.*/
 	private ImageIcon subjectOpened;
@@ -26,7 +26,7 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 	/**
 	 * Constructeur par defaut.
 	 */
-	public MyTreeRenderer() {
+	public MyTreeRendererCours() {
 		super();
 		subjectOpened = new ImageIcon(getClass().getResource("/jtree/subject_opened.png"));
 		subjectClosed = new ImageIcon(getClass().getResource("/jtree/subject_closed.png"));
@@ -54,7 +54,7 @@ public class MyTreeRenderer extends DefaultTreeCellRenderer {
 					setIcon(folderClosed);
 				}
 			}
-		}else{
+		} else {
 			setIcon(lessonIcon);
 		}
 		return this;

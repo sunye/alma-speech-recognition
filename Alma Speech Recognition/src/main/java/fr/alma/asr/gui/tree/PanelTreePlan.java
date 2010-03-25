@@ -38,7 +38,7 @@ public class PanelTreePlan extends javax.swing.JPanel {
         DefaultTreeModel treeModel = (DefaultTreeModel) arbrePlan.getModel();
         treeModel.setAsksAllowsChildren(true);
 
-        MyTreeRenderer renderer = new MyTreeRenderer();
+        MyTreeRendererPlan renderer = new MyTreeRendererPlan();
         arbrePlan.setCellRenderer(renderer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
