@@ -39,9 +39,7 @@ import fr.alma.asr.gui.tree.PanelTreePlan;
 
 /**
  * Main class for the application Contains method to access all GUI actions
- * 
- * @author Gaëtan Hervouet
- * 
+ * @author Gaëtan Hervouet 
  */
 public final class MainWindow extends javax.swing.JFrame {
 
@@ -62,8 +60,6 @@ public final class MainWindow extends javax.swing.JFrame {
 
 	private boolean autoScroll=true;
 	
-
-
 	private JMenuItem helpMenuItem;
 	private JMenu jMenuHelp;
 	private JMenuItem undoMenuItem;
@@ -286,7 +282,7 @@ public final class MainWindow extends javax.swing.JFrame {
 	 */
 	private void initPanels(){
 		splitPanel = new JSplitPane();
-		//splitPanel.setBorder(null);
+		
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
 		
 		tabbedPanePlanCourses = new JTabbedPane();
@@ -332,24 +328,18 @@ public final class MainWindow extends javax.swing.JFrame {
 			this.setTitle("Alma Speech Recognition");
 			getContentPane().setLayout(thisLayout);
 			
-			this.addWindowListener(new WindowAdapter() {
-				
+			this.addWindowListener(new WindowAdapter() {				
 				@Override
 				public void windowClosing(WindowEvent e) {
-
 					Controleur.getInstance().stopEngine();
 					Controleur.getInstance().deconnexion();
 					System.exit(0);
 				}
-
 			});
-			// TODO maximized
-			// this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-			/*----------------------------------TOOLBAR CREATION-------------------------------------------*/			
+			
+			/*-------------------------------------------TOOLBAR CREATION-------------------------------------------------*/			
 			initToolbar();
-			
-			
+						
 			/*----------------------------------Plan,Courses,Work,Home CREATION-------------------------------------------*/
 			initPanels();
 			
