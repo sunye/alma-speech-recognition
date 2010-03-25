@@ -24,6 +24,7 @@ public class ElementDaoTest extends TestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -47,6 +48,7 @@ public class ElementDaoTest extends TestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
@@ -54,7 +56,7 @@ public class ElementDaoTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link fr.alma.asr.dao.impl.ElementDaoImpl#delete(java.lang.Long)}.
+	 * Test method for {@link fr.alma.asr.dao.impl.ElementDaoImpl#deleteFolder(java.lang.Long)}.
 	 */
 	@Test
 	public final void testDelete() {	

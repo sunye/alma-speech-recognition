@@ -1,7 +1,8 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.Folder;
 import java.util.List;
+
+import fr.alma.asr.entities.Folder;
 
 /**
  * Interface dao de la classe Dossier.

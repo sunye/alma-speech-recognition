@@ -1,7 +1,8 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.Lesson;
 import java.util.List;
+
+import fr.alma.asr.entities.Lesson;
 
 /**
  * Interface dao de la classe Fichier.

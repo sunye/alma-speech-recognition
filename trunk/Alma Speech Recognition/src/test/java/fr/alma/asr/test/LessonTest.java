@@ -21,6 +21,7 @@ public class LessonTest extends TestCase {
 	private Lesson cours;
 	private Folder dossier;
 	
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -34,6 +35,7 @@ public class LessonTest extends TestCase {
 		this.dao.create(dossier);
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
@@ -78,6 +80,7 @@ public class LessonTest extends TestCase {
 		this.dao.create(cours1);
 		assertNotSame(this.cours, cours1);
 		cours1.setNom("Autre nom");
+		assertNotSame(this.cours, cours1);
 		
 		Lesson cours2 = (Lesson) this.dao.find(this.cours.getId());
 		assertEquals(this.cours, cours2);

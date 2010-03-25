@@ -16,12 +16,15 @@ import fr.alma.asr.gui.Controleur;
  */
 public class RecognitionEngineStub extends RecognitionEngine implements
 		Runnable {
-
+	
 	/**	Le processus simulant l'action du moteur. */
 	private Thread thread;
+	
+	/** Durée de la pause entre deux actions du thread. */
+	private static final int PAUSE = 3000;
 
 	@Override
-	public boolean closeMic() {
+	public final boolean closeMic() {
 		if (this.thread.isAlive()) {
 			this.thread.interrupt();
 			try {
@@ -35,7 +38,7 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 	}
 
 	@Override
-	public boolean openMic() {
+	public final boolean openMic() {
 		this.thread = new Thread(this);
 		this.thread.start();
 		Controleur.printLog(Level.INFO, "Ouverture du microphone");
@@ -43,26 +46,25 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 	}
 
 	@Override
-	public boolean start() {
+	public final boolean start() {
 		Controleur.printLog(Level.INFO, "Moteur démarré");
 		return true;
 	}
 
 	@Override
-	public boolean stop() {
+	public final boolean stop() {
 		Controleur.printLog(Level.INFO, "Moteur stoppé");
 		return true;
 	}
 
 	@Override
-	public void run() {
-		
+	public final void run() {
 		try{
 			Scanner fileScan = new Scanner(new File("toPrint.txt"));
 
 			while (true) {
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(PAUSE);
 					this.setChanged();
 					this.notifyObservers(fileScan.nextLine()+"\n\n");
 				} catch (InterruptedException e) {
@@ -71,18 +73,18 @@ public class RecognitionEngineStub extends RecognitionEngine implements
 				}
 			}
 		} catch (FileNotFoundException e) {
-			Controleur.getInstance().printLog(null, e.getMessage());
+			Controleur.printLog(Level.SEVERE, e.getMessage());
 		}
 	}
 
 	@Override
-	public void dictionary() {
+	public final void dictionary() {
 		Controleur.printLog(Level.INFO, "Gestion des dictionnaires");
 		JOptionPane.showMessageDialog(null, "Gestion des dictionnaires.");
 	}
 
 	@Override
-	public void voiceModel() {
+	public final void voiceModel() {
 		Controleur.printLog(Level.INFO, "Gestion des modèles vocaux");
 		JOptionPane.showMessageDialog(null, "Gestion des modèles vocaux.");
 	}

@@ -1,8 +1,8 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.AbstractEntity;
-
 import java.util.List;
+
+import fr.alma.asr.entities.AbstractEntity;
 
 /**
  * Implémentation du pattern DAO.
