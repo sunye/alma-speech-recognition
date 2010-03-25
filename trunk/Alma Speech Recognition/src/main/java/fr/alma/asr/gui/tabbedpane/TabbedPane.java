@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import fr.alma.asr.gui.Controleur;
+import fr.alma.asr.gui.MainWindow;
 import fr.alma.asr.gui.WorkPanel;
 import fr.alma.asr.gui.HomePanel;
 
@@ -111,12 +112,11 @@ public class TabbedPane extends JPanel {
 		});
 		bouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				if(panel.getComponentCount()>1){
+					Controleur.getInstance().enregistrerCours(MainWindow.getInstance().getCurrentWorkPane(), MainWindow.getInstance().getCurrentWorkPane().getViewPanel().getFormatedText(), MainWindow.getInstance().getCurrentWorkPane().getEditPanel().getFormatedText());
+				}	
 				onglets.remove(component);
-				Controleur.getInstance().closeWorkPanel((WorkPanel)component);
-				/*if(onglets.getTabCount()<=1){
-					Controleur.getInstance().setMicEnable(false);
-				}*/
-					
+				Controleur.getInstance().closeWorkPanel((WorkPanel)component);			
 			}
 		});
 		
