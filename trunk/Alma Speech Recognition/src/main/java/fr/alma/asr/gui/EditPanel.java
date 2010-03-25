@@ -55,6 +55,8 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+import org.codehaus.plexus.util.StringOutputStream;
+
 /**
  * Text Panel which contains a text area and its edit toolbar.
  * 
@@ -283,7 +285,11 @@ public class EditPanel extends javax.swing.JPanel {
 									+ selText + "</SPAN>", selStart,
 									textLength);
 						}
-					}
+						StringOutputStream string = new StringOutputStream();
+						
+						editorKit.write(string, document, 0, document.getLength());
+						
+						Controleur.getInstance().updateTreePlan(string.toString());					}
 				} catch (Exception ignoredForNow) {
 
 					Controleur.printLog(Level.SEVERE, ignoredForNow
@@ -310,6 +316,12 @@ public class EditPanel extends javax.swing.JPanel {
 									+ selText + "</SPAN>", selStart,
 									textLength);
 						}
+						
+						StringOutputStream string = new StringOutputStream();
+						
+						editorKit.write(string, document, 0, document.getLength());
+						
+						Controleur.getInstance().updateTreePlan(string.toString());	
 					}
 				} catch (Exception ignoredForNow) {
 
@@ -337,7 +349,16 @@ public class EditPanel extends javax.swing.JPanel {
 									+ selText + "</SPAN>", selStart,
 									textLength);
 						}
-					}
+	
+					
+					StringOutputStream string = new StringOutputStream();
+					
+					editorKit.write(string, document, 0, document.getLength());
+					
+					Controleur.getInstance().updateTreePlan(string.toString());
+					
+				}
+				
 				} catch (Exception ignoredForNow) {
 
 					Controleur.printLog(Level.SEVERE, ignoredForNow
@@ -362,7 +383,7 @@ public class EditPanel extends javax.swing.JPanel {
 			editorKit.write(System.out, document, 0, document.getLength());
 
 		} catch (BadLocationException e) {
-			// logger.error("Failed to insert HTML", e);
+			 Controleur.printLog(Level.SEVERE, e.getLocalizedMessage());
 		}
 	}
 

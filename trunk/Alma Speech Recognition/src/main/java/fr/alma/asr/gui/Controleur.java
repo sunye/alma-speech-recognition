@@ -15,6 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.htmlparser.Parser;
+import org.htmlparser.filters.TagNameFilter;
+import org.htmlparser.nodes.TagNode;
+import org.htmlparser.util.NodeList;
+
 import fr.alma.asr.dao.ElementDao;
 import fr.alma.asr.dao.FolderDao;
 import fr.alma.asr.dao.LessonDao;
@@ -395,7 +400,35 @@ public final class Controleur implements Observer {
 	 *            le texte à parser
 	 */
 	public void updateTreePlan(String texte) {
-		construireArbrePlan(this.racinePlan);
+		
+		//texte="<html>   <head>    <title>    </title> <span> ssdsd </span>    </head>    <body></body></html>";
+		
+		System.out.println("TEST--------  "+texte);
+		System.out.println("--------TEST  ");
+
+		Parser parser ;
+		TagNameFilter filter;
+		
+		try {
+	           parser = new Parser ();
+	           filter = new TagNameFilter ("SPAN");             
+
+               parser.setInputHTML(texte);
+               //System.out.println (parser.parse (filter));	
+               NodeList list = parser.parse (filter);
+               
+               for (int i=0;i<list.size();i++){
+            	   System.out.println(((TagNode)list.elementAt(i)).getFirstChild().getText());
+
+    
+
+            	 
+               }
+			
+		} catch (Exception e) {
+			printLog(Level.SEVERE, e.getMessage(	));
+
+		}
 	}
 
 	/**
