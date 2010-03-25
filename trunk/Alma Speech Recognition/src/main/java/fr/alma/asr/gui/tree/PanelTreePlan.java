@@ -33,10 +33,13 @@ public class PanelTreePlan extends javax.swing.JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         arbrePlan = new javax.swing.JTree(this.racinePlan);
-        scrollPane.setBorder(null);
+
         scrollPane.setViewportView(arbrePlan);
         DefaultTreeModel treeModel = (DefaultTreeModel) arbrePlan.getModel();
         treeModel.setAsksAllowsChildren(true);
+
+        MyTreeRenderer renderer = new MyTreeRenderer();
+        arbrePlan.setCellRenderer(renderer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
