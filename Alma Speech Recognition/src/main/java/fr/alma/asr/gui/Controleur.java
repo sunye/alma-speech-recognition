@@ -11,6 +11,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -29,7 +30,6 @@ import fr.alma.asr.utils.FileExporter;
 import fr.alma.asr.utils.FileHandler;
 import fr.alma.asr.utils.RecognitionEngine;
 import fr.alma.asr.utils.RecognitionEngineStub;
-import javax.swing.JOptionPane;
 
 /**
  * Contrôleur de l'IHM.

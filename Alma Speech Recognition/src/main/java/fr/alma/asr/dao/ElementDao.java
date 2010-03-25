@@ -1,9 +1,9 @@
 package fr.alma.asr.dao;
 
-import fr.alma.asr.entities.Folder;
-import fr.alma.asr.entities.Element;
-
 import java.util.List;
+
+import fr.alma.asr.entities.Element;
+import fr.alma.asr.entities.Folder;
 
 /**
  * Interface dao de la classe Element.

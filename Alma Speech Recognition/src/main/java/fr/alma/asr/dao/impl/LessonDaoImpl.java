@@ -16,7 +16,7 @@ import fr.alma.asr.entities.Lesson;
 public class LessonDaoImpl extends AbstractDaoImpl<Lesson> implements LessonDao {
 
 	@Override
-	public void delete(Long id) {
+	public final void delete(Long id) {
 		Lesson element = this.find(id);
 
 		// Suppression de la référence dans le dossier conteneur
@@ -34,7 +34,7 @@ public class LessonDaoImpl extends AbstractDaoImpl<Lesson> implements LessonDao 
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Lesson> findAll(Boolean classerParCreation) {
+	public final List<Lesson> findAll(Boolean classerParCreation) {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

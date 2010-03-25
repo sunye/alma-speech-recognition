@@ -27,7 +27,7 @@ public final class FileHandler extends Handler {
 	private Level level;
 
 	/** Nom du log. */
-	private final String nom = "fr.alma.asr";	
+	private static String nom = "fr.alma.asr";	
 	
 	/**
 	 * Constructeur utilisant le fichier log.txt par défaut.
@@ -65,7 +65,7 @@ public final class FileHandler extends Handler {
 				this.fileWriter = new FileWriter(file, true);
 			}
 		} catch (IOException e) {
-			Logger.getLogger(this.nom).log(Level.SEVERE, e.getMessage());
+			Logger.getLogger(nom).log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -74,7 +74,7 @@ public final class FileHandler extends Handler {
 		try {
 			this.fileWriter.close();
 		} catch (IOException e) {
-			Logger.getLogger(this.nom).log(Level.SEVERE, e.getMessage());
+			Logger.getLogger(nom).log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -83,7 +83,7 @@ public final class FileHandler extends Handler {
 		try {
 			this.fileWriter.flush();
 		} catch (IOException e) {
-			Logger.getLogger(this.nom).log(Level.SEVERE, e.getMessage());
+			Logger.getLogger(nom).log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -98,7 +98,7 @@ public final class FileHandler extends Handler {
 						+ record.getLevel() + " - " + record.getMessage()
 						+ "\n");
 			} catch (IOException e) {
-				Logger.getLogger(this.nom).log(Level.SEVERE,
+				Logger.getLogger(nom).log(Level.SEVERE,
 						e.getMessage());
 			}
 		}

@@ -17,7 +17,7 @@ import fr.alma.asr.entities.Folder;
 public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementDao {
 	
 	@Override
-	public void delete(Long id) {
+	public final void delete(Long id) {
 		Element element = this.find(id);
 		
 		// Suppression des sous-éléments d'un dossier
@@ -43,7 +43,7 @@ public class ElementDaoImpl extends AbstractDaoImpl<Element> implements ElementD
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Element> findAllOfDossier(Folder dossier) {
+	public final List<Element> findAllOfDossier(Folder dossier) {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

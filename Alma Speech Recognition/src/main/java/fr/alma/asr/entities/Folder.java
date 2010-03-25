@@ -63,7 +63,7 @@ public class Folder extends Element {
 	}
 	
 	/**
-	 * Methode permettant d'ajouter des elements.
+	 * Methode permettant d'ajouter un élément.
 	 * @param element l'élément ajouté
 	 */
 	public final void addElement(Element element){

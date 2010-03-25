@@ -23,6 +23,7 @@ public class FolderDaoTest extends TestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -34,6 +35,7 @@ public class FolderDaoTest extends TestCase {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
@@ -72,7 +74,7 @@ public class FolderDaoTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link fr.alma.asr.dao.impl.AbstractDaoImpl#delete(java.lang.Long)}.
+	 * Test method for {@link fr.alma.asr.dao.impl.AbstractDaoImpl#deleteFolder(java.lang.Long)}.
 	 */
 	@Test
 	public final void testDelete() {
@@ -148,6 +150,31 @@ public class FolderDaoTest extends TestCase {
 		assertFalse(folders.contains(folder3));
 		assertTrue(folders.contains(folder4));
 		assertEquals(3, folders.size());
+	}
+	
+	/**
+	 * Test method for {@link fr.alma.asr.dao.impl.AbstractDaoImpl#findModules()}.
+	 */
+	@Test
+	public final void testFindModules() {
+		Folder folder1 = new Folder("Dossier 1");
+		Folder folder2 = new Folder("Dossier 2");
+		folder2.setModule();
+		folder2.addElement(folder1);
+		Folder folder3 = new Folder("Dossier 3");
+		folder3.setModule();
+		Folder folder4 = new Folder("Dossier 4");
+		folder4.addElement(folder2);
+		folder4.addElement(folder3);
+		this.dao.create(folder4);
+		
+		List<Folder> modules = this.dao.findModules();
+		assertNotNull(modules);
+		assertFalse(modules.contains(folder1));
+		assertTrue(modules.contains(folder2));
+		assertTrue(modules.contains(folder3));
+		assertFalse(modules.contains(folder4));
+		assertEquals(2, modules.size());
 	}
 
 	/**

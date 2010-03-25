@@ -17,7 +17,7 @@ import fr.alma.asr.entities.Folder;
 public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao {
 
 	@Override
-	public void delete(Long id) {
+	public final void delete(Long id) {
 		Folder dossier = this.find(id);
 		
 		// Suppression des sous-éléments d'un dossier
@@ -39,7 +39,7 @@ public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao 
 	}
 	
 	@Override
-	public Folder findDossierRacine() {
+	public final Folder findDossierRacine() {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -54,7 +54,7 @@ public class FolderDaoImpl extends AbstractDaoImpl<Folder> implements FolderDao 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Folder> findModules() {
+	public final List<Folder> findModules() {
 		EntityManager em = AbstractDaoImpl.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

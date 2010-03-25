@@ -55,7 +55,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	 * @return la classe de l'entité
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<AnyEntity> getEntity() {
+	protected final Class<AnyEntity> getEntity() {
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
 		return (Class<AnyEntity>) type.getActualTypeArguments()[0];
 	}
@@ -64,7 +64,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	 * Accès au nom simple de l'entité courante.
 	 * @return le nom de l'entité
 	 */
-	protected String getEntitySimpleName() {
+	protected final String getEntitySimpleName() {
 		return getEntity().getSimpleName();
 	}
 	
@@ -89,7 +89,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	}
 	
 	@Override
-	public Long create(AnyEntity entity) {
+	public final Long create(AnyEntity entity) {
 		EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -114,7 +114,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	}
 
 	@Override
-	public void deleteAll() {
+	public final void deleteAll() {
 		for (AnyEntity entity : findAll()) {
 			long id = entity.getId();
 			if (find(id) != null) {
@@ -124,7 +124,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	}
 	
 	@Override
-	public AnyEntity find(Long id) {
+	public final AnyEntity find(Long id) {
 		EntityManager em = getEntityManager();
 		AnyEntity entity = em.find(getEntity(), id);		
 		em.close();		
@@ -133,7 +133,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AnyEntity> findAll() {
+	public final List<AnyEntity> findAll() {
 		EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -147,7 +147,7 @@ public abstract class AbstractDaoImpl<AnyEntity extends AbstractEntity> implemen
 	}
 
 	@Override
-	public void update(AnyEntity entity) {
+	public final void update(AnyEntity entity) {
 		EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
