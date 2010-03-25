@@ -281,8 +281,8 @@ public class EditPanel extends javax.swing.JPanel {
 						int textLength = selText.length();
 						if (textLength > 0) {
 							insertHTMLBalise(
-									"<SPAN STYLE='color: blue; font-size: 20pt'>"
-									+ selText + "</SPAN>", selStart,
+									"<font size='15pt' color='green'><span>"
+									+ selText + "</span></font>", selStart,
 									textLength);
 						}
 						StringOutputStream string = new StringOutputStream();
@@ -312,8 +312,8 @@ public class EditPanel extends javax.swing.JPanel {
 						int textLength = selText.length();
 						if (textLength > 0) {
 							insertHTMLBalise(
-									"<SPAN STYLE='color: green ; font-size: 25pt'>"
-									+ selText + "</SPAN>", selStart,
+									"<font size='20pt' color='blue'><span>"
+									+ selText + "</span></font>", selStart,
 									textLength);
 						}
 						
@@ -345,8 +345,8 @@ public class EditPanel extends javax.swing.JPanel {
 						int textLength = selText.length();
 						if (textLength > 0) {
 							insertHTMLBalise(
-									"<SPAN STYLE='color: red; font-size: 30pt'>"
-									+ selText + "</SPAN>", selStart,
+									"<font size='30pt' color='red'><span>"
+									+ selText + "</span></font>", selStart,
 									textLength);
 						}
 	
@@ -397,6 +397,7 @@ public class EditPanel extends javax.swing.JPanel {
 		if (textPane == null) {
 
 			textPane = new JTextPane();
+			textPane.setContentType("text/html");
 			editorKit = new HTMLEditorKit();
 			document = (HTMLDocument) editorKit.createDefaultDocument();
 			undoManager = new UndoManager();

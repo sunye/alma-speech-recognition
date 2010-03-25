@@ -18,6 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
+import org.htmlparser.nodes.TextNode;
 import org.htmlparser.util.NodeList;
 
 import fr.alma.asr.dao.ElementDao;
@@ -320,6 +321,7 @@ public final class Controleur implements Observer {
 	 * @param node
 	 *            le noeud à imprimer
 	 */
+
 	public void impression(DefaultMutableTreeNode node) {
 		// TODO activer l'impression
 		printLog(Level.INFO, "Impression...");
@@ -414,21 +416,31 @@ public final class Controleur implements Observer {
 	           filter = new TagNameFilter ("SPAN");             
 
                parser.setInputHTML(texte);
-               //System.out.println (parser.parse (filter));	
+               	
                NodeList list = parser.parse (filter);
                
-               for (int i=0;i<list.size();i++){
-            	   System.out.println(((TagNode)list.elementAt(i)).getFirstChild().getText());
-
-    
-
-            	 
-               }
+               
+			this.racinePlan.removeAllChildren();
 			
+			for (int i = 0; i < list.size(); i++) {
+
+				NodeList list2 = list.elementAt(i).getChildren();
+				
+				for (int j = 0; j < list2.size(); j++) {
+					if (list2.elementAt(j) instanceof TextNode) {
+						String nodeName = ((TextNode)list2.elementAt(j)).getText();
+						System.out.println(nodeName);
+						this.racinePlan.add(new DefaultMutableTreeNode(nodeName));
+					}
+				}
+			}
+
+		MainWindow.getInstance().updateTree();
 		} catch (Exception e) {
 			printLog(Level.SEVERE, e.getMessage(	));
 
 		}
+		
 	}
 
 	/**
