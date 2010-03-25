@@ -499,5 +499,9 @@ public final class MainWindow extends javax.swing.JFrame {
 		this.autoScroll = autoScroll;
 	}
 	
+	public void updateTree(){
+		System.out.println("CACA");
+		((PanelTreePlan)this.tabbedPanePlanCourses.getComponent(1)).update();
+	}
 
 }

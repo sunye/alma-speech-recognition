@@ -68,4 +68,7 @@ public class PanelTreePlan extends javax.swing.JPanel {
 		controleur.setRacineArbrePlan(this.racinePlan);
 	}
 
+	public void update(){
+		this.arbrePlan.updateUI();
+	}
 }
