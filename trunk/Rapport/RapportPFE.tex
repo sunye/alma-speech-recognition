@@ -1,6 +1,8 @@
 \documentclass[a4paper,11pt]{report}
 
-\usepackage[utf8]{inputenc}
+\usepackage{alma}
+
+\usepackage[utf8x]{inputenc}
 \usepackage[frenchb]{babel}
 \usepackage[pdftex]{graphicx}
 \usepackage{makeidx}
@@ -8,16 +10,13 @@
 \usepackage[french]{minitoc}
 \usepackage{url}
 
-\title{Rapport du projet de fin d'études\\
-	\huge{\textsc{Alma Speech Recognition}}}
-\author{Jérémy \textsc{Braud} \and Gaëtan \textsc{Hervouet} \and Cédric \textsc{Krommenhoek} \and Damien \textsc{Lévin}}
 
 \makeindex
-\dominitoc
 
 \begin{document}
 
-\maketitle
+
+\include{mainPage}
 
 \begin{abstract}
 Le projet de fin d'études consiste en la mise en \oe{}uvre de compétences acquises au cours des deux années de Master.
@@ -43,13 +42,10 @@ Ce moteur a été implémenté en C et nous n'avons pas l'autorisation de consul
 
 
 \include{1-Besoins}
-
-
+\include{IHM}
 
 
 \chapter*{Conclusion}
-
-
 
 \include{Annexes}
 
