@@ -3,26 +3,41 @@
 
 \section{Fonctionnalités de l' IHM}
 
-L'interface homme-machine est un des composant essentiel de notre projet. En effet, c'est grâce à elle que l'utilisateur va pouvoir juger de la qualité du logiciel. Ainsi, conformément au  cahier des charges, on va retrouver les fonctionnalités suivantes :
+L'interface homme-machine est une des composante essentielle de notre projet. En effet, c'est en grande partie grâce à elle que l'utilisateur va pouvoir juger de la qualité du logiciel. Ainsi, conformément au  cahier des charges, on va retrouver les fonctionnalités suivantes :
 
+\begin{enumerate}
+
+ \item Editeur de texte : Editeur  pour que l'utilisateur réalise des prises de notes. L'éditeur est composé des éléments suivants :
+	
 \begin{itemize}
- \item Explorateur de documents
+ \item Outils de formatage
+ \item Affichage du plan 
+\end{itemize} 
+
+
+\item Visualisation du cours : Panneau pour visualiser le cours prononcé par l'enseignant, en provenance du moteur de reconnaissance vocale.
+
+
+ \item Explorateur de documents : Possibilité pour l'utilisateur de parcourir ses cours et de les organiser.  On retrouve les trois éléments suivants :
+
 \begin{itemize}
  \item Module
  \item Dossier
  \item Cours
 \end{itemize} 
- \item Visualisation du cours
- \item Editeur de texte
-\begin{itemize}
- \item Outils de formatage
- \item Affichage du plan 
-\end{itemize} 
- \item Export au format PDF
- \item Export/import au format RTF (Format Microsoft)
- \item Impression du cours édité
 
-\end{itemize}
+\item Outils d'import et d'export : Pour permettre à l'utilisateur d'utiliser ses support de cours sur différentes plateformes ou encore de les imprimer, les fonctionnalités suivantes sont disponibles :
+
+\begin{itemize}
+ \item Export au format PDF
+ \item Export/import au format RTF (Format Microsoft, compatible Word)
+ \item Impression du cours édité
+\end{itemize} 
+
+
+ 
+
+\end{enumerate}
 
 
 
@@ -44,18 +59,42 @@ Bien que cette solution semble la plus productive et la plus intéressante, elle
 
 Un des points fondamentaux de l'IHM était de concevoir une interface facile d'utilisation et un maximum intuitive. Ainsi, un effort particulier à été réalisé de façon à ce que l'utilisateur prenne rapidement en main l'outil. Pour cela différents points ont étés réalisés :
 
-\begin{itemize}
+\begin{enumerate}
  \item Une barre d'outils avec des icônes explicites : pour permettre un accès rapide au principales fonctions
  \item Création de raccourcis claviers classiques (CTRL-C, CTRL-V ...)
  \item Utilisation des standards d'ergonomie : Placement des menus, des boutons ...
-\end{itemize}
+\end{enumerate}
 
 
 
 \section{Conception MVC}
 
+En ce qui concerne la conception de l'application elle s'organise suivant le pattern MVC : Model View Controler. Le but d'une telle architecture est de bien diviser séparer les différentes couches de l'application. On retrouve ainsi une couche Model représenté par la gestion des entités de la base de donnée (utilisation du pattern DAO). Une couche View, auquel on associe l'interface graphique réalisée en swing. Et enfin une couche intermédiaire controler, qui comme son nom l'indique sert à contrôler les deux autres couches via des mécanismes de synchronisation, notamment l'utilisation du pattern Observer. 
+
+Le diagramme \ref{fig:ihmUMLl} montre l'organisation des différentes classes de l'application. Comme on peut le voir, l'IHM est découpée suivant les principaux panels qui la compose. De plus, on voit clairement la séparation entre les différentes couches de l'application. La classe Controler au centre, et le moteur de reconnaissance, qui ici fait office de couche Métier\footnote{Pour des raison de lisibilité, le module de gestion de la base de donnée n'est pas présent sur ce diagramme}.
+
+
+
+
 
 \begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5]{./images/ihmUML.png}
+ % homePanel.png: 0x0 pixel, -2147483648dpi, 0.00x0.00 cm, bb=
+ \caption{IHM - Diagramme de classes}
+ \label{fig:ihmUMLl}
+\end{figure}
+
+
+\section{Captures d'écran}
+
+\subsection{Panneau d'accueil}
+
+
+La figure \ref{fig:homePanel} montre le l'application au lancement de l'interface. Comme on peut le voir le panneau de gauche contient la liste des cours de l'utilisateur. Il peut ainsi les organiser facilement à la manière d'un explorateur de fichier classique. (Actions glisser déposer, création d'éléments ...). Sur la partie droite on retrouve la liste des documents de l'utilisateur. Cependant, pour des raisons d'ergonomie, ce panneau vise à offrir une organisation différente des cours. Il est ainsi possible de trier ses cours en fonction de leurs date de modification, de création ... Il faut noter que le changement de l'organisation sur ce panneau ne modifie pas l'organisation du panneau de gauche qui est indépendante.
+
+
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.6]{./images/homePanel.png}
  % homePanel.png: 0x0 pixel, -2147483648dpi, 0.00x0.00 cm, bb=
@@ -65,10 +104,21 @@ Un des points fondamentaux de l'IHM était de concevoir une interface facile d'u
 
 
 
-\begin{figure}[h]
+
+\subsection{Panneau de travail}
+
+La figure \ref{fig:workPanel} représente la même fenêtre que celle présente sur la figure \ref{fig:homePanel}. Cependant, ici on peut voir qu'un cours à été ouvert. L'ensemble des cours ouvert sont accessibles dans les différents onglet qui composent la fenêtre. Sur la figure \ref{fig:workPanel} on à les cours IMH et GLO ouverts simultanément.
+
+Toujours sur cette fenêtre on peut voir que chaque cours (onglet), se divise en deux parties. La partie visualisation du cours, qui affiche de façon continue la sortie du moteur de reconnaissance vocale. Et la partie d'édition de texte qui va servir de support de prises de notes pour l'utilisateur. 
+
+
+\begin{figure}[H]
  \centering
- \includegraphics[scale=0.6]{./images/homePanel.png}
+ \includegraphics[scale=0.6]{./images/workPanel.png}
  % homePanel.png: 0x0 pixel, -2147483648dpi, 0.00x0.00 cm, bb=
  \caption{IHM - Panneau de travail}
- \label{fig:homePanel}
+ \label{fig:workPanel}
 \end{figure}
+
+
+
