@@ -1,0 +1,76 @@
+\chapter{Développement de l'application}
+\minitoc
+
+\section{Intégration du moteur de reconnaissance vocale}
+
+\subsection{Préambule}
+La reconnaissance vocale de notre application s'effectue à l'aide du moteur Speechroot, développé il y a une dizaine d'années par l'entreprise IBM en langage C.
+Pour des raisons de confidentialité, nous n'avons pas accès au code source de ce moteur mais à son interface qui nous ouvre à son exploitation.
+Cette interface JNI va nous permettre de l'intégrer dans notre application, que nous écrivons en Java.
+Comme nous l'avons déjà signalé auparavant, ce moteur a été compilé pour Windows et ne peut donc pas être exécuté sur d'autres systèmes d'exploitation.
+
+\subsection{Fonctionnalités du moteur}
+A partir de l'interface JNI, nous avons accès à une liste de fonctionnalités que nous pouvons alors appeler.
+Les fonctions de bases du moteur sont les suivantes~:
+\begin{itemize}
+\item démarrage et arrêt du moteur de reconnaissance vocale.
+\item ouverture et fermeture du microphone.
+\item ouverture de l'interface de gestion des dictionnaires.
+\item ouverture de l'interface de gestion des modèles vocaux.
+\end{itemize}	
+
+Le moteur effectue ses retours à l'aide d'une fonction de callback que nous lui spécifions lors d'une initialisation obligatoire, avant son démarrage.
+Cette fonction prend en paramètres deux chaînes de caractères représentant le type de message et son corps.
+Les retours qui nous intéressent le plus particulièrement sont donc ceux qui correspondent à ce qui a été traduit par le moteur.
+Ces retours sont identifiés par le type de message \texttt{onNewReco} et leur corps respecte la syntaxe~:
+\begin{verbatim}
+WORDS###confidence score###Pronunciation###begin word time//end word time
+    ###flags
+\end{verbatim}
+où \texttt{WORDS} correspond aux mots reconnus et le reste aux paramètres du moteur.
+Les paramètres correspondent à~:
+\begin{description}
+\item [\texttt{confidence score}~:] nombre compris entre -100 et 100 et qui représente au degré de confiance de la reconnaissance.
+\item [\texttt{Pronunciation}~:] la prononciation des mots, similaire à l'alphabet phonétique international.
+\item [\texttt{begin word time}~:] l'heure de début de la reconnaissance de ces mots.
+\item [\texttt{end word time}~:] l'heure de fin de la reconnaissance de ces mots.
+\item [\texttt{flags}~:] Drapeaux indiquant des informations supplémentaires telles que :
+\begin{itemize}
+\item le prochain mot commencera par une majuscule.
+\item le prochain mot sera collé au précédent.
+\item etc.
+\end{itemize}
+\end{description}
+
+Le moteur offre également d'autres fonctionnalités que nous n'exploiterons pas, comme par exemple la reconnaissance vocale d'un fichier audio ou la possibilité de conserver le flux audio de la transcription.
+
+\subsection{Intégration}
+Afin que notre application soit au maximum évolutive et qu'elle ne dépende pas d'un unique moteur de reconnaissance vocale, nous avons conçu une interface disposant des fonctionnalités de base que nous avons énuméré auparavant (voir figure~\ref{fig:engineDiagram}).
+Comme notre objectif est d'intégrer en particulier le moteur Speechroot, nous avons pensé cette interface de manière à ce qu'elle se calque parfaitement avec lui.
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[scale=.5,keepaspectratio=true]{./images/EngineDiagram.png}
+ % EngineDiagram.png: 621x294 pixel, 72dpi, 21.90x10.37 cm, bb=0 0 621 294
+ \caption{Diagramme des classes du moteur de reconnaissance vocale}
+ \label{fig:engineDiagram}
+\end{figure}
+
+La présence de la classe abstraite implémentant l'interface se justifie par le fait que le moteur est observé par le contrôleur de notre application.
+Il doit en conséquent étendre la classe \texttt{java.util.Observable}, ce que nous ne pouvons pas spécifier avec seulement une interface.
+
+Dans le cas de Speechroot, le moteur doit utiliser une classe implémentant l'interface fournie par IBM~: \texttt{TreatMessageInterface}.
+Cette interface spécifie la fonction de callback qui doit être passée en paramètre lors du démarrage du moteur.
+C'est donc dans l'implémentation de cette fonction que nous décodons le corps du message pour ensuite le transmettre au contrôleur à l'aide du patron de conception ``observateur''.
+
+Nous avons rencontré quelques difficultés concernant les retours de callback du moteur Speechroot.
+En effet, les retours ne s'effectuaient pas correctement~: nous ne les récupérions pas tant que nous n'exécutions pas un appel aux interfaces de gestion des dictionnaires ou des modèles vocaux.
+Nous en avons déduis qu'il devait probablement y avoir un processus bloquant au sein du moteur.
+Pour cette raison, nous avons écris rapidement un bouchon simulant l'action de ce moteur, afin de pouvoir poursuivre notre projet sans nous soucier de ce problème que nous ne pouvions pas régler seuls.
+Puisque que tous ces moteurs étendent la même classe, et que c'est cette classe abstraite que nous appelons dans le contrôleur, il est extrêmement facile d'échanger le bouchon par le véritable moteur Speechroot, dès que le soucis de ce dernier sera réglé.
+Bien que ce n'était pas notre intention originelle, nous avons préféré lors de notre soutenance faire la démonstration de notre application munie du bouchon plutôt que du moteur Speechroot pour n'avoir que des résultats fonctionnels.
+
+
+
+\section{Déploiement de la base de données embarquée}
+
