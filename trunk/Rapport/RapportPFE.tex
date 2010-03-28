@@ -42,8 +42,38 @@ Ce moteur a été implémenté en C et nous n'avons pas l'autorisation de consul
 
 \chapter{Bilan}
 
+Dans les deux mois de travail impartis, au rythme d'une journée par semaine, nous avons réussi à implémenter la plupart des fonctionnalités que nous souhaitions développer. 
+Nous n'avons cependant pas la satisfaction d'avoir fait fonctionner SpeechRoot avec notre interface homme machine, alors que celle-ci est entièrement prête à communiquer avec le moteur de reconnaissance vocal d'IBM.
+En effet, des soucis dans le fonctionnement de l'interface JNI de speechroot nous ont empêcher d'atteindre cet objectif.
+
+Voici donc la liste des fonctionnalités de l'application :
+
+\section{Fonctionnel}
+\begin{itemize}
+	\item Stockage des cours dans la base de données,
+	\item Organisation des cours dans les dossiers,
+	\item Panneau d'accueil,
+	\item Édition de texte,
+	\item Export en RTF et PDF,
+	\item Affichage du texte dicté (Via un Stub).
+\end{itemize}
+
+\section{Non-fonctionnel}
+\begin{itemize}
+	\item Communication avec SpeechRoot,
+	\item Impression du texte,
+	\item Import de différents format.	
+\end{itemize}
+
 
 \chapter{Conclusion}
+
+Ce projet de fin d'études à été l'occasion de développer une application dont le bénéfice est extrêmement important pour les élèves malentendant. La collaboration avec IBM et les autres université a permis au projet de voir le jour pour atteindre cet objectif. Bien que nous ayons dialoguer avec IBM, les échanges avec les autres université ont été difficiles. En effet, pour les trois universités, ce projet n'avais pas les même contraintes : durée différentes, dates différentes, etc...
+Nous avons cependant pu rencontrer les élèves de polytech et confronter nos avis sur le projet. Cela nous à permis de nous diriger vers ce qui nous semblait la meilleure solution, et de nous créer un espace d'échanges adapté au développement pour le partage de l'avancement du projet.
+\medskip
+Cela nous à aussi permis de mettre en application les dernières notion vues au cours du master.Ainsi, en plus des classiques étapes d'analyse, conception et développement que nous avons pour habitude de respecter, nous avons pu mettre appliquer des méthodes de qualité logicielle tout au long du projet. En effet, ce projet de fin d'étude a été mené de façon à atteindre nos objectifs, bien évidemment, mais en nous aidant d'outils de gestion de projet, de gestion de code et de communication ainsi que des méthodes étudiés au cours de notre master.
+\medskip
+Il constitue finalement un pas en avant vers les méthodes de travail qui sont utilisées en entreprise où la collaboration et la qualité prime.
 
 
 \listoffigures   
