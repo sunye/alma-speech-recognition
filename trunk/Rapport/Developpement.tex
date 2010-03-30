@@ -74,3 +74,29 @@ Bien que ce n'était pas notre intention originelle, nous avons préféré lors 
 
 \section{Déploiement de la base de données embarquée}
 
+Afin de permettre l’enregistrement des cours de manière simple et intuitive, nous avons souhaité mettre en place une base de données. 
+Cela permettra pour l’utilisateur de classer les cours comme il l’entend et de retrouver ces derniers rapidement, à la manière d’un client de messagerie.
+Comme la base doit démarrer avec le programme, cette dernière doit être embarquée.
+Nous avons choisi d’utiliser H2, base de données embarquée et légère, qui nous a été conseillée lors de notre formation.
+
+Lors de la réalisation de cette base de données, nous avons utilisé surtout deux patrons de conception. 
+
+Pour effectuer l’abstraction des données, l’utilisation du pattern DAO parait ici tout indiquée, permettant de séparer les entités aux accès à la base de manière simple et fonctionnelle.
+Il s'agit surtout de ne pas écrire ces accès dans les classes "métier", qui ne seront modifiées que si les règles de gestion métier changent.
+
+Pour la conceptualisation de la base, nous avons utilisé le pattern composite.
+Un objet composite est constitué d'un ou de plusieurs objets similaires (ayant des fonctionnalités similaires). 
+L'idée est de manipuler un groupe d'objets de la même façon que s'il s'agissait d'un seul type d’objet, en utilisant leurs opérations communes.
+Ici, nous avons voulu mettre en place des cours (fichiers) et des dossiers.
+Nous en avons extrait les opérations communes et avons défini le type abstrait Element, qui devient alors classe mère des deux autres.
+Une fois cela réalisé, le type dossier (Folder) peut alors référencer des éléments, sans se soucier du type final  (voir figure~\ref{fig:compositeDiagram}).
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[scale=1,keepaspectratio=true]{./images/CompositeDiagram.png}
+ \caption{Diagramme des classes de la base de données}
+ \label{fig:compositeDiagram}
+\end{figure}
+
+Afin de gérer la persistance, nous avons néanmoins du annoter les classes « métiers », car cela évite de faire un mappage XML, pénible et potentiellement source d’erreurs.
+
