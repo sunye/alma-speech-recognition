@@ -1,0 +1,56 @@
+\chapter{Outils mis en \oe{}uvre}
+\minitoc
+
+Ce chapitre détaille les outils utilisés tout au long de ce projet
+
+\section{Communication}
+
+Pour assurer la bonne marche du projet, nous avions un panel d’outils de communication.
+Nous avons eu la possibilité, grâce à notre partenariat avec IBM, d’utiliser Lotus QuickR.
+Il nous a essentiellement servi à communiquer entre les différentes écoles, afin que chacun puisse progresser.
+Nous avons aussi créé un groupe Google, permettant la diffusion d’informations à une liste de personnes spécifiées.
+Durant ce projet, nous avons pu découvrir un nouveau site, Basecamp.
+Basecamp est un service de gestion de projets en ligne.
+Parmi les services proposés, nous avons surtout utilisé le système d’affectation de tâches.
+Cela nous aura permis de mieux nous organiser, et de voir l’avancement des différentes tâches assignées, à la manière de Scrum\footnote{méthode agile pour la gestion de projets}.
+
+\section{Gestion des sources}
+
+Pour pouvir gérer efficacement le code source de notre programm, nous avons d’abord mis en place un dépôt Subversion sur un serveur Google.
+C’est un logiciel de gestion de versions, qui permet de ne plus s’occuper des différentes modifications de chacun, car il les agrège automatiquement.
+Cela nous a permis d’être plus productifs, surtout grâce aux versions intégrées à nos éditeurs favoris, à savoir Eclipse et Netbeans.
+
+
+Nous utilisons aussi pour le code source, conjointement à Subversion, un outil nommé Maven.
+Maven est essentiellement un outil de gestion et de compréhension de projet.
+Il offre, par le biais de son fichier de description « pom.xml »,  des fonctionnalités de :
+\begin{itemize}
+\item Construction, compilation
+\item Documentation
+\item Rapport
+\item Gestion des bibliothèques et de leurs dépendances
+\item Gestion des sources
+\item Mise à jour de projet
+\item Déploiement
+\end{itemize}
+
+C’est un outil minimaliste et à la fois très puissant qui permet aussi l’adjonction de "plugins", afin de réaliser d’autres fonctions, comme la réalisation du site web associé au projet ou les tests unitaires par exemple.
+Voici les principaux plugins usités :
+\begin{itemize}
+\item Tests (JUnit)
+\item Persistance (persistence, hibernate, H2…)
+\item Outils d’analyse de code
+	\begin{itemize}
+	\item Checkstyle
+	\item Cobertura 
+	\item PMD
+	\end{itemize}
+\item Création du site web
+\item Rapport d’activité
+\item Documentation (Javadoc)
+\end{itemize}
+
+\section{IHM}
+
+Afin de réaliser l’IHM (Interface Homme Machine), ou plus précisément les bases de celle-ci, nous avons utilisé des outils de développement WYSIWYG\footnote{What You See Is What You Get} intégrés aux éditeurs, à savoir Jigloo et Netbeans Swing GUI Builder\footnote{outils respectivement pour Eclipse et Netbeans}.
+Bien que ces outils soient assez complets, il nous aura fallu tout de même savoir maîtriser Swing et AWT, les bibliothèques graphiques utilisées.
