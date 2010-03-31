@@ -5,23 +5,23 @@
 
 \subsection{Préambule}
 La reconnaissance vocale de notre application s'effectue à l'aide du moteur Speechroot, développé il y a une dizaine d'années par l'entreprise IBM en langage C.
-Pour des raisons de confidentialité, nous n'avons pas accès au code source de ce moteur mais à son interface qui nous ouvre à son exploitation.
-Cette interface JNI va nous permettre de l'intégrer dans notre application, que nous écrivons en Java.
+Pour des raisons de confidentialité, nous n'avons pas accès au code source de ce moteur mais à son interface nous permettant de l'exploiter.
+Cette interface JNI va nous permettre d'intégrer le moteur dans notre application, écrite en Java.
 Comme nous l'avons déjà signalé auparavant, ce moteur a été compilé pour Windows et ne peut donc pas être exécuté sur d'autres systèmes d'exploitation.
 
 \subsection{Fonctionnalités du moteur}
 A partir de l'interface JNI, nous avons accès à une liste de fonctionnalités que nous pouvons alors appeler.
 Les fonctions de bases du moteur sont les suivantes~:
 \begin{itemize}
-\item démarrage et arrêt du moteur de reconnaissance vocale.
-\item ouverture et fermeture du microphone.
-\item ouverture de l'interface de gestion des dictionnaires.
+\item démarrage et arrêt du moteur de reconnaissance vocale,
+\item ouverture et fermeture du microphone,
+\item ouverture de l'interface de gestion des dictionnaires,
 \item ouverture de l'interface de gestion des modèles vocaux.
 \end{itemize}	
 
 Le moteur effectue ses retours à l'aide d'une fonction de callback que nous lui spécifions lors d'une initialisation obligatoire, avant son démarrage.
 Cette fonction prend en paramètres deux chaînes de caractères représentant le type de message et son corps.
-Les retours qui nous intéressent le plus particulièrement sont donc ceux qui correspondent à ce qui a été traduit par le moteur.
+Les retours qui nous intéressent le plus sont donc ceux qui correspondent à résultat de la traduction effectuée par le moteur.
 Ces retours sont identifiés par le type de message \texttt{onNewReco} et leur corps respecte la syntaxe~:
 \begin{verbatim}
 WORDS###confidence score###Pronunciation###begin word time//end word time
@@ -45,7 +45,7 @@ Les paramètres correspondent à~:
 Le moteur offre également d'autres fonctionnalités que nous n'exploiterons pas, comme par exemple la reconnaissance vocale d'un fichier audio ou la possibilité de conserver le flux audio de la transcription.
 
 \subsection{Intégration}
-Afin que notre application soit au maximum évolutive et qu'elle ne dépende pas d'un unique moteur de reconnaissance vocale, nous avons conçu une interface disposant des fonctionnalités de base que nous avons énuméré auparavant (voir figure~\ref{fig:engineDiagram}).
+Afin que notre application soit évolutive au maximum et qu'elle ne dépende pas d'un unique moteur de reconnaissance vocale, nous avons conçu une interface disposant des fonctionnalités de base que nous avons énuméré auparavant (voir figure~\ref{fig:engineDiagram}).
 Comme notre objectif est d'intégrer en particulier le moteur Speechroot, nous avons pensé cette interface de manière à ce qu'elle se calque parfaitement avec lui.
 
 \begin{figure}[ht!]
@@ -68,20 +68,20 @@ En effet, les retours ne s'effectuaient pas correctement~: nous ne les récupér
 Nous en avons déduis qu'il devait probablement y avoir un processus bloquant au sein du moteur.
 Pour cette raison, nous avons écris rapidement un bouchon simulant l'action de ce moteur, afin de pouvoir poursuivre notre projet sans nous soucier de ce problème que nous ne pouvions pas régler seuls.
 Puisque que tous ces moteurs étendent la même classe, et que c'est cette classe abstraite que nous appelons dans le contrôleur, il est extrêmement facile d'échanger le bouchon par le véritable moteur Speechroot, dès que le soucis de ce dernier sera réglé.
-Bien que ce n'était pas notre intention originelle, nous avons préféré lors de notre soutenance faire la démonstration de notre application munie du bouchon plutôt que du moteur Speechroot pour n'avoir que des résultats fonctionnels.
+Bien que ce n'était pas notre intention originelle, nous avons préféré lors de notre soutenance faire la démonstration de notre application munie du bouchon plutôt que du moteur Speechroot pour montrer au mieux les possibilités qu'offrait notre interface graphique, cœur de notre projet.
 
 
 
 \section{Déploiement de la base de données embarquée}
 
 Afin de permettre l’enregistrement des cours de manière simple et intuitive, nous avons souhaité mettre en place une base de données. 
-Cela permettra pour l’utilisateur de classer les cours comme il l’entend et de retrouver ces derniers rapidement, à la manière d’un client de messagerie.
+Cela permettra à l’utilisateur de classer les cours comme il le souhaite et de retrouver ces derniers rapidement, à la manière d’un client de messagerie.
 Comme la base doit démarrer avec le programme, cette dernière doit être embarquée.
 Nous avons choisi d’utiliser H2, base de données embarquée et légère, qui nous a été conseillée lors de notre formation.
 
 Lors de la réalisation de cette base de données, nous avons utilisé surtout deux patrons de conception. 
 
-Pour effectuer l’abstraction des données, l’utilisation du pattern DAO parait ici tout indiquée, permettant de séparer les entités aux accès à la base de manière simple et fonctionnelle.
+Pour effectuer l’abstraction des données, l’utilisation du pattern DAO parait ici tout indiquée, cela permet de séparer les entités d'accès à la base de manière simple et fonctionnelle.
 Il s'agit surtout de ne pas écrire ces accès dans les classes "métier", qui ne seront modifiées que si les règles de gestion métier changent.
 
 Pour la conceptualisation de la base, nous avons utilisé le pattern composite.
@@ -98,5 +98,5 @@ Une fois cela réalisé, le type dossier (Folder) peut alors référencer des é
  \label{fig:compositeDiagram}
 \end{figure}
 
-Afin de gérer la persistance, nous avons néanmoins du annoter les classes « métiers », car cela évite de faire un mappage XML, pénible et potentiellement source d’erreurs.
+Afin de gérer la persistance,  les classes « métiers » ont été annotées. Cela évite de faire un mappage XML pénible et potentiellement source d’erreurs.
 
