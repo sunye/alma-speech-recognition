@@ -53,11 +53,9 @@ La solution finalement envisagée est l'utilisation de deux panneaux. Un premier
 Bien que cette solution semble la plus productive et la plus intéressante, elle est n'est pas exempt de défauts. Ainsi, il faut bien souligner le fait qu'il est particulièrement difficile de lire un texte tout en réalisant des prises de notes. Ainsi, même si cette solution semble plus difficile pour les utilisateurs moins familiers avec l'informatique, elle constitue pour nous la meilleure solution pour répondre au besoin de saisie d'un cours.On notera également que pour un utilisateur familier avec l'informatique, le fait de saisir un texte sans regarder le clavier ne pose pas de problèmes particuliers, lui laissant ainsi la possibilité de lire facilement le texte issue du moteur de reconnaissance.
 
 
-
-
 \subsection{Accessibilité}
 
-Un des points fondamentaux de l'IHM était de concevoir une interface facile d'utilisation et un maximum intuitive. Ainsi, un effort particulier à été réalisé de façon à ce que l'utilisateur prenne rapidement en main l'outil. Pour cela, différents points ont étés réalisés :
+Un des points fondamentaux de l'IHM était de concevoir une interface intuitive et facile d'utilisation. Ainsi, un effort particulier à été consacré a l'accessibilité de l'outil, de sorte que l'utilisateur prenne rapidement en main l'outil. Pour cela, différents points ont étés réalisés :
 
 \begin{enumerate}
  \item Une barre d'outils avec des icônes explicites : pour permettre un accès rapide au principales fonctions
@@ -72,7 +70,7 @@ En raison de problèmes de temps, il n'a malheureusement pas été possible de r
 
 \section{Conception MVC}
 
-En ce qui concerne la conception de l'application elle s'organise suivant le pattern MVC\footnote{J2EE Architecture Approaches : http://java.sun.com/} : Model View Controler. Le but d'une telle architecture est de bien diviser séparer les différentes couches de l'application. On retrouve ainsi une couche Model représentée par la gestion des entités de la base de donnée (utilisation du pattern DAO). Une couche View, auquel on associe l'interface graphique réalisée en swing. Et enfin une couche intermédiaire controler, qui comme son nom l'indique sert à contrôler les deux autres couches via des mécanismes de synchronisation, notamment via l'utilisation du pattern Observer. 
+En ce qui concerne la conception de l'application elle s'organise suivant le pattern MVC\footnote{J2EE Architecture Approaches : http://java.sun.com/} : Model View Controler. Le but d'une telle architecture est de bien diviser les différentes couches de l'application. On retrouve ainsi une couche Model, gérant les entités de la base de donnée (utilisation du pattern DAO); une couche View, à laquelle on associe l'interface graphique réalisée en swing; et enfin une couche intermédiaire controller, qui comme son nom l'indique sert à contrôler les deux autres couches via des mécanismes de synchronisation, notamment via l'utilisation du pattern Observer. 
 
 
 
@@ -85,9 +83,7 @@ En ce qui concerne la conception de l'application elle s'organise suivant le pat
 \end{figure}
 
 
-Le diagramme \ref{fig:ihmUMLl} montre l'organisation des différentes classes de l'application. Comme on peut le voir, l'IHM est découpée suivant les principaux panels qui la compose. De plus, on voit clairement la séparation entre les différentes couches de l'application. La classe Controler au centre, et le moteur de reconnaissance, qui ici fait office de couche Métier\footnote{Pour des raison de lisibilité, le module de gestion de la base de donnée n'est pas présent sur ce diagramme}.
-
-
+Le diagramme \ref{fig:ihmUMLl} montre l'organisation des différentes classes de l'application. Comme on peut le voir, l'IHM est découpée suivant les principaux panels qui la compose. De plus, on distingue clairement la séparation entre les différentes couches de l'application. La classe Controller au centre, et le moteur de reconnaissance, qui ici fait office de couche Métier\footnote{Pour des raison de lisibilité, le module de gestion de la base de donnée n'est pas présent sur ce diagramme}.
 
 
 
@@ -121,9 +117,9 @@ La figure \ref{fig:homePanel} montre le l'application au lancement de l'interfac
 
 \subsection{Panneau de travail}
 
-La figure \ref{fig:workPanel} représente la même fenêtre que celle présente sur la figure \ref{fig:homePanel}. Cependant, ici on peut voir qu'un cours à été ouvert. L'ensemble des cours ouvert sont accessibles dans les différents onglet qui composent la fenêtre. Sur la figure \ref{fig:workPanel} on à les cours IMH et GLO ouverts simultanément.
+La figure \ref{fig:workPanel} représente la même fenêtre que celle présente sur la figure \ref{fig:homePanel}. Cependant, ici on peut voir qu'un cours à été ouvert. L'ensemble des cours ouvert sont accessibles dans les différents onglets qui composent la fenêtre. Sur la figure \ref{fig:workPanel}, on remarque que les cours IMH et GLO sont ouverts simultanément.
 
-Toujours sur cette fenêtre on peut voir que chaque cours (onglet), se divise en deux parties. La partie visualisation du cours, qui affiche de façon continue la sortie du moteur de reconnaissance vocale. Et la partie d'édition de texte, qui va servir de support de prises de notes pour l'utilisateur. 
+Toujours sur cette fenêtre, on peut voir que chaque cours (onglet) se divise en deux parties : la partie visualisation du cours, qui affiche de façon continue la sortie du moteur de reconnaissance vocale, et la partie d'édition de texte, qui va servir de support de prises de notes pour l'utilisateur. 
 
 Comme indiqué précédemment, l'aspect simplicité et rapidité d'utilisation est un élément fondamental dans cette IHM. Pour répondre à ce besoin, une barre d'outils à été conçue. Elle regroupe les actions principales pour manipuler le moteur de reconnaissance (Capture, Arrêt) mais également les fonctions annexes d'exportation de documents (PDF, impression). Un bouton pour stopper l'affichage continu du texte à également été ajouté. Il permet à l'utilisateur de se concentrer un instant sur un point particulier du texte, tout en ayant la possibilité de reprendre le fils du cours par la suite, sans perdre d'informations.
 
