@@ -5,7 +5,7 @@ Ce chapitre détaille les aspects de qualité logicielle qui ont été pris en c
 
 \section{Un projet conséquent}
 
-Cette application a nécessité un travail assez conséquent :
+Cette application a nécessité un travail assez conséquent~:
 
 \begin{itemize}
 \item 170 Révisions
@@ -18,12 +18,17 @@ Pour produire un travail maintenable, efficace et fonctionnel, ces nombreuses li
 \section{Utilisation de Sonar}
 Sonar est outil qui s'inscrit parfaitement dans cette démarche. En effet, il analyse le code et produit un rapport de statistiques selon plusieurs critères.
 
-\includegraphics{images/sonar-dashboard.png} 
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=16cm]{images/sonar-dashboard.png} 
+ \caption{Tableau de bord de Sonar}
+ \label{fig:sonar-dashboard}
+\end{figure}
 
-La capture ci-dessus présente le tableau de bord que produit Sonar pour notre projet. Les critères a analyser sont les suivants :
+La capture de la figure~\ref{fig:sonar-dashboard} présente le tableau de bord que produit Sonar pour notre projet. Les critères a analyser sont les suivants~:
 
 \begin{itemize}
-\item Nombres de lignes de codes, de classes ...
+\item Nombres de lignes de codes, de classes, etc.
 \item Respect des règles syntaxiques
 	\begin{itemize}
 	\item Efficacité
@@ -38,13 +43,18 @@ La capture ci-dessus présente le tableau de bord que produit Sonar pour notre p
 \end{itemize}
 
 
-Les statistiques de sonar ont permis de développer en suivant les axes de qualité que sonar analyse. Cela nous a ainsi permis de produire du code propre. En effet, selon sonar, le code du projet Alma Speech Recognition respecte les critères suivants: 
+Les statistiques de Sonar ont permis de développer en suivant les axes de qualité que Sonar analyse. Cela nous a ainsi permis de produire du code propre. En effet, selon Sonar, le code du projet Alma Speech Recognition respecte les critères présentés par la figure~\ref{fig:sonar-axes}
 
-\includegraphics{images/sonar-axes.png} 
+\begin{figure}[!h]
+ \centering
+ \includegraphics[scale=1]{images/sonar-axes.png} 
+ \caption{Axes de qualité de Sonar}
+ \label{fig:sonar-axes}
+\end{figure}
 
-Ce graphique nous montre les résultats de l'analyse du code par sonar. On remarque que le code respecte a plus de 97 pourcents les différents critères. Cet outil s'est donc avéré efficace durant de développement.
+Ce graphique nous montre les résultats de l'analyse du code par Sonar. On remarque que le code respecte à plus de environ 97\% les différents critères. Cet outil s'est donc avéré très efficace durant de développement.
 
-De plus, les courbes de progression de sonar nous montrent que le respect de ces critères n'a cessé d'augmenter au fur et à mesure de l'avancement.
+De plus, les courbes de progression de Sonar nous montrent que le respect de ces critères n'a cessé d'augmenter au fur et à mesure de l'avancement.
 
 
 
